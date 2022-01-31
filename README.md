@@ -1,2 +1,2 @@
 # bookwyrm
-A project for Software Engineering II WInter 2022
+A project for Software Engineering II Winter 2022
