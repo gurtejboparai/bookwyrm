@@ -17,6 +17,7 @@ Book Wyrm will be a web app for reviewing books.
 ### Languages and Tools
 
 ### Meeting Notes
+* Meeting notes can be found [here](https://github.com/louismacvux/bookwyrm/wiki/Meetings).
 
 ### System Architecture Design
 
