@@ -8,6 +8,7 @@
 | Cameron Jung | CameronJung | jungc@myumanitoba.ca
 | Gurtej Boparai | gurtejboparai | boparai3@myumanitoba.ca
 | Long Vu | louismacvux | vuml@myumanitoba.ca
+| Antony Anuraj | antonyanuraj | anuraja@myumanitoba.ca
 
 ## Team Leader: 
 
