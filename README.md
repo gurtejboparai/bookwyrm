@@ -22,6 +22,6 @@ Book Wyrm will be a web app for reviewing books.
 
 ### System Architecture Design
 
-![System Architecture Design](img/ArchitectureBlockDiagram.png)
+* The architecture can be found [here](https://github.com/louismacvux/bookwyrm/wiki/Block-Diagram).
 
 ### Test the site 
