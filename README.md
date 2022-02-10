@@ -13,7 +13,7 @@
 ## Team Leader: 
 
 ### Description
-Book Wyrm will be a web app for reviewing books.
+Book Wyrm will be a web app for reviewing books. A more in-depth description can be found on the wiki home page [here](https://github.com/louismacvux/bookwyrm/wiki)
 
 ### Languages and Tools
 
