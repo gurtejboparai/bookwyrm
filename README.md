@@ -22,4 +22,6 @@ Book Wyrm will be a web app for reviewing books.
 
 ### System Architecture Design
 
+![System Architecture Design](img/ArchitectureBlockDiagram.png)
+
 ### Test the site 
