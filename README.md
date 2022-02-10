@@ -18,8 +18,8 @@ Book Wyrm will be a web app for reviewing books. A more in-depth description can
 ### Languages and Tools
 * Front End: Vue.js
 * Back End: Java Spring
-* Database: TBD
-* API: TBD
+* Database: MongoDB
+* API: TBD (Maybe Google book API)
 
 ### Core Features
 * Write reviews and rate books
