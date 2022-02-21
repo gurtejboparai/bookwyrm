@@ -37,3 +37,31 @@ Book Wyrm will be a web app for reviewing books. A more in-depth description can
 * The architecture can be found [here](https://github.com/louismacvux/bookwyrm/wiki/Block-Diagram).
 
 ### Test the site 
+
+### Vue setup
+1. 
+
+### Front end Project setup
+> Note: Node and npm will need to be installed to start the front end server
+
+```
+npm install
+```
+
+#### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+#### Compiles and minifies for production
+```
+npm run build
+```
+
+#### Lints and fixes files
+```
+npm run lint
+```
+
+#### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
