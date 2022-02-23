@@ -13,30 +13,27 @@ export default {
 }
 </script>
 
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: #c4e0e9;
+  font-size: 1.5em;
+  background-color: #2a2e2f;
 }
 
-#nav {
-  padding: 30px;
+html {
+  background-color: #2a2e2f;
 }
 
-#nav a {
+a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #c4e0e9;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+a.router-link-exact-active {
+  color: #c4e0e9;
 }
 
-#search_bar {
-  margin: 1em;
-}
 </style>
