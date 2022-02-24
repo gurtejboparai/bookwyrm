@@ -1,14 +1,18 @@
 <template>
   <SearchBar/>
+  <Logger/>
   <router-view/>
 </template>
 <script>
 import SearchBar from '@/components/SearchBar.vue'
+import Logger from '@/components/Logger.vue'
 
 export default {
   name: 'Home',
   components: {
-    SearchBar
+      SearchBar,
+      /*I put it here because I think it would be nice to always have access to the login/logout abilities*/ 
+      Logger
   }
 }
 </script>

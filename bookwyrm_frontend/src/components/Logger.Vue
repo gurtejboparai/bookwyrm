@@ -1,16 +1,16 @@
 <template>
     <div class="box">
         <div v-if="signedIn">
-            <h5>You are logged in as, {{accountName}}</h5>
-            <button>logout</button>
+            <h5>You are logged in as, {{activeUser}}</h5>
+            <button v-on:click="logout">logout</button>
         </div>
         <div v-else>
             <form  method="post">
             <label for="username">Username: </label>
-            <input type="text" name="userField" id="username" required>
+            <input type="text" name="userField" id="username" required v-model="accountName">
             <label for="pWord">Password</label>
             <input type="password" name="passField" id="pWord" required>
-            <input type="submit" value="login">
+            <input type="submit" value="login" v-on:click="login">
             </form>
         </div>
     </div>
@@ -18,17 +18,27 @@
 
 
 <script>
-import Logger from './components/Logger.vue'
 
 export default {
-    name:'Logger'
+    name:'Logger',
     data() {
         return {
-            accountName: ""
+            accountName: "",
+            activeUser: "",
             signedIn: false
         }
     },
-    methods()
+    methods: {
+        logout(){
+            this.accountName = ""
+            this.activeUser = ""
+            this.signedIn = false
+        },
+        login(){
+            this.signedIn = true
+            this.activeUser = this.accountName
+        }
+    }
 }
 </script>
 
