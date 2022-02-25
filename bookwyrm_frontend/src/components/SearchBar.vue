@@ -11,21 +11,27 @@
       <router-link to="/search" id="search_button" class="btn btn-primary m-2">search</router-link>
     </div>
     <div class="p-2">
-      Login
+      <Log_in_out_box/>
     </div>
   </div>
 </template>
 
+
+
 <script>
+import Log_in_out_box from './log_in_out_box.vue'
 export default {
-  name: 'SearchBar',
-  data() {
-    return {
-      searchString: ""
-    }
-  }
+    name: "SearchBar",
+    data() {
+        return {
+            searchString: ""
+        };
+    },
+    components: { Log_in_out_box }
 }
 </script>
+
+
 
 <style scoped>
 .btn-primary {
