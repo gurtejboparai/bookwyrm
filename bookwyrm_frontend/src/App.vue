@@ -1,14 +1,20 @@
 <template>
-  <SearchBar/>
+  <div class="span">
+    <SearchBar/>
+  </div>
+  
   <router-view/>
 </template>
+
+
 <script>
 import SearchBar from '@/components/SearchBar.vue'
+
 
 export default {
   name: 'Home',
   components: {
-    SearchBar
+      SearchBar
   }
 }
 </script>
