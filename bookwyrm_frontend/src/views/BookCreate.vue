@@ -42,9 +42,8 @@ import BookService from '@/services/BookService';
     },
     methods: {
       submitBook() {
-        alert("Book submitting attempted for book with name: "+this.bookName+" and author: "+this.bookAuthor);
-        BookService.uploadBook("name","author")
-          .then((response) => (alert(response?.data?.bookName)));
+        BookService.uploadBook(this.bookName, this.bookAuthor)
+          .then((response) => (alert("Book submit recieved by Spring for book with name: "+response?.data?.bookName)));
       }
     }
   }
