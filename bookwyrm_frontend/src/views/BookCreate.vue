@@ -31,6 +31,7 @@
   </div>
 </template>
 <script>
+import BookService from '@/services/BookService';
   export default {
     name: 'Home',
     data() {
@@ -41,7 +42,8 @@
     },
     methods: {
       submitBook() {
-        alert("Book submitting attempted for book with name: "+this.bookName+" and author: "+this.bookAuthor);
+        BookService.uploadBook(this.bookName, this.bookAuthor)
+          .then((response) => (alert("Book submit recieved by Spring for book with name: "+response?.data?.bookName)));
       }
     }
   }
