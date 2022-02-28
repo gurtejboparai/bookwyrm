@@ -3,7 +3,7 @@
         <div v-if="signedIn">
             <h5>You are logged in as, {{activeUser}}</h5>
             <div></div>
-            <button v-on:click="logout">logout</button>
+            <button v-on:click="logout" id="logout_button">logout</button>
         </div>
         <div v-else>
             <form  method="post">
@@ -11,13 +11,13 @@
                     <tr>
                         <td>
                             <label for="username">Username: </label>
-                            <input type="text" name="userField" id="username" required v-model="accountName">
+                            <input type="text" name="userField" id="user_name" required v-model="accountName">
                             <div></div>
                             <label for="pWord">Password: </label>
-                            <input type="password" name="passField" id="pWord" required>
+                            <input type="password" name="passField" id="p_word" required>
                         </td>
                         <td>
-                            <input type="submit" value="login" v-on:click="login">
+                            <input type="submit" value="login" v-on:click="login" id="login_button">
                         </td>
                         
                     </tr>
