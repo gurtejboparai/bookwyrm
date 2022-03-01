@@ -21,7 +21,7 @@
 
       <div id="right_side">
         <div id="reviews_block">
-          <p>Reviews component goes here</p>
+          <Review_component/>
         </div>
       </div>
     </div>
@@ -30,20 +30,19 @@
 </template>
 
 <script>
-
+import Review_component from '@/components/review_component.vue'
 export default {
-  name: 'Book Detail',
-  data(){
-    return{
-      book_name:"Title",
-      book_author:"Author",
-      book_description:"Book description goes here",
-      book_ratings:{},
-      book_reviews:{}
-    }
-    
-
-  }
+    name: "Book Detail",
+    data() {
+        return {
+            book_name: "Title",
+            book_author: "Author",
+            book_description: "Book description goes here",
+            book_ratings: {},
+            book_reviews: {}
+        };
+    },
+    components: { Review_component }
 }
 </script>
 
