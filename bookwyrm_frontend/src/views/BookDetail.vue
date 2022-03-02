@@ -21,7 +21,7 @@
 
       <div id="right_side">
         <div id="reviews_block">
-          <Review_component/>
+          <ReviewComponent/>
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import Review_component from '@/components/review_component.vue'
+import ReviewComponent from "../components/ReviewComponent.vue";
 export default {
     name: "Book Detail",
     data() {
@@ -42,7 +42,7 @@ export default {
             book_reviews: {}
         };
     },
-    components: { Review_component }
+    components: { ReviewComponent}
 }
 </script>
 
