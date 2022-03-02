@@ -20,5 +20,5 @@ jobs:
       with:
         node-version: '12.x'
     - run: cd bookwyrm_frontend
-    - run: npm ci
+    - run: npm install
     - run: npm run build
