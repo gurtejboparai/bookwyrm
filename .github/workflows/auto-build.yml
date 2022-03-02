@@ -19,5 +19,6 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: '12.x'
+    - run: cd bookwyrm_frontend
     - run: npm ci
     - run: npm run build
