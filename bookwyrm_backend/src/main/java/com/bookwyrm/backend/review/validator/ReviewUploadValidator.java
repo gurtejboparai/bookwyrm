@@ -19,10 +19,6 @@ public class ReviewUploadValidator {
             errorList.add("Review description is missing. Please add a review description and try again.");
         }
 
-        if (reviewUploadInput.getAnonymousFlag() == null) {
-            errorList.add("Review anonymous flag is missing. Please let us know if this review is going to be anonymous or not and try again.");
-        }
-
         return errorList;
     }
 }
