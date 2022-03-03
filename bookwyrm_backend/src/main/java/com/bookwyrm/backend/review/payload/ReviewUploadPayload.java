@@ -5,6 +5,7 @@ import java.util.List;
 public class ReviewUploadPayload {
 
     private List<String> messages;
+    private String reviewAuthor;
     private String reviewId;
     private String reviewDescription;
     private boolean reviewAnonymousFlag;
@@ -15,6 +16,14 @@ public class ReviewUploadPayload {
 
     public void setMessages(List<String> messages) {
         this.messages = messages;
+    }
+
+    public String getReviewAuthor() {
+        return reviewAuthor;
+    }
+
+    public void setReviewAuthor(String reviewAuthor) {
+        this.reviewAuthor = reviewAuthor;
     }
 
     public String getReviewId() {
