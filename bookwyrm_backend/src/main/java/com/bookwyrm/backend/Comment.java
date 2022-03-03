@@ -1,14 +1,19 @@
 package com.bookwyrm.backend;
 
-@Document("comment")
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "comment")
 public class Comment {
 
+    @Id
+    private String id;
     private String user;
     private String bookName;
     private String comment;
 
     public Comment(String id, String user, String bookName, String comment) {
-        super();
+        this.id = id;
         this.user = user;
         this.bookName = bookName;
         this.comment = comment;
