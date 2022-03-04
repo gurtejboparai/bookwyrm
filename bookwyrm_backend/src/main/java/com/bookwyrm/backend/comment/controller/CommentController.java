@@ -25,8 +25,7 @@ public class CommentController {
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CommentUploadPayload> createComment(
-            @RequestBody CommentUploadInput commentUploadInput,
-            HttpServletRequest request) {
+            @RequestBody CommentUploadInput commentUploadInput) {
         CommentUploadPayload response = new CommentUploadPayload();
         List<String> errorList = CommentUploadValidator.validateUploadInformation(commentUploadInput);
         HttpStatus status = HttpStatus.OK;

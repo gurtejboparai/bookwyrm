@@ -26,8 +26,7 @@ public class ReviewController {
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReviewUploadPayload> createReview(
-            @RequestBody ReviewUploadInput reviewUploadInput,
-            HttpServletRequest request) {
+            @RequestBody ReviewUploadInput reviewUploadInput) {
         ReviewUploadPayload response = new ReviewUploadPayload();
         List<String> errorList = ReviewUploadValidator.validateUploadInformation(reviewUploadInput);
         HttpStatus status = HttpStatus.OK;

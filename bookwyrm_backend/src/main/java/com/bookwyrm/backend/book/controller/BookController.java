@@ -27,8 +27,7 @@ public class BookController {
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BookUploadPayload> createBook(
-            @RequestBody BookUploadInput bookUploadInput,
-            HttpServletRequest request){
+            @RequestBody BookUploadInput bookUploadInput){
         BookUploadPayload response = new BookUploadPayload();
         List<String> errorList = BookUploadValidator.validateUploadInformation(bookUploadInput);
         HttpStatus status = HttpStatus.OK;
