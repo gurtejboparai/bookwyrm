@@ -1,16 +1,16 @@
 <template>
-  <div class="book_detail">
+  <div class="BookDetail">
     
     <div id="enclosure">
       <div id="left_side">
         
         <div id="info_block">
-          <h2>{{book_name}}</h2>
+          <h2>{{title}}</h2>
           <h5>By {{book_author}}</h5>
         </div>
         
         <div id="description_block">
-          <p>{{book_description}}</p>
+          <p>{{description}}</p>
         </div>
 
         <div id="ratings_block">
@@ -21,7 +21,9 @@
 
       <div id="right_side">
         <div id="reviews_block">
-          <ReviewComponent/>
+          <ReviewComponent
+            v-bind:reviews="reviewList"
+          />
         </div>
       </div>
     </div>
@@ -35,11 +37,38 @@ export default {
     name: "Book Detail",
     data() {
         return {
-            book_name: "Title",
-            book_author: "Author",
-            book_description: "Book description goes here",
-            book_ratings: {},
-            book_reviews: {}
+            title: "Title",
+            author: "Author",
+            description: "Book description goes here",
+            reviewList: [
+                { 
+                    name: "theUglyBarnacle/Spongebob", 
+                    author: "Spongebob Squarepants", 
+                    description: "A friend told me this story once when I was feeling bad about my appearance, it didn't help at all.", 
+                    commentList: [], 
+                    anonymous: true 
+                },
+                { 
+                    name: "theUglyBarnacle/Plankton",
+                    author: "Sheldon J. Plankton", 
+                    description: "While the story is brief, I ultimately enjoyed the story overall, especially the ending.", 
+                    commentList: [
+                        {
+                            identity:"Spongebob Squarepants/0",
+                            author:"Spongebob Squarepants",
+                            content:"Did you forget to turn on anonymous? This is something most people woudn't admit publicly.",
+                            anonymous:true
+                        },
+                        {
+                            identity:"Sheldon J. Plankton/0",
+                            author:"Sheldon J. Plankton",
+                            content:"I meant what I said you anonymous coward",
+                            anonymous:false
+                        }
+                        ], 
+                    anonymous: false 
+                }
+            ]
         };
     },
     components: { ReviewComponent}

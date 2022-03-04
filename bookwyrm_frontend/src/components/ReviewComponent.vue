@@ -33,40 +33,13 @@
 import CommentComponent from "./CommentComponent.vue"
 export default{
     name: "ReviewComponent",
+    props: ['reviews'],
     data() {
         return {
             focused: false,
             topic: null,
             //Contains hard coded test data for now
-            reviews: [
-                { 
-                    name: "theUglyBarnacle/Spongebob", 
-                    author: "Spongebob Squarepants", 
-                    description: "A friend told me this story once when I was feeling bad about my appearance, it didn't help at all.", 
-                    commentList: [], 
-                    anonymous: true 
-                },
-                { 
-                    name: "theUglyBarnacle/Plankton",
-                    author: "Sheldon J. Plankton", 
-                    description: "While the story is brief, I ultimately enjoyed the story overall, especially the ending.", 
-                    commentList: [
-                        {
-                            identity:"Spongebob Squarepants/0",
-                            author:"Spongebob Squarepants",
-                            content:"Did you forget to turn on anonymous? This is something most people woudn't admit publicly.",
-                            anonymous:true
-                        },
-                        {
-                            identity:"Sheldon J. Plankton/0",
-                            author:"Sheldon J. Plankton",
-                            content:"I meant what I said you anonymous coward",
-                            anonymous:false
-                        }
-                        ], 
-                    anonymous: false 
-                }
-            ]
+            
         };
     },
     methods: {
