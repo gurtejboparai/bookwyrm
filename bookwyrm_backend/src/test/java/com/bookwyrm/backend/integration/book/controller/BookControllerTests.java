@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 @SpringJUnitConfig
 public class BookControllerTests {
 
-
     @Test
     public void testHappyPath(){
         //Setup
@@ -35,8 +34,7 @@ public class BookControllerTests {
         BookUploadInput input = new BookUploadInput();
 
         //Run
-        BookController controller = new BookController();
-        ResponseEntity response =  controller.createBook(input);
+        ResponseEntity response =  (new BookController()).createBook(input);
 
         //Check results
         Assert.isTrue(response.getStatusCode() == HttpStatus.BAD_REQUEST, "Expected failed endpoint call with 400 status");

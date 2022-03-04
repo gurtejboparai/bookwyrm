@@ -5,7 +5,7 @@ import com.bookwyrm.backend.comment.input.CommentUploadInput;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentUploadValidator {
+public class CommentValidator {
     public static List<String> validateUploadInformation(CommentUploadInput commentUploadInput) {
         List<String> errorList = new ArrayList<>();
 

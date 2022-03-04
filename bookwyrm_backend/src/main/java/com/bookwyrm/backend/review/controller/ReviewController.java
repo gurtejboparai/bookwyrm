@@ -2,13 +2,12 @@ package com.bookwyrm.backend.review.controller;
 
 import com.bookwyrm.backend.review.input.ReviewUploadInput;
 import com.bookwyrm.backend.review.payload.ReviewUploadPayload;
-import com.bookwyrm.backend.review.validator.ReviewUploadValidator;
+import com.bookwyrm.backend.review.validator.ReviewValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -28,7 +27,7 @@ public class ReviewController {
     public ResponseEntity<ReviewUploadPayload> createReview(
             @RequestBody ReviewUploadInput reviewUploadInput) {
         ReviewUploadPayload response = new ReviewUploadPayload();
-        List<String> errorList = ReviewUploadValidator.validateUploadInformation(reviewUploadInput);
+        List<String> errorList = ReviewValidator.validateUploadInformation(reviewUploadInput);
         HttpStatus status = HttpStatus.OK;
 
         if (errorList.isEmpty()) {
