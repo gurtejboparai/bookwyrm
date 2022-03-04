@@ -64,7 +64,10 @@ export default {
     flex-grow: 1;
     min-width: 25%;
     max-width: 33%;
-    margin:10px;
+    background-color: #34383a;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 10px;
   }
   #right_side{
     flex-direction: column;
