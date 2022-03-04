@@ -5,7 +5,7 @@ import com.bookwyrm.backend.book.input.BookUploadInput;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookUploadValidator {
+public class BookValidator {
 
     public static List<String> validateUploadInformation(BookUploadInput bookUploadInput){
         List<String> errorList = new ArrayList<>();

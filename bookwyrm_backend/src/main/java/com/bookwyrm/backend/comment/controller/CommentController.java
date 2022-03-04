@@ -2,18 +2,18 @@ package com.bookwyrm.backend.comment.controller;
 
 import com.bookwyrm.backend.comment.input.CommentUploadInput;
 import com.bookwyrm.backend.comment.payload.CommentUploadPayload;
-import com.bookwyrm.backend.comment.validator.CommentUploadValidator;
+import com.bookwyrm.backend.comment.validator.CommentValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/comment")
 public class CommentController {
+
     /*
      * Requires some tests:
      * Happy case (everything works as expected)
@@ -26,14 +26,13 @@ public class CommentController {
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CommentUploadPayload> createComment(
-            @RequestBody CommentUploadInput commentUploadInput,
-            HttpServletRequest request) {
+            @RequestBody CommentUploadInput commentUploadInput) {
         CommentUploadPayload response = new CommentUploadPayload();
-        List<String> errorList = CommentUploadValidator.validateUploadInformation(commentUploadInput);
+        List<String> errorList = CommentValidator.validateUploadInformation(commentUploadInput);
         HttpStatus status = HttpStatus.OK;
 
         if (errorList.isEmpty()) {
-            response.setCommentId(commentUploadInput.getCommentId());
+            response.setCommentId(commentUploadInput.getReviewId());
             response.setCommentAuthor(commentUploadInput.getAuthor());
             response.setCommentContent(commentUploadInput.getContent());
             response.setCommentAnonymousFlag(commentUploadInput.getAnonymousFlag());

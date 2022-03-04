@@ -1,21 +1,19 @@
 package com.bookwyrm.backend.review.input;
 
-import java.util.List;
-
 public class ReviewUploadInput {
 
-    private String id;
+    private String bookId;
     private String title;
     private String author;
     private String content;
     private boolean anonymousFlag;
 
-    public String getId() {
-        return id;
+    public String getBookId() {
+        return bookId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
     public String getTitle() {

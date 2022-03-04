@@ -2,15 +2,12 @@ package com.bookwyrm.backend.book.controller;
 
 import com.bookwyrm.backend.book.input.BookUploadInput;
 import com.bookwyrm.backend.book.payload.BookUploadPayload;
-import com.bookwyrm.backend.book.validator.BookUploadValidator;
-import com.fasterxml.jackson.core.util.RequestPayload;
+import com.bookwyrm.backend.book.validator.BookValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,10 +24,9 @@ public class BookController {
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BookUploadPayload> createBook(
-            @RequestBody BookUploadInput bookUploadInput,
-            HttpServletRequest request){
+            @RequestBody BookUploadInput bookUploadInput){
         BookUploadPayload response = new BookUploadPayload();
-        List<String> errorList = BookUploadValidator.validateUploadInformation(bookUploadInput);
+        List<String> errorList = BookValidator.validateUploadInformation(bookUploadInput);
         HttpStatus status = HttpStatus.OK;
 
         if(errorList.isEmpty()) {
