@@ -16,7 +16,7 @@ public class ReviewValidator {
         if (reviewUploadInput.getAuthor() == null) {
             errorList.add("Author name missing. Please add an author name and try again.");
         }
-        if (reviewUploadInput.getId() == null) {
+        if (reviewUploadInput.getBookId() == null) {
             errorList.add("Book ID missing. Please add a book Id and try again.");
         }
         if (reviewUploadInput.getContent() == null) {

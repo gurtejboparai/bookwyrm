@@ -32,7 +32,7 @@ public class CommentController {
         HttpStatus status = HttpStatus.OK;
 
         if (errorList.isEmpty()) {
-            response.setCommentId(commentUploadInput.getCommentId());
+            response.setCommentId(commentUploadInput.getReviewId());
             response.setCommentAuthor(commentUploadInput.getAuthor());
             response.setCommentContent(commentUploadInput.getContent());
             response.setCommentAnonymousFlag(commentUploadInput.getAnonymousFlag());

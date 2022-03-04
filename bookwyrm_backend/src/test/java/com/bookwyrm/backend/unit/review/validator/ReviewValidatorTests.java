@@ -1,7 +1,5 @@
 package com.bookwyrm.backend.unit.review.validator;
 
-import com.bookwyrm.backend.comment.input.CommentUploadInput;
-import com.bookwyrm.backend.comment.validator.CommentValidator;
 import com.bookwyrm.backend.review.input.ReviewUploadInput;
 import com.bookwyrm.backend.review.validator.ReviewValidator;
 import org.junit.jupiter.api.Test;
@@ -18,9 +16,10 @@ public class ReviewValidatorTests {
         //Setup
         ReviewUploadInput input = new ReviewUploadInput();
         input.setAuthor("testAuthor");
+        input.setTitle("testTitle");
         input.setAnonymousFlag(true);
-        input.setDescription("testContent");
-        input.setId("testId");
+        input.setContent("testContent");
+        input.setBookId("testId");
 
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
@@ -33,8 +32,9 @@ public class ReviewValidatorTests {
         //Setup
         ReviewUploadInput input = new ReviewUploadInput();
         input.setAnonymousFlag(true);
-        input.setDescription("testContent");
-        input.setId("testId");
+        input.setTitle("testTitle");
+        input.setContent("testContent");
+        input.setBookId("testId");
 
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
@@ -43,26 +43,28 @@ public class ReviewValidatorTests {
         Assert.isTrue(errorList.contains("Author name missing. Please add an author name and try again."), "Expect missing author error");
     }
     @Test
-    public void testMissingDescription(){
+    public void testMissingContent(){
         //Setup
         ReviewUploadInput input = new ReviewUploadInput();
         input.setAuthor("testAuthor");
+        input.setTitle("testTitle");
         input.setAnonymousFlag(true);
-        input.setId("testId");
+        input.setBookId("testId");
 
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
 
         //Check output
-        Assert.isTrue(errorList.contains("Review description is missing. Please add a review description and try again."), "Expect missing description error");
+        Assert.isTrue(errorList.contains("Review content is missing. Please add some content and try again."), "Expect missing description error");
     }
     @Test
     public void testMissingAnonymousFlag(){
         //Setup
         ReviewUploadInput input = new ReviewUploadInput();
         input.setAuthor("testAuthor");
-        input.setDescription("testContent");
-        input.setId("testId");
+        input.setTitle("testTitle");
+        input.setContent("testContent");
+        input.setBookId("testId");
 
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
@@ -75,14 +77,31 @@ public class ReviewValidatorTests {
         //Setup
         ReviewUploadInput input = new ReviewUploadInput();
         input.setAuthor("testAuthor");
+        input.setTitle("testTitle");
         input.setAnonymousFlag(true);
-        input.setDescription("testContent");
+        input.setContent("testContent");
 
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
 
         //Check output
         Assert.isTrue(errorList.contains("Book ID missing. Please add a book Id and try again."), "Expect missing book ID error");
+    }
+
+    @Test
+    public void testMissingReviewTitle(){
+        //Setup
+        ReviewUploadInput input = new ReviewUploadInput();
+        input.setAuthor("testAuthor");
+        input.setAnonymousFlag(true);
+        input.setContent("testContent");
+        input.setBookId("testId");
+
+        //Run Validation
+        List<String> errorList =  ReviewValidator.validateUploadInformation(input);
+
+        //Check output
+        Assert.isTrue(errorList.contains("Review title is missing. Please add an title and try again."), "Expect missing book ID error");
     }
 
     @Test
@@ -94,9 +113,10 @@ public class ReviewValidatorTests {
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
 
         //Check output
-        Assert.isTrue(errorList.contains("Review description is missing. Please add a review description and try again."), "Expect missing description name error");
+        Assert.isTrue(errorList.contains("Review content is missing. Please add some content and try again."), "Expect missing description name error");
         Assert.isTrue(errorList.contains("Author name missing. Please add an author name and try again."), "Expect missing author error");
         Assert.isTrue(errorList.contains("Book ID missing. Please add a book Id and try again."), "Expect missing book ID error");
+        Assert.isTrue(errorList.contains("Review title is missing. Please add an title and try again."), "Expect missing book ID error");
     }
 
 }

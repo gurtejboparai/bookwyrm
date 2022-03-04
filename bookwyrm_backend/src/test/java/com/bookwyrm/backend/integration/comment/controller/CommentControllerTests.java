@@ -18,7 +18,8 @@ public class CommentControllerTests {
         CommentUploadInput input = new CommentUploadInput();
         input.setAuthor("testAuthor");
         input.setAnonymousFlag(true);
-        input.setDescription("testContent");
+        input.setContent("testContent");
+        input.setReviewId("testReviewId");
 
         //Run
         ResponseEntity response =  (new CommentController()).createComment(input);

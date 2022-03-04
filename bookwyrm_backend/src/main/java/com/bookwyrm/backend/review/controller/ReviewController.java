@@ -33,7 +33,7 @@ public class ReviewController {
         if (errorList.isEmpty()) {
             response.setReviewTitle(reviewUploadInput.getTitle());
             response.setReviewAuthor(reviewUploadInput.getAuthor());
-            response.setReviewId(reviewUploadInput.getId());
+            response.setReviewId(reviewUploadInput.getBookId());
             response.setReviewContent(reviewUploadInput.getContent());
             response.setReviewAnonymousFlag(reviewUploadInput.getAnonymousFlag());
         } else {

@@ -1,17 +1,17 @@
 package com.bookwyrm.backend.comment.input;
 
 public class CommentUploadInput {
-    private String commentId;
+    private String reviewId;
     private String author;
     private String content;
     private boolean anonymousFlag;
 
-    public String getCommentId() {
-        return commentId;
+    public String getReviewId() {
+        return reviewId;
     }
 
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
+    public void setReviewId(String reviewId) {
+        this.reviewId = reviewId;
     }
 
     public String getAuthor() {

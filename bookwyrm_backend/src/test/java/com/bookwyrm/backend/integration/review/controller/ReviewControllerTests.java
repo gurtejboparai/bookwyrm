@@ -17,9 +17,10 @@ public class ReviewControllerTests {
         //Setup
         ReviewUploadInput input = new ReviewUploadInput();
         input.setAuthor("testAuthor");
+        input.setTitle("testTitle");
         input.setAnonymousFlag(true);
-        input.setDescription("testContent");
-        input.setId("testId");
+        input.setContent("testContent");
+        input.setBookId("testId");
 
         //Run
         ResponseEntity response =  (new ReviewController()).createReview(input);

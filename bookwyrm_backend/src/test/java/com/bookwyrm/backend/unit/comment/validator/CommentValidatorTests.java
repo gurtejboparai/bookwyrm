@@ -21,7 +21,8 @@ public class CommentValidatorTests {
         CommentUploadInput input = new CommentUploadInput();
         input.setAuthor("testAuthor");
         input.setAnonymousFlag(true);
-        input.setDescription("testContent");
+        input.setContent("testContent");
+        input.setReviewId("testReviewId");
 
         //Run Validation
         List<String> errorList =  CommentValidator.validateUploadInformation(input);
@@ -34,7 +35,8 @@ public class CommentValidatorTests {
         //Setup
         CommentUploadInput input = new CommentUploadInput();
         input.setAnonymousFlag(true);
-        input.setDescription("testContent");
+        input.setContent("testContent");
+        input.setReviewId("testReviewId");
 
         //Run Validation
         List<String> errorList =  CommentValidator.validateUploadInformation(input);
@@ -43,30 +45,46 @@ public class CommentValidatorTests {
         Assert.isTrue(errorList.contains("Author name missing. Please add an author name and try again."), "Expect missing author error");
     }
     @Test
-    public void testMissingDescription(){
+    public void testMissingContent(){
         //Setup
         CommentUploadInput input = new CommentUploadInput();
         input.setAuthor("testAuthor");
         input.setAnonymousFlag(true);
+        input.setReviewId("testReviewId");
 
         //Run Validation
         List<String> errorList =  CommentValidator.validateUploadInformation(input);
 
         //Check output
-        Assert.isTrue(errorList.contains("Comment description is missing. Please add a comment description and try again."), "Expect missing description error");
+        Assert.isTrue(errorList.contains("Comment content is missing. Please add something as content and try again."), "Expect missing description error");
     }
     @Test
     public void testMissingAnonymousFlag(){
         //Setup
         CommentUploadInput input = new CommentUploadInput();
         input.setAuthor("testAuthor");
-        input.setDescription("testContent");
+        input.setContent("testContent");
+        input.setReviewId("testReviewId");
 
         //Run Validation
         List<String> errorList =  CommentValidator.validateUploadInformation(input);
 
         //Check output
         Assert.isTrue(errorList.isEmpty(), "Expect no errors");
+    }
+    @Test
+    public void testMissingReviewId(){
+        //Setup
+        CommentUploadInput input = new CommentUploadInput();
+        input.setAuthor("testAuthor");
+        input.setAnonymousFlag(true);
+        input.setContent("testContent");
+
+        //Run Validation
+        List<String> errorList =  CommentValidator.validateUploadInformation(input);
+
+        //Check output
+        Assert.isTrue(errorList.contains("Review ID is missing. PLease add the review ID and try again."), "Expect missing description error");
     }
 
     @Test
@@ -78,8 +96,9 @@ public class CommentValidatorTests {
         List<String> errorList =  CommentValidator.validateUploadInformation(input);
 
         //Check output
-        Assert.isTrue(errorList.contains("Comment description is missing. Please add a comment description and try again."), "Expect missing description error");
+        Assert.isTrue(errorList.contains("Comment content is missing. Please add something as content and try again."), "Expect missing description error");
         Assert.isTrue(errorList.contains("Author name missing. Please add an author name and try again."), "Expect missing author error");
+        Assert.isTrue(errorList.contains("Review ID is missing. PLease add the review ID and try again."), "Expect missing description error");
     }
 
 }
