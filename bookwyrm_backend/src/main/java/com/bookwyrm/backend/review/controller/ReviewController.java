@@ -33,9 +33,10 @@ public class ReviewController {
         HttpStatus status = HttpStatus.OK;
 
         if (errorList.isEmpty()) {
+            response.setReviewTitle(reviewUploadInput.getTitle());
             response.setReviewAuthor(reviewUploadInput.getAuthor());
             response.setReviewId(reviewUploadInput.getId());
-            response.setReviewDescription(reviewUploadInput.getDescription());
+            response.setReviewContent(reviewUploadInput.getContent());
             response.setReviewAnonymousFlag(reviewUploadInput.getAnonymousFlag());
         } else {
             response.setMessages(errorList);
