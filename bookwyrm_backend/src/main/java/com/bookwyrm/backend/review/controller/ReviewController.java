@@ -37,6 +37,7 @@ public class ReviewController {
             response.setReviewAuthor(reviewUploadInput.getAuthor());
             response.setReviewId(reviewUploadInput.getId());
             response.setReviewContent(reviewUploadInput.getContent());
+            response.setReviewCommentList(reviewUploadInput.getCommentList());
             response.setReviewAnonymousFlag(reviewUploadInput.getAnonymousFlag());
         } else {
             response.setMessages(errorList);

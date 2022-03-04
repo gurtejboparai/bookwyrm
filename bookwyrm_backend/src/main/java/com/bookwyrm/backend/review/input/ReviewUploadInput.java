@@ -1,11 +1,16 @@
 package com.bookwyrm.backend.review.input;
 
+import com.bookwyrm.backend.comment.objects.Comment;
+
+import java.util.List;
+
 public class ReviewUploadInput {
 
     private String id;
     private String title;
     private String author;
     private String content;
+    private List<Comment> commentList;
     private boolean anonymousFlag;
 
     public String getId() {
@@ -38,6 +43,14 @@ public class ReviewUploadInput {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 
     public boolean getAnonymousFlag() {
