@@ -1,7 +1,5 @@
 package com.bookwyrm.backend.review.payload;
 
-import com.bookwyrm.backend.comment.objects.Comment;
-
 import java.util.List;
 
 public class ReviewUploadPayload {
@@ -11,7 +9,6 @@ public class ReviewUploadPayload {
     private String reviewAuthor;
     private String reviewId;
     private String reviewContent;
-    private List<Comment> reviewCommentList;
     private boolean reviewAnonymousFlag;
 
     public List<String> getMessages() {
@@ -52,14 +49,6 @@ public class ReviewUploadPayload {
 
     public void setReviewContent(String reviewContent) {
         this.reviewContent = reviewContent;
-    }
-
-    public List<Comment> getReviewCommentList() {
-        return reviewCommentList;
-    }
-
-    public void setReviewCommentList(List<Comment> reviewCommentList) {
-        this.reviewCommentList = reviewCommentList;
     }
 
     public boolean getReviewAnonymousFlag() {
