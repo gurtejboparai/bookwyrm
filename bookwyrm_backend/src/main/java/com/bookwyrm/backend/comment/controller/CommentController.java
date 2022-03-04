@@ -17,6 +17,7 @@ public class CommentController {
     /*
      * Requires some tests:
      * Happy case (everything works as expected)
+     * Missing Comment ID
      * Missing Author
      * Missing Comment Description
      * Missing Comment Anonymous Flag
@@ -32,8 +33,9 @@ public class CommentController {
         HttpStatus status = HttpStatus.OK;
 
         if (errorList.isEmpty()) {
+            response.setCommentId(commentUploadInput.getCommentId());
             response.setCommentAuthor(commentUploadInput.getAuthor());
-            response.setCommentDescription(commentUploadInput.getDescription());
+            response.setCommentContent(commentUploadInput.getContent());
             response.setCommentAnonymousFlag(commentUploadInput.getAnonymousFlag());
         } else {
             response.setMessages(errorList);
