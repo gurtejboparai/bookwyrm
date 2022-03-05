@@ -3,12 +3,14 @@ package com.bookwyrm.backend.unit.review.validator;
 import com.bookwyrm.backend.review.input.ReviewUploadInput;
 import com.bookwyrm.backend.review.validator.ReviewValidator;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
 import java.util.List;
 
 @SpringJUnitConfig
+@SpringBootTest
 public class ReviewValidatorTests {
 
     @Test
