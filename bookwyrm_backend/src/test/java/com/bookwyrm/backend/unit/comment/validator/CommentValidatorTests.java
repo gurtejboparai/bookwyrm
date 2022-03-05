@@ -3,12 +3,14 @@ package com.bookwyrm.backend.unit.comment.validator;
 import com.bookwyrm.backend.comment.input.CommentUploadInput;
 import com.bookwyrm.backend.comment.validator.CommentValidator;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
 import java.util.List;
 
 @SpringJUnitConfig
+@SpringBootTest
 public class CommentValidatorTests {
 
     @Test
