@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import ReviewComponent from "../components/ReviewComponent.vue";
+import ReviewComponent from "@/components/ReviewComponent.vue";
 export default {
     name: "Book Detail",
     data() {
