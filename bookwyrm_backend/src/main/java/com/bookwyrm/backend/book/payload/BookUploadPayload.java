@@ -1,5 +1,7 @@
 package com.bookwyrm.backend.book.payload;
 
+import com.bookwyrm.backend.book.dao.BookDao;
+
 import java.util.List;
 
 public class BookUploadPayload {
@@ -20,5 +22,9 @@ public class BookUploadPayload {
 
     public void setBookId(String bookId) {
         this.bookId = bookId;
+    }
+
+    public void loadBookDao(BookDao bookDao) {
+        bookId = bookDao.getId();
     }
 }
