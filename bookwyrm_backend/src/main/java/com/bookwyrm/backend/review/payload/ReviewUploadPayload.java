@@ -5,9 +5,10 @@ import java.util.List;
 public class ReviewUploadPayload {
 
     private List<String> messages;
+    private String reviewTitle;
     private String reviewAuthor;
     private String reviewId;
-    private String reviewDescription;
+    private String reviewContent;
     private boolean reviewAnonymousFlag;
 
     public List<String> getMessages() {
@@ -16,6 +17,14 @@ public class ReviewUploadPayload {
 
     public void setMessages(List<String> messages) {
         this.messages = messages;
+    }
+
+    public String getReviewTitle() {
+        return reviewTitle;
+    }
+
+    public void setReviewTitle(String reviewTitle) {
+        this.reviewTitle = reviewTitle;
     }
 
     public String getReviewAuthor() {
@@ -34,12 +43,12 @@ public class ReviewUploadPayload {
         this.reviewId = reviewId;
     }
 
-    public String getReviewDescription() {
-        return reviewDescription;
+    public String getReviewContent() {
+        return reviewContent;
     }
 
-    public void setReviewDescription(String reviewDescription) {
-        this.reviewDescription = reviewDescription;
+    public void setReviewContent(String reviewContent) {
+        this.reviewContent = reviewContent;
     }
 
     public boolean getReviewAnonymousFlag() {

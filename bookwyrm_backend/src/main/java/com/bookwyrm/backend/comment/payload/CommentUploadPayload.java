@@ -5,8 +5,9 @@ import java.util.List;
 public class CommentUploadPayload {
 
     private List<String> messages;
+    private String commentId;
     private String commentAuthor;
-    private String commentDescription;
+    private String commentContent;
     private boolean commentAnonymousFlag;
 
     public List<String> getMessages() {
@@ -17,6 +18,14 @@ public class CommentUploadPayload {
         this.messages = messages;
     }
 
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
+    }
+
     public String getCommentAuthor() {
         return commentAuthor;
     }
@@ -25,12 +34,12 @@ public class CommentUploadPayload {
         this.commentAuthor = commentAuthor;
     }
 
-    public String getCommentDescription() {
-        return commentDescription;
+    public String getCommentContent() {
+        return commentContent;
     }
 
-    public void setCommentDescription(String commentDescription) {
-        this.commentDescription = commentDescription;
+    public void setCommentContent(String commentContent) {
+        this.commentContent = commentContent;
     }
 
     public boolean getCommentAnonymousFlag() {
