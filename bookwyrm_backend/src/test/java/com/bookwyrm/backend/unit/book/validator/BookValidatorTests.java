@@ -1,7 +1,7 @@
 package com.bookwyrm.backend.unit.book.validator;
 
 import com.bookwyrm.backend.book.input.BookUploadInput;
-import com.bookwyrm.backend.book.validator.BookValidator;
+import com.bookwyrm.backend.book.service.validator.BookValidator;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
@@ -17,7 +17,7 @@ public class BookValidatorTests {
         //Setup
         BookUploadInput input = new BookUploadInput();
         input.setAuthor("testAuthor");
-        input.setName("testName");
+        input.setTitle("testName");
 
         //Run Validation
         List<String> errorList =  BookValidator.validateUploadInformation(input);
@@ -29,7 +29,7 @@ public class BookValidatorTests {
     public void testMissingAuthor(){
         //Setup
         BookUploadInput input = new BookUploadInput();
-        input.setName("testName");
+        input.setTitle("testName");
 
         //Run Validation
         List<String> errorList =  BookValidator.validateUploadInformation(input);
