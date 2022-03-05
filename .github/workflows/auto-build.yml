@@ -25,3 +25,10 @@ jobs:
     - name: Build
       working-directory: ./bookwyrm_frontend
       run: npm run build
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Run Tests
+      working-directory: ./bookwyrm_backend
+      run: ./gradlew test
