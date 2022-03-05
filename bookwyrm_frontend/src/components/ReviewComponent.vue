@@ -92,22 +92,20 @@ export default{
         },
 
         postReview(){
-            //All of this is commented out for now to keep things stable
             //These variables are correctly set and shouldn't need to be replaced
-            //var ident = this.reviews.length;
-            //var cont = this.newReviewText;
+            var ident = this.reviews.length;
+            var cont = this.newReviewText;
 
             //Hard coded as 'Guest' for now, should be replaced by retrieving the active user account name
-            //var auth = "Guest";
+            var auth = "Guest";
             //Hard coded as false for now, should be replaced by a accessing a boolean from an input
-            //var anon = false;
+            var anon = false;
             
-            //var book = this.bookTitle.concat("/", this.bookAuthor)
+            var book = this.bookTitle.concat("/", this.bookAuthor)
 
             //The line below should be replaced with a call to the appropriate service
             //This also has the affect of allowing a single user to post multiple reviews which probably shouldn't be allowed
-            //Props aren't allowed to be mutated so this can't be done
-            //this.reviews.push({identity:ident, bookId:book, author:auth, content:cont, anonymousFlag:anon});
+            this.$emit('addNewReview', {identity:ident, bookId:book, author:auth, content:cont, commentList:[], anonymousFlag:anon});
         }
     },
     components: { CommentComponent }

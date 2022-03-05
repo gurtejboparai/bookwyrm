@@ -26,6 +26,7 @@
             v-bind:reviews="reviewList"
             v-bind:bookTitle="title"
             v-bind:bookAuthor="author"
+            @addNewReview="addReview"
           />
         </div>
       </div>
@@ -76,6 +77,11 @@ export default {
                 }
             ]
         };
+    },
+    methods: {
+      addReview(newReview){
+        this.reviewList.push(newReview)
+      }
     },
     components: { ReviewComponent}
 }
