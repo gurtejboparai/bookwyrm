@@ -3,12 +3,14 @@ package com.bookwyrm.backend.unit.book.validator;
 import com.bookwyrm.backend.book.input.BookUploadInput;
 import com.bookwyrm.backend.book.service.validator.BookValidator;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
 import java.util.List;
 
 @SpringJUnitConfig
+@SpringBootTest
 public class BookValidatorTests {
 
     @Test
