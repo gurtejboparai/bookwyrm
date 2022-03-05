@@ -3,9 +3,7 @@
         <h5>{{author}}</h5>
         <p>{{content}}</p>
     </div>
-    <div>
-
-    </div>
+    <div></div>
 </template>
 
 <script>
@@ -13,10 +11,10 @@
     export default{
         name: "CommentComponent",
         props:[
-            'identity',
+            'commentId',
             'author',
             'content',
-            'anonymous'
+            'anonymousFlag'
         ]
     }
 </script>

@@ -21,8 +21,11 @@
 
       <div id="right_side">
         <div id="reviews_block">
+          
           <ReviewComponent
             v-bind:reviews="reviewList"
+            v-bind:bookTitle="title"
+            v-bind:bookAuthor="author"
           />
         </div>
       </div>
@@ -40,30 +43,33 @@ export default {
             title: "Title",
             author: "Author",
             description: "Book description goes here",
+            //Hard coded sample data for now in the future this should retrieve data from the backend
             reviewList: [
                 { 
-                    name: "theUglyBarnacle/Spongebob", 
-                    author: "Spongebob Squarepants", 
-                    description: "A friend told me this story once when I was feeling bad about my appearance, it didn't help at all.", 
+                    reviewId:0,
+                    bookId: "theUglyBarnacle/PatrickStar", 
+                    author: "Spongebob", 
+                    content: "A friend told me this story once when I was feeling bad about my appearance, it didn't help at all.", 
                     commentList: [], 
                     anonymous: true 
                 },
                 { 
-                    name: "theUglyBarnacle/Plankton",
-                    author: "Sheldon J. Plankton", 
-                    description: "While the story is brief, I ultimately enjoyed the story overall, especially the ending.", 
+                    reviewId:1,
+                    bookId: "theUglyBarnacle/PatrickStar",
+                    author: "Plankton", 
+                    content: "While the story is brief, I ultimately enjoyed the story overall, especially the ending.", 
                     commentList: [
                         {
-                            identity:"Spongebob Squarepants/0",
-                            author:"Spongebob Squarepants",
+                            commentId:0,
+                            author:"Spongebob",
                             content:"Did you forget to turn on anonymous? This is something most people woudn't admit publicly.",
-                            anonymous:true
+                            anonymousFlag:true
                         },
                         {
-                            identity:"Sheldon J. Plankton/0",
-                            author:"Sheldon J. Plankton",
+                            commentId:1,
+                            author:"Plankton",
                             content:"I meant what I said you anonymous coward",
-                            anonymous:false
+                            anonymousFlag:false
                         }
                         ], 
                     anonymous: false 
