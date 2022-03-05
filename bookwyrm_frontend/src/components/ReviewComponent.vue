@@ -3,7 +3,7 @@
         <div id="focusedView" v-if="focused">
             <div class="revDisplay">
                 <h5>{{topic.author}}</h5>
-                <p>{{topic.description}}</p>
+                <p>{{topic.content}}</p>
                 <button v-on:click="hideDetail()">show all reviews</button>
                 <div>
                     <div>
