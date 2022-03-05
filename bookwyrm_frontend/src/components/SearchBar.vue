@@ -11,7 +11,7 @@
       <router-link to="/search" id="search_button" class="btn btn-primary m-2">search</router-link>
     </div>
     <div class="p-2">
-      <Log_in_out_box/>
+      <userComponent/>
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@
 
 
 <script>
-import Log_in_out_box from './log_in_out_box.vue'
+import userComponent from '@/components/userComponent.vue'
 export default {
     name: "SearchBar",
     data() {
@@ -27,7 +27,7 @@ export default {
             searchString: ""
         };
     },
-    components: { Log_in_out_box }
+    components: { userComponent }
 }
 </script>
 
