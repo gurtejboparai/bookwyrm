@@ -63,7 +63,7 @@ public class BookControllerTests {
     @Test
     public void testGoodSearch() {
         MockitoAnnotations.openMocks(this);
-        Mockito.when(bookService.findAllBooksWithTitle(any(String.class))).thenReturn(Arrays.asList(new BookDao("the test book", "test man")));
+        Mockito.when(bookService.findAllBooksWithTitle(any(String.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor")));
 
         //Run
         ResponseEntity response =  controller.searchBookByTitle("the test book");
@@ -72,4 +72,5 @@ public class BookControllerTests {
         Assert.isTrue(response.getStatusCode() == HttpStatus.OK, "Expected successful endpoint call with 200 status");
         Assert.isNull(((BookSearchPayload)response.getBody()).getMessages() , "Expected successful endpoint call with no error messages");
     }
+
 }
