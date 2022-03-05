@@ -6,5 +6,8 @@ export default {
   },
   searchBookDetail(title){
     return bookwyrmClient.get('/api/book/details/'+title);
+  },
+  searchBook(title){
+    return bookwyrmClient.get('/api/book/'+title);
   }
 }
