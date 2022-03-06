@@ -9,14 +9,14 @@ public class ReviewDao {
     @Id
     private String id;
     private String user;
-    private String bookName;
-    private String comment;
+    private String content;
+    private boolean anonymousFlag;
 
-    public ReviewDao(String user, String bookName, String comment) {
+    public ReviewDao(String user, boolean anonymousFlag, String content) {
         super();
         this.user = user;
-        this.bookName = bookName;
-        this.comment = comment;
+        this.anonymousFlag = anonymousFlag;
+        this.content = content;
 
     }
 
@@ -24,11 +24,11 @@ public class ReviewDao {
         return user;
     }
 
-    public String getBookName() {
-        return bookName;
+    public String getContent() {
+        return content;
     }
 
-    public String getComment() {
-        return comment;
+    public boolean isAnonymousFlag() {
+        return anonymousFlag;
     }
 }

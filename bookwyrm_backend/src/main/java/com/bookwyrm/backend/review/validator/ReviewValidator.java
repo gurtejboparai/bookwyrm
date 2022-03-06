@@ -9,10 +9,6 @@ public class ReviewValidator {
     public static List<String> validateUploadInformation(ReviewUploadInput reviewUploadInput) {
         List<String> errorList = new ArrayList<>();
 
-        if (reviewUploadInput.getTitle() == null) {
-            errorList.add("Review title is missing. Please add an title and try again.");
-        }
-
         if (reviewUploadInput.getAuthor() == null) {
             errorList.add("Author name missing. Please add an author name and try again.");
         }
