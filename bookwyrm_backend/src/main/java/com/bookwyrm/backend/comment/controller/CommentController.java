@@ -3,6 +3,11 @@ package com.bookwyrm.backend.comment.controller;
 import com.bookwyrm.backend.comment.input.CommentUploadInput;
 import com.bookwyrm.backend.comment.payload.CommentUploadPayload;
 import com.bookwyrm.backend.comment.validator.CommentValidator;
+import com.bookwyrm.backend.review.dao.ReviewService;
+import com.bookwyrm.backend.review.dao.ReviewDao;
+import com.bookwyrm.backend.comment.dao.CommentDao;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,16 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/comment")
 public class CommentController {
-
-    /*
-     * Requires some tests:
-     * Happy case (everything works as expected)
-     * Missing Comment ID
-     * Missing Author
-     * Missing Comment Description
-     * Missing Comment Anonymous Flag
-     * Missing Everything
-     * */
+    @Autowired
+    ReviewService reviewService;
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CommentUploadPayload> createComment(
@@ -32,10 +29,15 @@ public class CommentController {
         HttpStatus status = HttpStatus.OK;
 
         if (errorList.isEmpty()) {
-            response.setCommentId(commentUploadInput.getReviewId());
-            response.setCommentAuthor(commentUploadInput.getAuthor());
-            response.setCommentContent(commentUploadInput.getContent());
-            response.setCommentAnonymousFlag(commentUploadInput.getAnonymousFlag());
+            CommentDao comment = new CommentDao(
+                    commentUploadInput.getAuthor(),
+                    commentUploadInput.getContent(),
+                    commentUploadInput.getAnonymousFlag());
+
+            ReviewDao associatedReview =  reviewService.findById(commentUploadInput.getReviewId()).get();
+            associatedReview.addComment(comment);
+            reviewService.save(associatedReview);
+
         } else {
             response.setMessages(errorList);
             status = HttpStatus.BAD_REQUEST;
