@@ -77,7 +77,7 @@ public class BookController {
         response.setBookDao(bookService.findByBookId(id));
         if (response.getBookDao() == null) {
             status = HttpStatus.NOT_FOUND;
-            response.setMessages(Arrays.asList("Book Id does not exist in the database. Please try another ID."));
+            response.setMessages(Arrays.asList("Book Id does not exist. Please try another ID."));
         }
 
         return ResponseEntity.status(status).body(response);
