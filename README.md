@@ -37,6 +37,7 @@ Book Wyrm will be a web app for reviewing books. A more in-depth description can
 * The architecture can be found [here](https://github.com/louismacvux/bookwyrm/wiki/Block-Diagram).
 
 ### Test the site 
+* The testing plan can be found [here](https://docs.google.com/document/d/1T9_IE7gtJItWgB54j11sDGsG_CyFUuyQ/edit#)
 
 ### Vue setup
 1. 
