@@ -1,5 +1,7 @@
 package com.bookwyrm.backend.review.controller;
 
+import com.bookwyrm.backend.book.dao.BookDao;
+import com.bookwyrm.backend.book.service.BookService;
 import com.bookwyrm.backend.review.dao.ReviewDao;
 import com.bookwyrm.backend.review.dao.ReviewService;
 import com.bookwyrm.backend.review.input.ReviewUploadInput;
@@ -16,6 +18,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/review")
 public class ReviewController {
+
+    @Autowired
+    BookService bookService;
     @Autowired
     ReviewService reviewService;
 
@@ -30,11 +35,13 @@ public class ReviewController {
 
         if (errorList.isEmpty()) {
             ReviewDao reviewDao = new ReviewDao(
-                    reviewUploadInput.getBookId(),
                     reviewUploadInput.getAuthor(),
                     reviewUploadInput.getAnonymousFlag(),
-                    reviewUploadInput.getContent());
+                    reviewUploadInput.getContent(),
+                    reviewUploadInput.getBookId()
+            );
             reviewService.save(reviewDao);
+
         } else {
             response.setMessages(errorList);
             status = HttpStatus.BAD_REQUEST;

@@ -7,11 +7,14 @@ import com.bookwyrm.backend.book.payload.BookDetailSearchPayload;
 import com.bookwyrm.backend.book.payload.BookSearchPayload;
 import com.bookwyrm.backend.book.payload.BookUploadPayload;
 import com.bookwyrm.backend.book.service.BookService;
+import com.bookwyrm.backend.comment.dao.CommentService;
+import com.bookwyrm.backend.review.dao.ReviewService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +31,10 @@ public class BookControllerTests {
 
     @Mock
     private BookService bookService;
-
+    @Mock
+    ReviewService reviewService;
+    @Mock
+    CommentService commentService;
     @InjectMocks
     private BookController controller;
 

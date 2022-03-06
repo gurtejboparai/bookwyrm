@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
       <div id="bookList" class="col-md-6">
         <div id="bookItem" v-for="book in bookList" :key="book.id">
-          <BookBriefView class="m-3" v-bind:title="book.title"  v-bind:author="book.author"/>
+          <BookBriefView class="m-3" v-bind:title="book.title"  v-bind:author="book.author" v-bind:bookId="book.id"/>
         </div>
       </div>
     </div>

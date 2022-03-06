@@ -1,5 +1,6 @@
 package com.bookwyrm.backend.comment.controller;
 
+import com.bookwyrm.backend.comment.dao.CommentService;
 import com.bookwyrm.backend.comment.input.CommentUploadInput;
 import com.bookwyrm.backend.comment.payload.CommentUploadPayload;
 import com.bookwyrm.backend.comment.validator.CommentValidator;
@@ -18,8 +19,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/comment")
 public class CommentController {
+
     @Autowired
-    ReviewService reviewService;
+    CommentService commentService;
+
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CommentUploadPayload> createComment(
@@ -32,11 +35,9 @@ public class CommentController {
             CommentDao comment = new CommentDao(
                     commentUploadInput.getAuthor(),
                     commentUploadInput.getContent(),
-                    commentUploadInput.getAnonymousFlag());
-
-            ReviewDao associatedReview =  reviewService.findById(commentUploadInput.getReviewId()).get();
-            associatedReview.addComment(comment);
-            reviewService.save(associatedReview);
+                    commentUploadInput.getAnonymousFlag(),
+                    commentUploadInput.getReviewId());
+            commentService.save(comment);
 
         } else {
             response.setMessages(errorList);

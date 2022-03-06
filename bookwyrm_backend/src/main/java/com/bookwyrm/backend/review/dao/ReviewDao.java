@@ -11,31 +11,39 @@ public class ReviewDao {
 
     @Id
     private String id;
-    private String bookId;
     private String user;
     private String content;
-    List<CommentDao> commentList;
+    private String bookId;
+    private List<CommentDao> commentList;
     private boolean anonymousFlag;
 
-    public ReviewDao(String bookId, String user, boolean anonymousFlag, String content) {
+    public ReviewDao( String user, boolean anonymousFlag, String content, String bookId) {
         super();
         this.bookId = bookId;
         this.user = user;
         this.anonymousFlag = anonymousFlag;
         this.content = content;
-        commentList = new ArrayList<>();
     }
 
-    public void addComment(CommentDao comment) {
-        commentList.add(comment);
+
+    public String getId() {
+        return id;
     }
 
-    public List<CommentDao> getCommentList() {
-        return commentList;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getBookId() {
-        return bookId;
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setAnonymousFlag(boolean anonymousFlag) {
+        this.anonymousFlag = anonymousFlag;
     }
 
     public String getUser() {
@@ -48,5 +56,21 @@ public class ReviewDao {
 
     public boolean isAnonymousFlag() {
         return anonymousFlag;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
+
+    public List<CommentDao> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<CommentDao> commentList) {
+        this.commentList = commentList;
     }
 }
