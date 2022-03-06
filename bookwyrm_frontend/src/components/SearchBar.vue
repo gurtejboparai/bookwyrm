@@ -8,7 +8,7 @@
     <div class="p-4">
       <input type="text" id="search_bar" class="m-2" v-model="searchString" /> 
 
-      <router-link to="/search" id="search_button" class="btn btn-primary m-2">search</router-link>
+      <router-link :to="{name:'Search', params:{searchTerm:searchString}}" class="btn btn-primary m-2">search</router-link>
     </div>
     <div class="p-2">
       <userComponent/>

@@ -15,7 +15,8 @@ const routes = [
   {
     path: '/search',
     name: 'Search',
-    component: () => import(/* webpackChunkName: "search" */ '../views/BookSearch.vue')
+    component: () => import(/* webpackChunkName: "search" */ '../views/BookSearch.vue'),
+    props: true
   },
   {
     path: '/create',
