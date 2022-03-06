@@ -1,9 +1,15 @@
 package com.bookwyrm.backend.integration.review.controller;
 
+import com.bookwyrm.backend.book.controller.BookController;
+import com.bookwyrm.backend.book.service.BookService;
 import com.bookwyrm.backend.review.controller.ReviewController;
+import com.bookwyrm.backend.review.dao.ReviewService;
 import com.bookwyrm.backend.review.input.ReviewUploadInput;
 import com.bookwyrm.backend.review.payload.ReviewUploadPayload;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +20,25 @@ import org.springframework.util.Assert;
 @SpringBootTest
 public class ReviewControllerTests {
 
+    @Mock
+    private ReviewService reviewService;
+
+    @InjectMocks
+    private ReviewController controller;
+
     @Test
     public void testHappyPath(){
+
+        MockitoAnnotations.openMocks(this);
         //Setup
         ReviewUploadInput input = new ReviewUploadInput();
         input.setAuthor("testAuthor");
-        input.setTitle("testTitle");
         input.setAnonymousFlag(true);
         input.setContent("testContent");
         input.setBookId("testId");
 
         //Run
-        ResponseEntity response =  (new ReviewController()).createReview(input);
+        ResponseEntity response =  controller.createReview(input);
 
         //Check results
         Assert.isTrue(response.getStatusCode() == HttpStatus.OK, "Expected successful endpoint call with 200 status");
@@ -38,7 +51,7 @@ public class ReviewControllerTests {
         ReviewUploadInput input = new ReviewUploadInput();
 
         //Run
-        ResponseEntity response =  (new ReviewController()).createReview(input);
+        ResponseEntity response =  controller.createReview(input);
 
         //Check results
         Assert.isTrue(response.getStatusCode() == HttpStatus.BAD_REQUEST, "Expected failed endpoint call with 400 status");
