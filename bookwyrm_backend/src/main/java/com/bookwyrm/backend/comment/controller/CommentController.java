@@ -30,8 +30,8 @@ public class CommentController {
 
         if (errorList.isEmpty()) {
             CommentDao comment = new CommentDao(
-                    commentUploadInput.getAuthor(),
                     commentUploadInput.getContent(),
+                    commentUploadInput.getAuthor(),
                     commentUploadInput.getAnonymousFlag());
 
             ReviewDao associatedReview =  reviewService.findById(commentUploadInput.getReviewId()).get();
