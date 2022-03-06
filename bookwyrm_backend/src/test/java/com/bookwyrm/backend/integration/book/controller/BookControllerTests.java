@@ -1,18 +1,25 @@
 package com.bookwyrm.backend.integration.book.controller;
 
 import com.bookwyrm.backend.book.controller.BookController;
+import com.bookwyrm.backend.book.dao.BookDao;
 import com.bookwyrm.backend.book.input.BookUploadInput;
+import com.bookwyrm.backend.book.payload.BookSearchPayload;
 import com.bookwyrm.backend.book.payload.BookUploadPayload;
 import com.bookwyrm.backend.book.service.BookService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
+
+import java.util.Arrays;
+
+import static org.mockito.ArgumentMatchers.any;
 
 @SpringJUnitConfig
 @SpringBootTest
@@ -51,6 +58,19 @@ public class BookControllerTests {
         //Check results
         Assert.isTrue(response.getStatusCode() == HttpStatus.BAD_REQUEST, "Expected failed endpoint call with 400 status");
         Assert.notEmpty(((BookUploadPayload)response.getBody()).getMessages(), "Expected failed endpoint call with error messages");
+    }
+
+    @Test
+    public void testGoodSearch() {
+        MockitoAnnotations.openMocks(this);
+        Mockito.when(bookService.findAllBooksWithTitle(any(String.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor")));
+
+        //Run
+        ResponseEntity response =  controller.searchBookByTitle("the test book");
+
+        //Check results
+        Assert.isTrue(response.getStatusCode() == HttpStatus.OK, "Expected successful endpoint call with 200 status");
+        Assert.isNull(((BookSearchPayload)response.getBody()).getMessages() , "Expected successful endpoint call with no error messages");
     }
 
 }

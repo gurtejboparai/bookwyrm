@@ -1,16 +1,16 @@
 <template>
-  <div class="book_detail">
+  <div class="BookDetail">
     
     <div id="enclosure">
       <div id="left_side">
         
         <div id="info_block">
-          <h2>{{book_name}}</h2>
+          <h2>{{title}}</h2>
           <h5>By {{book_author}}</h5>
         </div>
         
         <div id="description_block">
-          <p>{{book_description}}</p>
+          <p>{{description}}</p>
         </div>
 
         <div id="ratings_block">
@@ -21,7 +21,13 @@
 
       <div id="right_side">
         <div id="reviews_block">
-          <ReviewComponent/>
+          
+          <ReviewComponent
+            v-bind:reviews="reviewList"
+            v-bind:bookTitle="title"
+            v-bind:bookAuthor="author"
+            @addNewReview="addReview"
+          />
         </div>
       </div>
     </div>
@@ -35,12 +41,47 @@ export default {
     name: "Book Detail",
     data() {
         return {
-            book_name: "Title",
-            book_author: "Author",
-            book_description: "Book description goes here",
-            book_ratings: {},
-            book_reviews: {}
+            title: "Title",
+            author: "Author",
+            description: "Book description goes here",
+            //Hard coded sample data for now in the future this should retrieve data from the backend
+            reviewList: [
+                { 
+                    reviewId:0,
+                    bookId: "theUglyBarnacle/PatrickStar", 
+                    author: "Spongebob", 
+                    content: "A friend told me this story once when I was feeling bad about my appearance, it didn't help at all.", 
+                    commentList: [], 
+                    anonymous: true 
+                },
+                { 
+                    reviewId:1,
+                    bookId: "theUglyBarnacle/PatrickStar",
+                    author: "Plankton", 
+                    content: "While the story is brief, I ultimately enjoyed the story overall, especially the ending.", 
+                    commentList: [
+                        {
+                            commentId:0,
+                            author:"Spongebob",
+                            content:"Did you forget to turn on anonymous? This is something most people woudn't admit publicly.",
+                            anonymousFlag:true
+                        },
+                        {
+                            commentId:1,
+                            author:"Plankton",
+                            content:"I meant what I said you anonymous coward",
+                            anonymousFlag:false
+                        }
+                        ], 
+                    anonymous: false 
+                }
+            ]
         };
+    },
+    methods: {
+      addReview(newReview){
+        this.reviewList.push(newReview)
+      }
     },
     components: { ReviewComponent}
 }
@@ -64,7 +105,10 @@ export default {
     flex-grow: 1;
     min-width: 25%;
     max-width: 33%;
-    margin:10px;
+    background-color: #34383a;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 10px;
   }
   #right_side{
     flex-direction: column;
