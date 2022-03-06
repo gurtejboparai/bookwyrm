@@ -3,7 +3,6 @@ package com.bookwyrm.backend.review.input;
 public class ReviewUploadInput {
 
     private String bookId;
-    private String title;
     private String author;
     private String content;
     private boolean anonymousFlag;
@@ -14,14 +13,6 @@ public class ReviewUploadInput {
 
     public void setBookId(String bookId) {
         this.bookId = bookId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getAuthor() {
