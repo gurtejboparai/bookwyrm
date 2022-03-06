@@ -1,4 +1,4 @@
-package com.bookwyrm.backend.integration.comment.controller;
+package com.bookwyrm.backend.unit.comment.controller;
 
 import com.bookwyrm.backend.book.controller.BookController;
 import com.bookwyrm.backend.book.service.BookService;

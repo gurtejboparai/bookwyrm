@@ -1,4 +1,4 @@
-package com.bookwyrm.backend.integration.review.controller;
+package com.bookwyrm.backend.unit.review.controller;
 
 import com.bookwyrm.backend.book.controller.BookController;
 import com.bookwyrm.backend.book.dao.BookDao;
@@ -67,3 +67,4 @@ public class ReviewControllerTests {
         Assert.notEmpty(((ReviewUploadPayload)response.getBody()).getMessages(), "Expected failed endpoint call with error messages");
     }
 }
+
