@@ -1,4 +1,4 @@
-package com.bookwyrm.backend.unit;
+package com.bookwyrm.backend.unit.review.controller;
 
 import com.bookwyrm.backend.review.controller.ReviewController;
 import com.bookwyrm.backend.review.dao.ReviewService;

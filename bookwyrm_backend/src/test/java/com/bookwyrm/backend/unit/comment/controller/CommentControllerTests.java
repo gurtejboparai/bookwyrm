@@ -1,4 +1,4 @@
-package com.bookwyrm.backend.unit;
+package com.bookwyrm.backend.unit.comment.controller;
 
 import com.bookwyrm.backend.comment.controller.CommentController;
 import com.bookwyrm.backend.comment.input.CommentUploadInput;

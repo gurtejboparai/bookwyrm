@@ -1,4 +1,4 @@
-package com.bookwyrm.backend.unit;
+package com.bookwyrm.backend.unit.book.controller;
 
 import com.bookwyrm.backend.book.controller.BookController;
 import com.bookwyrm.backend.book.dao.BookDao;
