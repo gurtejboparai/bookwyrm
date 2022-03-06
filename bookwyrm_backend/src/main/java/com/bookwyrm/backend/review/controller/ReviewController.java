@@ -1,5 +1,7 @@
 package com.bookwyrm.backend.review.controller;
 
+import com.bookwyrm.backend.review.dao.ReviewDao;
+import com.bookwyrm.backend.review.dao.ReviewService;
 import com.bookwyrm.backend.review.input.ReviewUploadInput;
 import com.bookwyrm.backend.review.payload.ReviewUploadPayload;
 import com.bookwyrm.backend.review.validator.ReviewValidator;
@@ -13,6 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/review")
 public class ReviewController {
+    ReviewService reviewService;
+
     /*
      * Requires some tests:
      * Happy case (everything works as expected)
@@ -21,12 +25,13 @@ public class ReviewController {
      * Missing Review Description
      * Missing Review Anonymous Flag
      * Missing Everything
-     * */
+     */
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReviewUploadPayload> createReview(
             @RequestBody ReviewUploadInput reviewUploadInput) {
         ReviewUploadPayload response = new ReviewUploadPayload();
+
         List<String> errorList = ReviewValidator.validateUploadInformation(reviewUploadInput);
         HttpStatus status = HttpStatus.OK;
 
@@ -36,6 +41,9 @@ public class ReviewController {
             response.setReviewId(reviewUploadInput.getBookId());
             response.setReviewContent(reviewUploadInput.getContent());
             response.setReviewAnonymousFlag(reviewUploadInput.getAnonymousFlag());
+            ReviewDao reviewDao = new ReviewDao(reviewUploadInput.getAuthor(),
+                    reviewUploadInput.getTitle(), reviewUploadInput.getContent());
+            reviewService.save(reviewDao);
         } else {
             response.setMessages(errorList);
             status = HttpStatus.BAD_REQUEST;

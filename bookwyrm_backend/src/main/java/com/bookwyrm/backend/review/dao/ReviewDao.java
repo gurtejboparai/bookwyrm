@@ -1,10 +1,10 @@
-package com.bookwyrm.backend;
+package com.bookwyrm.backend.review.dao;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "comment")
-public class Comment {
+@Document("review")
+public class ReviewDao {
 
     @Id
     private String id;
@@ -12,8 +12,8 @@ public class Comment {
     private String bookName;
     private String comment;
 
-    public Comment(String id, String user, String bookName, String comment) {
-        this.id = id;
+    public ReviewDao(String user, String bookName, String comment) {
+        super();
         this.user = user;
         this.bookName = bookName;
         this.comment = comment;
