@@ -92,7 +92,6 @@ export default {
         BookService.searchBookDetail(this.$route.params.bookId).then(response => this.bookDetails = response.data.bookDao);
       },
       addComment(newComment){
-        console.log(newComment.reviewId);
         CommentService.uploadComment(newComment.reviewId, this.$store.state.username, newComment.content, false);
       }
     },

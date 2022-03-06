@@ -78,7 +78,6 @@ export default{
         },
 
         postComment(){
-            console.log(this.topic)
             this.$emit('addNewComment', {content: this.newCommentText, reviewId: this.topic.id});
         },
 
