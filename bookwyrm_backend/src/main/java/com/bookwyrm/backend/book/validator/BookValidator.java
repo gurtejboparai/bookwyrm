@@ -1,4 +1,4 @@
-package com.bookwyrm.backend.book.service.validator;
+package com.bookwyrm.backend.book.validator;
 
 import com.bookwyrm.backend.book.input.BookUploadInput;
 
@@ -7,13 +7,13 @@ import java.util.List;
 
 public class BookValidator {
 
-    public static List<String> validateUploadInformation(BookUploadInput bookUploadInput){
+    public static List<String> validateUploadInformation(BookUploadInput bookUploadInput) {
         List<String> errorList = new ArrayList<>();
 
-        if(bookUploadInput.getAuthor() == null){
+        if (bookUploadInput.getAuthor() == null) {
             errorList.add("Author name missing. Please add an author name and try again.");
         }
-        if(bookUploadInput.getTitle() == null){
+        if (bookUploadInput.getTitle() == null) {
             errorList.add("Book name missing. Please add a book name and try again.");
         }
 
