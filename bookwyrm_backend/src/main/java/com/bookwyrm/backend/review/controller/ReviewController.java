@@ -33,6 +33,7 @@ public class ReviewController {
 
         if (errorList.isEmpty()) {
             ReviewDao reviewDao = new ReviewDao(
+                    reviewUploadInput.getBookId(),
                     reviewUploadInput.getAuthor(),
                     reviewUploadInput.getAnonymousFlag(),
                     reviewUploadInput.getContent()
@@ -40,6 +41,7 @@ public class ReviewController {
             BookDao associatedBook =  bookService.findById(reviewUploadInput.getBookId()).get();
             associatedBook.pushReview(reviewDao);
             bookService.save(associatedBook);
+
         } else {
             response.setMessages(errorList);
             status = HttpStatus.BAD_REQUEST;

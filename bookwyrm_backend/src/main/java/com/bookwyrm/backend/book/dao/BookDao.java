@@ -39,4 +39,7 @@ public class BookDao {
         reviewList.add(newReview);
     }
 
+    public List<ReviewDao> getReviewList() {
+        return reviewList;
+    }
 }
