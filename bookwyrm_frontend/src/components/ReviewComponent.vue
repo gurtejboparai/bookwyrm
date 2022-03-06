@@ -8,7 +8,7 @@
                 <div>
                     <div>
                         <h5>Post a comment</h5>
-                        <form v-on:submit.prevent="postComment">
+                        <form v-on:submit="postComment">
                             <textarea name="commentInput" id="commentTextBox" v-model="newCommentText" rows="10" placeholder="Write your comment here"></textarea>
                             <input type="submit" value="POST">
                         </form>
@@ -31,7 +31,7 @@
             <div id="reviewCreator">
             <details>
                 <summary>Add a review</summary>
-                <form v-on:submit.prevent="postReview">
+                <form v-on:submit="postReview">
                     <textarea name="reviewInput" id="reviewTextBox" cols="30" rows="10" 
                         placeholder="Write your review here" v-model="newReviewText"></textarea>
                     <input type="submit" value="POST">
@@ -40,7 +40,7 @@
                 
             </div>
             <div v-for="review in reviews" v-bind:key="review.reviewId" class="revDisplay">
-                <h5>{{review.author}}</h5>
+                <h5>{{review.user}}</h5>
                 <p>{{review.content}}</p>
                 <button v-on:click="showDetail(review)">show full review and comments</button>
             </div>
