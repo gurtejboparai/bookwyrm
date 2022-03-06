@@ -1,10 +1,13 @@
 package com.bookwyrm.backend.review.controller;
 
+import com.bookwyrm.backend.book.dao.BookDao;
+import com.bookwyrm.backend.book.service.BookService;
 import com.bookwyrm.backend.review.dao.ReviewDao;
 import com.bookwyrm.backend.review.dao.ReviewService;
 import com.bookwyrm.backend.review.input.ReviewUploadInput;
 import com.bookwyrm.backend.review.payload.ReviewUploadPayload;
 import com.bookwyrm.backend.review.validator.ReviewValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +18,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/review")
 public class ReviewController {
-    ReviewService reviewService;
+
+    @Autowired
+    BookService bookService;
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -32,7 +37,9 @@ public class ReviewController {
                     reviewUploadInput.getAnonymousFlag(),
                     reviewUploadInput.getContent()
             );
-            reviewService.save(reviewDao);
+            BookDao associatedBook =  bookService.findById(reviewUploadInput.getBookId()).get();
+            associatedBook.pushReview(reviewDao);
+            bookService.save(associatedBook);
         } else {
             response.setMessages(errorList);
             status = HttpStatus.BAD_REQUEST;

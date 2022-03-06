@@ -5,16 +5,16 @@
       <div id="left_side">
         
         <div id="info_block">
-          <h2>{{title}}</h2>
-          <h5>By {{book_author}}</h5>
+          <h2>{{bookDetails.title}}</h2>
+          <h5>By {{bookDetails.author}}</h5>
         </div>
         
         <div id="description_block">
-          <p>{{description}}</p>
+          <p>{{bookDetails.description}}</p>
         </div>
 
         <div id="ratings_block">
-          <p>Ratings component goes here</p>
+          <!-- <p>Ratings component goes here</p> -->
         </div>
         
       </div>
@@ -23,9 +23,9 @@
         <div id="reviews_block">
           
           <ReviewComponent
-            v-bind:reviews="reviewList"
-            v-bind:bookTitle="title"
-            v-bind:bookAuthor="author"
+            v-bind:reviews="bookDetails.reviewList"
+            v-bind:bookTitle="bookDetails.title"
+            v-bind:bookAuthor="bookDetails.author"
             @addNewReview="addReview"
           />
         </div>
@@ -37,53 +37,63 @@
 
 <script>
 import ReviewComponent from "@/components/ReviewComponent.vue";
+import BookService from "@/services/BookService";
+import ReviewService from "@/services/ReviewService";
 export default {
     name: "Book Detail",
     data() {
         return {
-            title: "Title",
-            author: "Author",
-            description: "Book description goes here",
+          bookDetails:{
+            title: "loading",
+            author: "loading",
+            description: "loading",
             //Hard coded sample data for now in the future this should retrieve data from the backend
             reviewList: [
                 { 
                     reviewId:0,
-                    bookId: "theUglyBarnacle/PatrickStar", 
-                    author: "Spongebob", 
-                    content: "A friend told me this story once when I was feeling bad about my appearance, it didn't help at all.", 
+                    bookId: "loading", 
+                    author: "loading", 
+                    content: "loading", 
                     commentList: [], 
                     anonymous: true 
                 },
                 { 
                     reviewId:1,
-                    bookId: "theUglyBarnacle/PatrickStar",
-                    author: "Plankton", 
-                    content: "While the story is brief, I ultimately enjoyed the story overall, especially the ending.", 
+                    bookId: "loading",
+                    author: "loading", 
+                    content: "loading", 
                     commentList: [
                         {
                             commentId:0,
-                            author:"Spongebob",
-                            content:"Did you forget to turn on anonymous? This is something most people woudn't admit publicly.",
+                            author:"loading",
+                            content:"loading",
                             anonymousFlag:true
                         },
                         {
                             commentId:1,
-                            author:"Plankton",
-                            content:"I meant what I said you anonymous coward",
+                            author:"loading",
+                            content:"loading",
                             anonymousFlag:false
                         }
                         ], 
                     anonymous: false 
                 }
             ]
+        }
         };
     },
     methods: {
       addReview(newReview){
-        this.reviewList.push(newReview)
+        ReviewService.postReview(this.$route.params.bookId, this.$store.state.username, newReview, false);
+      },
+      loadBookDetails(){
+        BookService.searchBookDetail(this.$route.params.bookId).then(response => this.bookDetails = response.data.bookDao);
       }
     },
-    components: { ReviewComponent}
+    components: { ReviewComponent},
+    created(){
+      this.loadBookDetails();
+    }
 }
 </script>
 

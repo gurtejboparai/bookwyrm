@@ -1,8 +1,7 @@
 import { bookwyrmClient } from '@/client/AxiosClient';
 
 export default {
-    
-    postReview(name, author, description, commentList, anonymous){
-        return bookwyrmClient.post('/api/review/',{name:name, author:author, description:description, commentList:commentList, anonymous:anonymous});
+    postReview(bookId, author, content, anonymousFlag){
+        return bookwyrmClient.post('/api/review/',{bookId:bookId, author:author, content:content, anonymousFlag:anonymousFlag});
     }
 }
