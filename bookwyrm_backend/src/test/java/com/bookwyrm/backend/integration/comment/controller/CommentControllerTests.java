@@ -6,6 +6,7 @@ import com.bookwyrm.backend.comment.controller.CommentController;
 import com.bookwyrm.backend.comment.dao.CommentService;
 import com.bookwyrm.backend.comment.input.CommentUploadInput;
 import com.bookwyrm.backend.comment.payload.CommentUploadPayload;
+import com.bookwyrm.backend.review.dao.ReviewDao;
 import com.bookwyrm.backend.review.dao.ReviewService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -26,8 +27,6 @@ import static org.mockito.ArgumentMatchers.any;
 @SpringJUnitConfig
 @SpringBootTest
 public class CommentControllerTests {
-    @Mock
-    private CommentService commentService;
 
     @InjectMocks
     private CommentController controller;
@@ -38,7 +37,7 @@ public class CommentControllerTests {
     @Test
     public void testHappyPath(){
         MockitoAnnotations.openMocks(this);
-        Mockito.when(reviewService.findById(any(String.class))).thenReturn(new Optional());
+        Mockito.when(reviewService.findById(any(String.class))).thenReturn(Optional.of(new ReviewDao("testid", "testauthor",false, "test content")));
         //Setup
         CommentUploadInput input = new CommentUploadInput();
         input.setAuthor("testAuthor");

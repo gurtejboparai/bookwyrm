@@ -14,7 +14,7 @@ public class ReviewDao {
     private String bookId;
     private String user;
     private String content;
-    List<CommentDao> comments;
+    List<CommentDao> commentList;
     private boolean anonymousFlag;
 
     public ReviewDao(String bookId, String user, boolean anonymousFlag, String content) {
@@ -23,19 +23,15 @@ public class ReviewDao {
         this.user = user;
         this.anonymousFlag = anonymousFlag;
         this.content = content;
-        comments = new ArrayList<>();
+        commentList = new ArrayList<>();
     }
 
     public void addComment(CommentDao comment) {
-        comments.add(comment);
+        commentList.add(comment);
     }
 
     public List<CommentDao> getCommentList() {
-        return comments;
-    }
-
-    public void addCommentList(List<CommentDao> list) {
-        System.arraycopy(list, 0, comments, 0, list.size());
+        return commentList;
     }
 
     public String getBookId() {

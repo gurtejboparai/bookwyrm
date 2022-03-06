@@ -14,14 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/comment")
 public class CommentController {
     @Autowired
     ReviewService reviewService;
-
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CommentUploadPayload> createComment(
@@ -31,16 +29,15 @@ public class CommentController {
         HttpStatus status = HttpStatus.OK;
 
         if (errorList.isEmpty()) {
-            CommentDao comment = new CommentDao(commentUploadInput.getAuthor(),
+            CommentDao comment = new CommentDao(
+                    commentUploadInput.getAuthor(),
                     commentUploadInput.getContent(),
                     commentUploadInput.getAnonymousFlag());
-            Optional<ReviewDao> review = reviewService.findById(commentUploadInput.getReviewId());
-            ReviewDao review1 = new ReviewDao(review.get().getBookId(), review.get().getUser(),
-                    review.get().isAnonymousFlag(), review.get().getContent());
-            review1.addCommentList(review.get().getCommentList());
-            review1.addComment(comment);
-            reviewService.save(review1);
-            reviewService.delete(review.get());
+
+            ReviewDao associatedReview =  reviewService.findById(commentUploadInput.getReviewId()).get();
+            associatedReview.addComment(comment);
+            reviewService.save(associatedReview);
+
         } else {
             response.setMessages(errorList);
             status = HttpStatus.BAD_REQUEST;
