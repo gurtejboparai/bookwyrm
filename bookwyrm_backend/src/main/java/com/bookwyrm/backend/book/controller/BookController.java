@@ -52,6 +52,7 @@ public class BookController {
         return ResponseEntity.status(status).body(response);
     }
 
+    @CrossOrigin
     @GetMapping("/{title}")
     public ResponseEntity searchBookByTitle(@PathVariable("title") String title) {
 
