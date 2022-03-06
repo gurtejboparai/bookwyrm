@@ -2,6 +2,7 @@ package com.bookwyrm.backend.book.controller;
 
 import com.bookwyrm.backend.book.dao.BookDao;
 import com.bookwyrm.backend.book.input.BookUploadInput;
+import com.bookwyrm.backend.book.payload.BookDetailSearchPayload;
 import com.bookwyrm.backend.book.payload.BookSearchPayload;
 import com.bookwyrm.backend.book.payload.BookUploadPayload;
 import com.bookwyrm.backend.book.service.BookService;
@@ -25,7 +26,7 @@ public class BookController {
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BookUploadPayload> createBook(
-            @RequestBody BookUploadInput bookUploadInput){
+            @RequestBody BookUploadInput bookUploadInput) {
         //Check input
         List<String> errorList = BookValidator.validateUploadInformation(bookUploadInput);
 
@@ -33,7 +34,7 @@ public class BookController {
         BookUploadPayload response = new BookUploadPayload();
         HttpStatus status = HttpStatus.OK;
 
-        if(errorList.isEmpty()) {
+        if (errorList.isEmpty()) {
             //Create Book
             BookDao newBook = new BookDao(bookUploadInput.getTitle(), bookUploadInput.getAuthor());
 
@@ -43,7 +44,7 @@ public class BookController {
             //Ensure book got saved properly
             response.loadBookDao(newBook);
 
-        }else{
+        } else {
             //Inform user of error
             response.setMessages(errorList);
             status = HttpStatus.BAD_REQUEST;
@@ -60,8 +61,23 @@ public class BookController {
         HttpStatus status = HttpStatus.OK;
         response.setBookDaoList(bookService.findAllBooksWithTitle(title));
         if (response.getBookDaoList().isEmpty()) {
-                status = HttpStatus.NOT_FOUND;
-                response.setMessages(Arrays.asList("Book does not exist in the database. Please try adding the book first."));
+            status = HttpStatus.NOT_FOUND;
+            response.setMessages(Arrays.asList("Book does not exist in the database. Please try adding the book first."));
+        }
+
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @CrossOrigin
+    @GetMapping("/details/{id}")
+    public ResponseEntity searchBookById(@PathVariable("id") String id) {
+
+        BookDetailSearchPayload response = new BookDetailSearchPayload();
+        HttpStatus status = HttpStatus.OK;
+        response.setBookDao(bookService.findByBookId(id));
+        if (response.getBookDao() == null) {
+            status = HttpStatus.NOT_FOUND;
+            response.setMessages(Arrays.asList("Book Id does not exist in the database. Please try another ID."));
         }
 
         return ResponseEntity.status(status).body(response);
