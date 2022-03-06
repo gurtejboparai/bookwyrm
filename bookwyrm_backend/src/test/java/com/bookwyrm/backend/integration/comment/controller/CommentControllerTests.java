@@ -1,21 +1,44 @@
 package com.bookwyrm.backend.integration.comment.controller;
 
+import com.bookwyrm.backend.book.controller.BookController;
+import com.bookwyrm.backend.book.service.BookService;
 import com.bookwyrm.backend.comment.controller.CommentController;
+import com.bookwyrm.backend.comment.dao.CommentService;
 import com.bookwyrm.backend.comment.input.CommentUploadInput;
 import com.bookwyrm.backend.comment.payload.CommentUploadPayload;
+import com.bookwyrm.backend.review.dao.ReviewService;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
+
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.any;
+
 @SpringJUnitConfig
 @SpringBootTest
 public class CommentControllerTests {
+    @Mock
+    private CommentService commentService;
+
+    @InjectMocks
+    private CommentController controller;
+
+    @Mock
+    private ReviewService reviewService;
 
     @Test
     public void testHappyPath(){
+        MockitoAnnotations.openMocks(this);
+        Mockito.when(reviewService.findById(any(String.class))).thenReturn(new Optional());
         //Setup
         CommentUploadInput input = new CommentUploadInput();
         input.setAuthor("testAuthor");
@@ -24,7 +47,7 @@ public class CommentControllerTests {
         input.setReviewId("testReviewId");
 
         //Run
-        ResponseEntity response =  (new CommentController()).createComment(input);
+        ResponseEntity response =  controller.createComment(input);
 
         //Check results
         Assert.isTrue(response.getStatusCode() == HttpStatus.OK, "Expected successful endpoint call with 200 status");
@@ -37,7 +60,7 @@ public class CommentControllerTests {
         CommentUploadInput input = new CommentUploadInput();
 
         //Run
-        ResponseEntity response =  (new CommentController()).createComment(input);
+        ResponseEntity response =  controller.createComment(input);
 
         //Check results
         Assert.isTrue(response.getStatusCode() == HttpStatus.BAD_REQUEST, "Expected failed endpoint call with 400 status");

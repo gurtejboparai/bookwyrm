@@ -28,10 +28,10 @@ public class ReviewController {
 
         if (errorList.isEmpty()) {
             ReviewDao reviewDao = new ReviewDao(
+                    reviewUploadInput.getBookId(),
                     reviewUploadInput.getAuthor(),
                     reviewUploadInput.getAnonymousFlag(),
-                    reviewUploadInput.getContent()
-            );
+                    reviewUploadInput.getContent());
             reviewService.save(reviewDao);
         } else {
             response.setMessages(errorList);

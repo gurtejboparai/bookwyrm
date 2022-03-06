@@ -5,6 +5,7 @@ public class ReviewUploadInput {
     private String bookId;
     private String author;
     private String content;
+
     private boolean anonymousFlag;
 
     public String getBookId() {
