@@ -7,6 +7,9 @@ import com.bookwyrm.backend.book.payload.BookSearchPayload;
 import com.bookwyrm.backend.book.payload.BookUploadPayload;
 import com.bookwyrm.backend.book.service.BookService;
 import com.bookwyrm.backend.book.validator.BookValidator;
+import com.bookwyrm.backend.comment.dao.CommentService;
+import com.bookwyrm.backend.review.dao.ReviewDao;
+import com.bookwyrm.backend.review.dao.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +25,10 @@ public class BookController {
 
     @Autowired
     BookService bookService;
+    @Autowired
+    ReviewService reviewService;
+    @Autowired
+    CommentService commentService;
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,9 +82,19 @@ public class BookController {
         BookDetailSearchPayload response = new BookDetailSearchPayload();
         HttpStatus status = HttpStatus.OK;
         response.setBookDao(bookService.findByBookId(id));
+
         if (response.getBookDao() == null) {
             status = HttpStatus.NOT_FOUND;
             response.setMessages(Arrays.asList("Book Id does not exist. Please try another ID."));
+        }else{
+            //Load Reviews
+            List<ReviewDao> reviewList = reviewService.getReviewsByBook(response.getBookDao().getId());
+            //Load Comments on Reviews
+            reviewList.forEach(review ->{
+                review.setCommentList(commentService.getCommentsByReview(review.getId()));
+            });
+            //Attach Reviews to book
+            response.getBookDao().setReviewList(reviewList);
         }
 
         return ResponseEntity.status(status).body(response);

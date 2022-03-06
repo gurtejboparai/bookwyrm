@@ -4,7 +4,6 @@ import com.bookwyrm.backend.review.dao.ReviewDao;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Document("book")
@@ -13,12 +12,11 @@ public class BookDao {
     @Id
     private String id;
     private String title;
-    private String author;
     private List<ReviewDao> reviewList;
+    private String author;
 
     public BookDao(String title, String author){
         super();
-        this.reviewList = new ArrayList<>();
         this.title = title;
         this.author = author;
     }
@@ -35,11 +33,23 @@ public class BookDao {
         return author;
     }
 
-    public void pushReview(ReviewDao newReview){
-        reviewList.add(newReview);
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public List<ReviewDao> getReviewList() {
         return reviewList;
+    }
+
+    public void setReviewList(List<ReviewDao> reviewList) {
+        this.reviewList = reviewList;
     }
 }

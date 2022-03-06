@@ -78,17 +78,8 @@ export default{
         },
 
         postComment(){
-            //These variables are correctly set and shouldn't need to be replaced
-            var ident = this.topic.commentList.length;
-            var cont = this.newCommentText;
-
-            //Hard coded as 'Guest' for now, should be replaced by retrieving the active user account name
-            var auth = "Guest";
-            //Hard coded as false for now, should be replaced by a accessing a boolean from an input
-            var anon = false;
-
-            //The line below should be replaced with a call to the appropriate service
-            this.topic.commentList.push({commentId:ident, author:auth, content:cont, anonymousFlag:anon});
+            console.log(this.topic)
+            this.$emit('addNewComment', {content: this.newCommentText, reviewId: this.topic.id});
         },
 
         postReview(){

@@ -28,7 +28,8 @@ public class ReviewControllerTests {
 
     @Mock
     private BookService bookService;
-
+    @Mock
+    ReviewService reviewService;
     @InjectMocks
     private ReviewController controller;
 

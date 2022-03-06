@@ -21,6 +21,8 @@ public class ReviewController {
 
     @Autowired
     BookService bookService;
+    @Autowired
+    ReviewService reviewService;
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,14 +35,12 @@ public class ReviewController {
 
         if (errorList.isEmpty()) {
             ReviewDao reviewDao = new ReviewDao(
-                    reviewUploadInput.getBookId(),
                     reviewUploadInput.getAuthor(),
                     reviewUploadInput.getAnonymousFlag(),
-                    reviewUploadInput.getContent()
+                    reviewUploadInput.getContent(),
+                    reviewUploadInput.getBookId()
             );
-            BookDao associatedBook =  bookService.findById(reviewUploadInput.getBookId()).get();
-            associatedBook.pushReview(reviewDao);
-            bookService.save(associatedBook);
+            reviewService.save(reviewDao);
 
         } else {
             response.setMessages(errorList);

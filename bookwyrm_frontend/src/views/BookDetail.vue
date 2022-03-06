@@ -27,6 +27,7 @@
             v-bind:bookTitle="bookDetails.title"
             v-bind:bookAuthor="bookDetails.author"
             @addNewReview="addReview"
+            @addNewComment="addComment"
           />
         </div>
       </div>
@@ -39,6 +40,7 @@
 import ReviewComponent from "@/components/ReviewComponent.vue";
 import BookService from "@/services/BookService";
 import ReviewService from "@/services/ReviewService";
+import CommentService from "@/services/CommentService";
 export default {
     name: "Book Detail",
     data() {
@@ -88,6 +90,10 @@ export default {
       },
       loadBookDetails(){
         BookService.searchBookDetail(this.$route.params.bookId).then(response => this.bookDetails = response.data.bookDao);
+      },
+      addComment(newComment){
+        console.log(newComment.reviewId);
+        CommentService.uploadComment(newComment.reviewId, this.$store.state.username, newComment.content, false);
       }
     },
     components: { ReviewComponent},
