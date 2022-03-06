@@ -3,6 +3,7 @@ package com.bookwyrm.backend.integration.book.controller;
 import com.bookwyrm.backend.book.controller.BookController;
 import com.bookwyrm.backend.book.dao.BookDao;
 import com.bookwyrm.backend.book.input.BookUploadInput;
+import com.bookwyrm.backend.book.payload.BookDetailSearchPayload;
 import com.bookwyrm.backend.book.payload.BookSearchPayload;
 import com.bookwyrm.backend.book.payload.BookUploadPayload;
 import com.bookwyrm.backend.book.service.BookService;
@@ -73,4 +74,16 @@ public class BookControllerTests {
         Assert.isNull(((BookSearchPayload)response.getBody()).getMessages() , "Expected successful endpoint call with no error messages");
     }
 
+    @Test
+    public void testGoodSearchById() {
+        MockitoAnnotations.openMocks(this);
+        Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor"));
+
+        //Run
+        ResponseEntity response = controller.searchBookById("the test book");
+
+        //Check results
+        Assert.isTrue(response.getStatusCode() == HttpStatus.OK, "Expected successful endpoint call with 200 status");
+        Assert.isNull(((BookDetailSearchPayload)response.getBody()).getMessages() , "Expected successful endpoint call with no error messages");
+    }
 }
