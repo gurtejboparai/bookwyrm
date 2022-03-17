@@ -6,25 +6,7 @@
             <button v-on:click="logout" id="logoutButton">logout</button>
         </div>
         <div v-else>
-            <form  method="post">
-                <table>
-                    <tr>
-                        <td>
-                            <label for="usernameField">Username: </label>
-                            <input type="text" name="usernameField" id="usernameField" required v-model="accountName">
-                            <div></div>
-                            <label for="passwordField">Password: </label>
-                            <input type="password" name="passwordField" id="passwordField" required>
-                        </td>
-                        <td>
-                            <input type="submit" value="login" v-on:click="login" id="loginButton">
-                        </td>
-                        
-                    </tr>
-                    
-                </table>
-                
-            </form>
+            <router-link to="/login" id="login_button" style="text-align: center" class="m-3">Login</router-link>
         </div>
     </div>
 </template>
