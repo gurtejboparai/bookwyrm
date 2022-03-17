@@ -1,9 +1,8 @@
 <template>
     <div class="box">
         <div v-if="isLoggedIn">
-            <h5>You are logged in as, {{activeUser}}</h5>
-            <div></div>
-            <button v-on:click="logout" id="logoutButton">logout</button>
+            <span>You are logged in as {{activeUser}}</span><br>
+            <div class="btn btn-link p-0 text-info text-decoration-none" @click="logout">Logout</div>
         </div>
         <div v-else>
             <router-link to="/login" id="login_button" style="text-align: center" class="m-3">Login</router-link>
@@ -31,10 +30,6 @@ export default {
         logout(){
             this.$store.commit('logout');
         },
-        login(){
-            this.$store.commit('login',this.accountName);
-            this.accountName = "";
-        }
     }
 }
 </script>
