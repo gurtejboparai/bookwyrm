@@ -5,9 +5,11 @@
           <img src="../assets/logo.png" alt="logo" class="p-1" id="logo">
         </router-link>
       </div>
-      <div class="col p-3 text-center">
-        <input type="text" id="search_bar" class="m-2" v-model="searchString" placeholder="Search"/> 
-        <router-link :to="{name:'Search', params:{searchTerm:searchString}}" class="btn btn-primary m-2 mt-1">Go!</router-link>
+      <div class="col">
+        <div class=" p-4 text-center input-group">
+          <input type="text" id="search_bar" class="form-control" v-model="searchString" placeholder="Search"/> 
+          <router-link :to="{name:'Search', params:{searchTerm:searchString}}" class="btn btn-primary ">Go!</router-link>
+        </div>
       </div>
       <div class="col p-2">
         <userComponent/>
@@ -21,7 +23,7 @@ export default {
     name: "SearchBar",
     data() {
         return {
-            searchString: ""
+            searchString: null
         };
     },
     components: { userComponent }
