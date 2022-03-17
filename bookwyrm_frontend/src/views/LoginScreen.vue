@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-3">
+    <div class="col-3 pt-4">
       <div class="input-group">
           <input type="text" class="form-control m-2" v-model="accountName" placeholder="Username">
       </div>

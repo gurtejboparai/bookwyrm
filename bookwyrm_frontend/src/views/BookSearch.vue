@@ -1,8 +1,8 @@
 <template>
   <div class="book_search">
     <div class="row justify-content-center">
-      <div class="col-md-6 text-align-center card">
-        <router-link to="/create" id="create_button" style="text-align: center" class="m-3">create</router-link>
+      <div class="col-md-6 text-align-center card btn btn-success p-3 mt-4" @click="$router.push('/create')">
+        <h3>create</h3>
       </div>
     </div>
     <div class="row justify-content-center">

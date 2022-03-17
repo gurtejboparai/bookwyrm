@@ -1,11 +1,11 @@
 <template>
     <div class="box">
-        <div v-if="isLoggedIn">
+        <div v-if="isLoggedIn" class="text-end">
             <span>You are logged in as {{activeUser}}</span><br>
             <div class="btn btn-link p-0 text-info text-decoration-none" @click="logout">Logout</div>
         </div>
-        <div v-else>
-            <router-link to="/login" id="login_button" style="text-align: center" class="m-3">Login</router-link>
+        <div v-else class="text-end">
+            <router-link to="/login" id="login_button" class="m-3 text-align-center text-decoration-none">Login</router-link>
         </div>
     </div>
 </template>
