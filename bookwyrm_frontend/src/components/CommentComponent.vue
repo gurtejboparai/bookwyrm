@@ -3,7 +3,6 @@
         <h5>{{author}}</h5>
         <p>{{content}}</p>
     </div>
-    <div></div>
 </template>
 
 <script>

@@ -4,6 +4,12 @@
             <div class="revDisplay">
                 <h5>{{topic.author}}</h5>
                 <p>{{topic.content}}</p>
+                <div>
+                    <RatingComponent
+                        v-bind:displayOnly="true"
+                        v-bind:ratings="topic.ratingsList"
+                    />
+                </div>
                 <button v-on:click="hideDetail()">show all reviews</button>
                 <div>
                     <div>
@@ -14,6 +20,7 @@
                         </form>
                     </div>
                 </div>
+                
                 <div>
                     <h4>Comments</h4>
                     <div v-for="comment in topic.commentList" v-bind:key="comment.commentId">
@@ -27,18 +34,29 @@
                 </div>
             </div>
         </div>
+
+
         <div id="listView" v-else>
+            <!--This segment is the interface for creating reviews-->
             <div id="reviewCreator">
-            <details>
-                <summary>Add a review</summary>
-                <form v-on:submit="postReview">
-                    <textarea name="reviewInput" id="reviewTextBox" cols="30" rows="10" 
-                        placeholder="Write your review here" v-model="newReviewText"></textarea>
-                    <input type="submit" value="POST">
-                </form>
+                <details>
+                    <summary>Add a review</summary>
+                    <form v-on:submit="postReview">
+                        <textarea name="reviewInput" id="reviewTextBox" cols="30" rows="10" 
+                            placeholder="Write your review here" v-model="newReviewText"></textarea>
+                        <RatingComponent
+                            v-bind:displayOnly="false"
+                            v-bind:ratings="newReviewRatingsList"
+                        />
+                        
+                        <input type="submit" value="POST">
+                    </form>
                 </details>
                 
             </div>
+
+
+            <!--This segment is the interface that displays minimized reviews as a list-->
             <div v-for="review in reviews" v-bind:key="review.reviewId" class="revDisplay">
                 <h5>{{review.user}}</h5>
                 <p>{{review.content}}</p>
@@ -53,6 +71,7 @@
 
 
 <script>
+import RatingComponent from "./RatingComponent.vue"
 import CommentComponent from "./CommentComponent.vue"
 export default{
     name: "ReviewComponent",
@@ -62,7 +81,8 @@ export default{
             focused: false,
             topic: null,
             newCommentText: "",
-            newReviewText:""
+            newReviewText:"",
+            newReviewRatingsList: []
         };
     },
 
@@ -85,7 +105,7 @@ export default{
             this.$emit('addNewReview', this.newReviewText);
         }
     },
-    components: { CommentComponent }
+    components: { CommentComponent, RatingComponent }
 }
 </script>
 

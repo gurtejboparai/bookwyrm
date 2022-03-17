@@ -14,7 +14,10 @@
         </div>
 
         <div id="ratings_block">
-          <!-- <p>Ratings component goes here</p> -->
+          <RatingComponent
+          v-bind:displayOnly="true"
+          v-bind:ratings="ratingsData"
+          />
         </div>
         
       </div>
@@ -38,6 +41,7 @@
 
 <script>
 import ReviewComponent from "@/components/ReviewComponent.vue";
+import RatingComponent from "@/components/RatingComponent.vue";
 import BookService from "@/services/BookService";
 import ReviewService from "@/services/ReviewService";
 import CommentService from "@/services/CommentService";
@@ -45,11 +49,22 @@ export default {
     name: "Book Detail",
     data() {
         return {
+          ratingsData: [
+            {
+              genre: "Fantasy",
+              score: 3.0
+            },
+            {
+              genre: "Adventure",
+              score: 4.5
+            }
+          ],
           bookDetails:{
             title: "loading",
             author: "loading",
             description: "loading",
             //Hard coded sample data for now in the future this should retrieve data from the backend
+           
             reviewList: [
                 { 
                     reviewId:0,
@@ -95,7 +110,7 @@ export default {
         CommentService.uploadComment(newComment.reviewId, this.$store.state.username, newComment.content, false);
       }
     },
-    components: { ReviewComponent},
+    components: { ReviewComponent, RatingComponent },
     created(){
       this.loadBookDetails();
     }
