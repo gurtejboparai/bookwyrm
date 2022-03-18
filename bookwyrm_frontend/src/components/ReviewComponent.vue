@@ -7,7 +7,7 @@
                 <div>
                     <RatingComponent
                         v-bind:displayOnly="true"
-                        v-bind:ratings="topic.ratingsList"
+                        v-bind:initialRatings="topic.ratingsList"
                     />
                 </div>
                 <button v-on:click="hideDetail()">show all reviews</button>
@@ -46,7 +46,7 @@
                             placeholder="Write your review here" v-model="newReviewText"></textarea>
                         <RatingComponent
                             v-bind:displayOnly="false"
-                            v-bind:ratings="newReviewRatingsList"
+                            v-bind:initialRatings="newReviewRatingsList"
                         />
                         
                         <input type="submit" value="POST">

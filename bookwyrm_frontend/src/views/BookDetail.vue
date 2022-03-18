@@ -16,7 +16,7 @@
         <div id="ratings_block">
           <RatingComponent
           v-bind:displayOnly="true"
-          v-bind:ratings="ratingsData"
+          v-bind:initialRatings="ratingsData"
           />
         </div>
         
