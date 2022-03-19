@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-between" id="header">
+  <div class="d-flex justify-content-between foreground">
       <div class="col p-2">
         <router-link to="/" id="home_button" >
           <img src="../assets/logo.png" alt="logo" class="p-1" id="logo">
@@ -30,10 +30,6 @@ export default {
 }
 </script>
 <style scoped>
-#header{
-  background-color: #34383a;
-  box-shadow: 1px 5px #222425;
-}
 #logo {
   height: 10vh;
   border-radius: 30%;
