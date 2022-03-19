@@ -10,9 +10,9 @@
       <div class="row">
         <div class="col-6 foreground w-100 mt-3 p-3">
           <ReviewComponent
-              v-bind:reviews="bookDetails.reviewList"
-              v-bind:bookTitle="bookDetails.title"
-              v-bind:bookAuthor="bookDetails.author"
+              :reviews="bookDetails.reviewList"
+              :bookTitle="bookDetails.title"
+              :bookAuthor="bookDetails.author"
               @addNewReview="addReview"
               @addNewComment="addComment"
             />
