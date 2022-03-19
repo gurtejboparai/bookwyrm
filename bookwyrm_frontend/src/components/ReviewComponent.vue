@@ -61,12 +61,6 @@ export default{
             newReviewText:""
         };
     },
-    calculated:{
-        author(){
-            return 
-        }
-    },
-
     methods: {
         showDetail(review) {
             this.topic = review;
