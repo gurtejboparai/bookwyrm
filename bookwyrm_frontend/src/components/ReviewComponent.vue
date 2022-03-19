@@ -29,20 +29,19 @@
         </div>
         <div id="listView" v-else>
             <div id="reviewCreator">
-            <details>
-                <summary>Add a review</summary>
-                <form v-on:submit="postReview">
-                    <textarea name="reviewInput" id="reviewTextBox" cols="30" rows="10" 
-                        placeholder="Write your review here" v-model="newReviewText"></textarea>
-                    <input type="submit" value="POST">
-                </form>
+                <details>
+                    <summary>Add a review</summary>
+                    <form v-on:submit="postReview">
+                        <textarea name="reviewInput" id="reviewTextBox" class="rounded w-100 mt-3" 
+                            placeholder="Write your review here" v-model="newReviewText"></textarea>
+                        <input type="submit" class="btn btn-success mt-2" value="POST">
+                    </form>
                 </details>
-                
             </div>
-            <div v-for="review in reviews" v-bind:key="review.reviewId" class="revDisplay">
-                <h5>{{review.user}}</h5>
-                <p>{{review.content}}</p>
-                <button v-on:click="showDetail(review)">show full review and comments</button>
+            <div v-for="review in reviews" v-bind:key="review.reviewId" class="revDisplay card mt-4 p-2 shadow-sm">
+                <h2>{{(review.user == "") ? "- Guest -" : review.user }}</h2>
+                <p class="p-4">{{review.content}}</p>
+                <div @click="showDetail(review)" class="btn btn-light">show comments</div>
             </div>
         </div>
     </div>
@@ -64,6 +63,11 @@ export default{
             newCommentText: "",
             newReviewText:""
         };
+    },
+    calculated:{
+        author(){
+            return 
+        }
     },
 
     methods: {
@@ -91,17 +95,13 @@ export default{
 
 <style scoped>
     .revDisplay{
-        display: block;
-        background-color: #34383a;
-        padding: 5px;
-        margin: 5px;
-        border-radius: 5px;
+        background-color: #3a3e41;
     }
     #commentTextBox{
         display: block;
         text-justify: start;
         width:100%;
-        height: 4em;
+        max-height: 4em;
     }
     #reviewCreator{
         background-color: #34383a;
@@ -110,7 +110,7 @@ export default{
         border-radius: 5px;
     }
     #reviewTextBox{
-        display:block;
-        width:100%;
+        max-height: 15em;
+        min-height: 2em;
     }
 </style>
