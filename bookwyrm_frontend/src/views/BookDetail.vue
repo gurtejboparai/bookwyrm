@@ -51,10 +51,12 @@ export default {
         return {
           ratingsData: [
             {
+              ratingId: 0,
               genre: "Fantasy",
               score: 3.0
             },
             {
+              ratingId:1,
               genre: "Adventure",
               score: 4.5
             }

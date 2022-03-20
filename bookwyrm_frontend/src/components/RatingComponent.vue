@@ -7,20 +7,22 @@
             </button>
         </div>
         <div id="ratingSpace">
-            <div v-for="(rating, index) in ratings" v-bind:key="index" class="ratingDisp">
+            <!--Previously the alias was "rating", but that term is used by vue-star-rating component so 
+            it was changed to "genreRating" to avoid potentail conflict-->
+            <div v-for="(genreRating, index) in ratings" v-bind:key="genreRating.ratingId" class="ratingDisp">
                 
-                <h3 v-if="displayOnly">{{rating.genre}}</h3>
-                <select name="genreSelection" id="genreSelector" v-else v-model.lazy="rating.genre">
+                <h3 v-if="displayOnly">{{genreRating.genre}}</h3>
+                <select name="genreSelection" id="genreSelector" v-else v-model="genreRating.genre">
                     <option value="" disabled selected>Select a genre</option>
                     <option v-for="genre in genres" v-bind:key="genre" v-bind:value="genre">{{genre}}</option>
                 </select>
                 <StarRating 
-                    v-bind:rating="rating.score"
+                    v-bind:rating="genreRating.score"
                     v-bind:read-only="displayOnly"
                     v-bind:max-rating="5"
                     v-bind:increment="0.5"
                 />
-                <button v-if="!displayOnly">X</button>
+                <button v-if="!displayOnly" v-on:click.prevent="removeRating(index)">X</button>
 
             </div>
         </div>
@@ -37,6 +39,7 @@ import StarRating from 'vue-star-rating'
         data() {
             return {
                 ratings: this.initialRatings,
+                nextNewRatingId:0,
                 //This is a temporary substitute for the planned genre enum
                 genres:[
                     "Overall",
@@ -62,7 +65,12 @@ import StarRating from 'vue-star-rating'
         },
         methods: {
             addRating(){
-                this.ratings.push({genre:"Select a genre", score:0.5})
+                this.ratings.push({ratingId:this.numOfNewRatings, genre:"Select a genre", score:0.5})
+                this.nextNewRatingId++
+            },
+
+            removeRating(index){
+                this.ratings.splice(index, 1)
             }
         },
         components: {
