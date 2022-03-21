@@ -1,6 +1,6 @@
 <template>
     <div id="enclosure">
-        <h5>{{author}}</h5>
+        <h5>{{(author == ""||author == null)?"- Guest -":author}}</h5>
         <p>{{content}}</p>
     </div>
 </template>

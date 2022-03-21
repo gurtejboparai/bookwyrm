@@ -43,5 +43,24 @@ a {
 a.router-link-exact-active {
   color: #c4e0e9;
 }
+.foreground{
+  background-color: #34383a;
+  box-shadow: 1px 5px #222425;
+}
+::-webkit-scrollbar {
+    width: 12px;
+}
+body{
+  overflow-x:hidden
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.2); 
+    /* border-radius: 10px; */
+}
 
+::-webkit-scrollbar-thumb {
+    /* border-radius: 10px; */
+    -webkit-box-shadow: inset 0 0 6px rgb(27, 27, 27); 
+    background-color: rgb(126, 52, 52);
+}
 </style>
