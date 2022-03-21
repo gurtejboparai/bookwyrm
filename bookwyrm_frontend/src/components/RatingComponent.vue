@@ -3,34 +3,35 @@
         <h3>Ratings</h3>
         <div v-if="!displayOnly">
             <button v-on:click.prevent="addRating">
-                Add another rating
+                Add a rating
             </button>
         </div>
         <div id="ratingSpace">
-            <!--Previously the alias was "rating", but that term is used by vue-star-rating component so 
-            it was changed to "genreRating" to avoid potentail conflict-->
-            <div v-for="(genreRating, index) in ratings" v-bind:key="genreRating.ratingId" class="ratingDisp">
+            <div v-for="(genreRating, index) in ratings" :key="genreRating.ratingId" class="ratingDisp">
                 
                 <h3 v-if="displayOnly">{{genreRating.genre}}</h3>
                 <select name="genreSelection" id="genreSelector" v-else v-model="genreRating.genre">
                     <option value="" disabled selected>Select a genre</option>
                     <option v-for="genre in genres" v-bind:key="genre" v-bind:value="genre">{{genre}}</option>
                 </select>
-                <StarRating 
-                    v-bind:rating="genreRating.score"
-                    v-bind:read-only="displayOnly"
-                    v-bind:max-rating="5"
-                    v-bind:increment="0.5"
+                <StarRatingWrapperComponent 
+                    v-bind:score="genreRating.score"
+                    v-bind:ratingId="genreRating.ratingId"
+                    v-bind:displayOnly="displayOnly"
+                    @updateScoreOf="changeScoreOf"
                 />
                 <button v-if="!displayOnly" v-on:click.prevent="removeRating(index)">X</button>
-
             </div>
         </div>
     </div>
 </template>
 
+
+
+
 <script>
-import StarRating from 'vue-star-rating'
+//import StarRating from 'vue-star-rating'
+import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
     export default{
         name: "RatingComponent",
         //The property "initialRatings" is used as an initial value for ratings in the data
@@ -65,16 +66,23 @@ import StarRating from 'vue-star-rating'
         },
         methods: {
             addRating(){
-                this.ratings.push({ratingId:this.numOfNewRatings, genre:"Select a genre", score:0.5})
+                this.ratings.push({ratingId:this.nextNewRatingId, genre:"Select a genre", score:0.5})
                 this.nextNewRatingId++
             },
 
             removeRating(index){
                 this.ratings.splice(index, 1)
+            },
+            changeScoreOf(scoreChange){
+                this.ratings.forEach(rating => {
+                    if(rating.ratingId == scoreChange.ratingId){
+                        rating.score=scoreChange.newScore
+                    }
+                });
             }
         },
         components: {
-            StarRating
+            StarRatingWrapperComponent
         }
     }
 </script>
@@ -90,7 +98,9 @@ import StarRating from 'vue-star-rating'
         min-width: 20ch;
     }
     .ratingDisp{
-        display: block;
+        display: flex;
+        justify-content: stretch;
+        align-items: stretch;
         flex-direction: row;
         flex-flow: row;
         background-color: #343438;
