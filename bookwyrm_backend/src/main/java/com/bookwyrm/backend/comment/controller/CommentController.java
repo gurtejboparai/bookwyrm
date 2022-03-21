@@ -33,8 +33,8 @@ public class CommentController {
 
         if (errorList.isEmpty()) {
             CommentDao comment = new CommentDao(
-                    commentUploadInput.getAuthor(),
                     commentUploadInput.getContent(),
+                    commentUploadInput.getAuthor(),
                     commentUploadInput.getAnonymousFlag(),
                     commentUploadInput.getReviewId());
             commentService.save(comment);

@@ -1,30 +1,11 @@
 <template>
     <div class="box">
-        <div v-if="isLoggedIn">
-            <h5>You are logged in as, {{activeUser}}</h5>
-            <div></div>
-            <button v-on:click="logout" id="logoutButton">logout</button>
+        <div v-if="isLoggedIn" class="text-end">
+            <span>You are logged in as {{activeUser}}</span><br>
+            <div class="btn btn-link p-0 text-info text-decoration-none" @click="logout">Logout</div>
         </div>
-        <div v-else>
-            <form  method="post">
-                <table>
-                    <tr>
-                        <td>
-                            <label for="usernameField">Username: </label>
-                            <input type="text" name="usernameField" id="usernameField" required v-model="accountName">
-                            <div></div>
-                            <label for="passwordField">Password: </label>
-                            <input type="password" name="passwordField" id="passwordField" required>
-                        </td>
-                        <td>
-                            <input type="submit" value="login" v-on:click="login" id="loginButton">
-                        </td>
-                        
-                    </tr>
-                    
-                </table>
-                
-            </form>
+        <div v-else class="text-end">
+            <router-link to="/login" id="login_button" class="m-3 text-align-center text-decoration-none">Login</router-link>
         </div>
     </div>
 </template>
@@ -49,10 +30,6 @@ export default {
         logout(){
             this.$store.commit('logout');
         },
-        login(){
-            this.$store.commit('login',this.accountName);
-            this.accountName = "";
-        }
     }
 }
 </script>
