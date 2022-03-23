@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          dir: ./bookwyrm_frontend
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
@@ -24,10 +26,12 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1  
 
+      - name: Checkout frontend
+        run: cd bookwyrm_frontend
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
           repository: gurtejboparai/bookwyrm
           tags: latest, ${{github.run_number}}
-        working-directory: ./bookwyrm_frontend
