@@ -1,9 +1,11 @@
 <template>
-  <div class="span">
-    <SearchBar/>
+  <div>
+    <div class="span">
+      <SearchBar/>
+    </div>
+
+    <router-view/>
   </div>
-  
-  <router-view/>
 </template>
 
 
