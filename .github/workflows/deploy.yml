@@ -30,3 +30,4 @@ jobs:
           context: .
           repository: gurtejboparai/bookwyrm
           tags: latest, ${{github.run_number}}
+        working-directory: ./bookwyrm_frontend
