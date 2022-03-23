@@ -26,4 +26,3 @@ jobs:
           repository: gurtejboparai/bookwyrm
           file: bookwyrm_frontend/Dockerfile
           tags: latest, ${{github.run_number}}
-          push: true
