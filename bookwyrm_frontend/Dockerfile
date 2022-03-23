@@ -1,10 +1,12 @@
 FROM node:lts-alpine
-RUN mkdir -p /usr/app
 
-WORKDIR /usr/app
-COPY ./* /usr/app/
+WORKDIR /app
+COPY package*.json ./
 
 RUN npm install
+
+COPY . .
+
 RUN npm run build
 
 EXPOSE 8080
