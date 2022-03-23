@@ -15,14 +15,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Checkout frontend
-        run: cd bookyrm_frontend
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
+      - name: Logging into Docker hub
+        uses: docker/login-action@v1
           with:
           username: ${{secrets.DOCKER_USERNAME}}
           password: ${{secrets.DOCKER_PASSWORD}}
           repository: gurtejboparai/bookwyrm
-          tags: latest, ${{github.run_number}}
+
+      - name: Build and push Docker image
+        working-directory: ./bookwyrm_frontend
+        run: docker build -t bookwyrm_frontend .
+        run: docker push gurtejboparai/bookwyrm
