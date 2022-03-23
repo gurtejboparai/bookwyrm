@@ -25,6 +25,5 @@ jobs:
           password: ${{secrets.DOCKER_PASSWORD}}
           repository: gurtejboparai/bookwyrm
           file: bookwyrm_frontend/Dockerfile
-          repository: gurtejboparai/bookwyrm
           tags: latest, ${{github.run_number}}
           push: true
