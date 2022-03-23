@@ -1,9 +1,11 @@
 <template>
-    <div id="enclosure">
-        <h5>posted by, {{(author == ""||author == null)?"- Guest -":author}}</h5>
-        <p>{{content}}</p>
+    <div>
+        <div id="enclosure">
+            <h5>posted by, {{(author == ""||author == null)?"- Guest -":author}}</h5>
+            <p>{{content}}</p>
+        </div>
+        <div></div>
     </div>
-    <div></div>
 </template>
 
 <script>

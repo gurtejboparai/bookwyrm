@@ -60,6 +60,9 @@
         </div>
     </div>
 </template>
+
+
+
 <script>
 import RatingComponent from "./RatingComponent.vue"
 import CommentComponent from "./CommentComponent.vue"

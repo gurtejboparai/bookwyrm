@@ -2,15 +2,17 @@
     <div>
         <h3>Ratings</h3>
         <div v-if="!displayOnly">
-            <button v-on:click.prevent="addRating">
+            <button v-on:click.prevent="addRating" class="btn btn-light mb-1">
                 Add a rating
             </button>
         </div>
-        <div id="ratingSpace">
-            <div v-for="(genreRating, index) in ratings" :key="genreRating.ratingId" class="ratingDisp">
+        <div></div>
+        <div id="ratingSpace" class="p-1">
+            <div v-for="(genreRating, index) in ratings" :key="genreRating.ratingId" 
+                class="ratingDisp m-2 p-2 rounded row">
                 
-                <h3 v-if="displayOnly">{{genreRating.genre}}</h3>
-                <select name="genreSelection" id="genreSelector" v-else v-model="genreRating.genre">
+                <h3 v-if="displayOnly" class="col-4">{{genreRating.genre}}</h3>
+                <select name="genreSelection" id="genreSelector" v-else v-model="genreRating.genre" class="col-4">
                     <option value="" disabled selected>Select a genre</option>
                     <option v-for="genre in genres" v-bind:key="genre" v-bind:value="genre">{{genre}}</option>
                 </select>
@@ -19,8 +21,10 @@
                     v-bind:ratingId="genreRating.ratingId"
                     v-bind:displayOnly="displayOnly"
                     @updateScoreOf="changeScoreOf"
+                    class="col-8 flex-shrink-1"
                 />
-                <button v-if="!displayOnly" v-on:click.prevent="removeRating(index)">X</button>
+                <button v-if="!displayOnly" v-on:click.prevent="removeRating(index)" 
+                    class="btn btn-danger btn-sm align-self-center" id="delbtn">X</button>
             </div>
         </div>
     </div>
@@ -90,12 +94,15 @@ import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
 <style scoped>
     #ratingSpace{
         display: block;
-        background-color: #2a2a2e;
-        padding: 5px;
+        background: #2e2f34;
     }
     #genreSelector{
         display:inline-flex;
         min-width: 20ch;
+    }
+    #delbtn{
+        width: 4ch;
+        height: 4ch;
     }
     .ratingDisp{
         display: flex;
@@ -103,10 +110,7 @@ import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
         align-items: stretch;
         flex-direction: row;
         flex-flow: row;
-        background-color: #343438;
-        padding: 5px;
-        margin: 5px;
-        border-radius: 5px;
+        background-color: #3a3e41;
     }
     option{
         color:black;
