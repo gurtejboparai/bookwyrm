@@ -1,6 +1,6 @@
 <template>
   <router-link :to=detailRoute id="detail_button">
-    <div class="card btn btn-primary ">
+    <div class="card btn foreground highlight ">
       <div class="card-body">
           <h2>{{this.title}}</h2>
           <h4>{{this.author}}</h4>
