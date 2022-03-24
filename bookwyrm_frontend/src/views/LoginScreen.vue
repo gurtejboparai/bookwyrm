@@ -13,7 +13,7 @@
       </div>
       <div class="row justify-content-between">
         <div class="col-4 btn btn-primary m-3 text-nowrap" @click="login" >Sign in</div>
-        <div class="col-4 text-align-right btn btn-success m-3 text-nowrap">Sign up</div>
+        <div class="col-4 text-align-right btn btn-success m-3 text-nowrap" @click="signup">Sign up</div>
       </div>
     </div>
   </div>
@@ -35,6 +35,7 @@ export default {
     login(){
       UserService.signin(this.accountName, window.crypto.subtle.digest('SHA-256', this.password)).then((response)=>{
         if(response.body){
+          
           this.$store.commit('login',this.accountName);
           this.$router.push('/')    
         }else{
@@ -45,6 +46,7 @@ export default {
     },
     signup(){
       UserService.signup(this.accountName, window.crypto.subtle.digest('SHA-256', this.password));
+      
       this.$store.commit('login',this.accountName);
       this.$router.push('/')
     }

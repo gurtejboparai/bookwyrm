@@ -15,6 +15,10 @@ export default {
   name: 'Home',
   components: {
       SearchBar
+  },
+  created(){
+    if(localStorage.getItem("username"))
+      this.$store.commit('login',localStorage.getItem("username"));
   }
 }
 </script>
