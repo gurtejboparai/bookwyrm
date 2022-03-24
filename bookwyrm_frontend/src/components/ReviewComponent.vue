@@ -46,7 +46,7 @@
                             placeholder="Write your review here" v-model="newReviewText"></textarea>
                         <RatingComponent
                             v-bind:displayOnly="false"
-                            v-bind:initialRatings="newReviewRatingsList"
+                            v-model:ratings="newReviewRatingsList"
                         />
                         <input type="submit" class="btn btn-success mt-2">
                     </form>
