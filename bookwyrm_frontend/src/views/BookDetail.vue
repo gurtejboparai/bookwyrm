@@ -2,22 +2,18 @@
   <div class="BookDetail">
     <div class="container justify-content-center">
       <div class="row">
-        <div class="col-6 foreground w-50 mt-3 p-3">
+        <div class="col foreground w-50 mt-3 p-3">
           <h2>{{bookDetails.title}}</h2>
           <h5>By {{bookDetails.author}}</h5>
-        </div>
-        
-        <div id="description_block">
+          <br>
           <p>{{bookDetails.description}}</p>
+          <div id="ratings_block">
+            <RatingComponent
+            v-bind:displayOnly="true"
+            v-bind:initialRatings="ratingsData"
+            />
+          </div>
         </div>
-
-        <div id="ratings_block">
-          <RatingComponent
-          v-bind:displayOnly="true"
-          v-bind:initialRatings="ratingsData"
-          />
-        </div>
-        
       </div>
       <div class="row">
         <div class="col-6 foreground w-100 mt-3 p-3">
