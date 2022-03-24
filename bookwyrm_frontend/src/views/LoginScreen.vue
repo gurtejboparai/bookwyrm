@@ -31,57 +31,69 @@ export default {
       accountName:null,
       password:null,
       messageToDisplay:false,
-      message:null
+      message:null,
+      timer:null
     }
   },
   methods:{
     login(){
-      window.crypto.subtle.digest('SHA-256',(new TextEncoder()).encode(this.password)).then((passwordHash)=>{
-        let digestArray = Array.from(new Int32Array(passwordHash));
-        let compoundedDigest = 1
-        digestArray.forEach(element => {
-          compoundedDigest = element * compoundedDigest
-        });
-        UserService.signin(this.accountName, compoundedDigest).then((response)=>{
-          if(response.body){
-            this.$store.commit('login',this.accountName);
-            this.$router.push('/')  
-              
-          }else{
-            this.displayMessage("Username password combination not found." );
-          }
-        });
-      });
-    },
-    signup(){
-      if(this.password == null || this.password == ""){
-        this.displayMessage("Please enter a password");
-      }else{
+      if(!this.validateFields()){
         window.crypto.subtle.digest('SHA-256',(new TextEncoder()).encode(this.password)).then((passwordHash)=>{
           let digestArray = Array.from(new Int32Array(passwordHash));
           let compoundedDigest = 1
           digestArray.forEach(element => {
             compoundedDigest = element * compoundedDigest
           });
-          UserService.signup(this.accountName,compoundedDigest).then((response)=>{
-            if(!response.body){
+          UserService.signin(this.accountName, compoundedDigest).then((response)=>{
+            if(response.body){
               this.$store.commit('login',this.accountName);
-              this.$router.push('/');
+              this.$router.push('/')  
+                
             }else{
-              let errorMessage = ""
-              response.body.forEach(error => {
-                errorMessage += `${error}\n`;
-              });
-              this.displayMessage(errorMessage);
+              this.displayMessage("Username password combination not found." );
             }
-          })
+          });
+        });
+      }
+    },
+    signup(){
+      if(!this.validateFields()){
+        window.crypto.subtle.digest('SHA-256',(new TextEncoder()).encode(this.password)).then((passwordHash)=>{
+          let digestArray = Array.from(new Int32Array(passwordHash));
+          let compoundedDigest = 1
+          digestArray.forEach(element => {
+            compoundedDigest = element * compoundedDigest
+          });
+          UserService.signup(this.accountName,compoundedDigest).then(()=>{
+            this.$store.commit('login',this.accountName);
+            this.$router.push('/');
+          }).catch((error)=>{
+            let errorMessage = ""
+            console.log(error.response.data);
+            error.response.data.forEach(error => {
+              errorMessage += `${error}\n`;
+            });
+            this.displayMessage(errorMessage);
+          });
         })
       }
     },
+    validateFields(){
+      if(this.accountName == null){
+        this.displayMessage("Please enter a username");
+      }else if(this.password == null){
+        this.displayMessage("Please enter a password");
+      }else{
+        this.messageToDisplay = false;
+        clearTimeout(this.timer);
+      }
+      return this.messageToDisplay
+    },
     displayMessage(message){
+        clearTimeout(this.timer);
         this.message=message
         this.messageToDisplay=true;
-        setTimeout(()=>{this.messageToDisplay=false;this.message=null},5000)
+        this.timer = setTimeout(()=>{this.messageToDisplay=false;this.message=null},5000)
     }
   }
 }
