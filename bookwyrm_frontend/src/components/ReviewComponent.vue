@@ -1,6 +1,12 @@
 <template>
     <div id="container">
         <div id="focusedView"  v-if="focused">
+            <div>
+                <RatingComponent
+                    v-bind:displayOnly="true"
+                    v-bind:initialRatings="topic.ratingsList"
+                />
+            </div>
             <button @click="hideDetail()" class="btn btn-light">show all reviews</button>
             <div class=" p-3">
                 <div class="revDisplay card mt-4 p-2 shadow-sm">
@@ -29,6 +35,8 @@
                 </div>
             </div>
         </div>
+
+
         <div id="listView" v-else>
             <div id="reviewCreator" class="card foreground p-3 shadow-sm">
                 <details>
@@ -36,6 +44,10 @@
                     <form @submit="postReview">
                         <textarea name="reviewInput" id="reviewTextBox" class="rounded w-100 mt-3" 
                             placeholder="Write your review here" v-model="newReviewText"></textarea>
+                        <RatingComponent
+                            v-bind:displayOnly="false"
+                            v-bind:initialRatings="newReviewRatingsList"
+                        />
                         <input type="submit" class="btn btn-success mt-2">
                     </form>
                 </details>
@@ -48,7 +60,11 @@
         </div>
     </div>
 </template>
+
+
+
 <script>
+import RatingComponent from "./RatingComponent.vue"
 import CommentComponent from "./CommentComponent.vue"
 export default{
     name: "ReviewComponent",
@@ -58,7 +74,8 @@ export default{
             focused: false,
             topic: null,
             newCommentText: "",
-            newReviewText:""
+            newReviewText:"",
+            newReviewRatingsList: []
         };
     },
     methods: {
@@ -80,7 +97,7 @@ export default{
             this.$emit('addNewReview', this.newReviewText);
         }
     },
-    components: { CommentComponent }
+    components: { CommentComponent, RatingComponent }
 }
 </script>
 
