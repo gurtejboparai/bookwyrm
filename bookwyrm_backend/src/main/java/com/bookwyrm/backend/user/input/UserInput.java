@@ -1,9 +1,11 @@
 package com.bookwyrm.backend.user.input;
 
+import java.math.BigInteger;
+
 public class UserInput {
 
     private String username;
-    private String passwordHash;
+    private BigInteger passwordHash;
 
     public String getUsername() {
         return username;
@@ -13,11 +15,11 @@ public class UserInput {
         this.username = username;
     }
 
-    public String getPasswordHash() {
+    public BigInteger getPasswordHash() {
         return passwordHash;
     }
 
-    public void setPasswordHash(String passwordHash) {
+    public void setPasswordHash(BigInteger passwordHash) {
         this.passwordHash = passwordHash;
     }
 }
