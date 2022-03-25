@@ -98,13 +98,13 @@ export default {
     },
     methods: {
       addReview(newReview){
-        ReviewService.postReview(this.$route.params.bookId, this.$store.state.username, newReview, false);
+        ReviewService.postReview(this.$route.params.bookId, this.$store.state.username, newReview.reviewText, newReview.reviewAnonymousFlag);
       },
       loadBookDetails(){
         BookService.searchBookDetail(this.$route.params.bookId).then(response => this.bookDetails = response.data.bookDao);
       },
       addComment(newComment){
-        CommentService.uploadComment(newComment.reviewId, this.$store.state.username, newComment.content, false);
+        CommentService.uploadComment(newComment.reviewId, this.$store.state.username, newComment.content, newComment.commentAnonymousFlag);
       }
     },
     components: { ReviewComponent, RatingComponent },
