@@ -23,7 +23,7 @@ jobs:
 
       - name: Build frontend Docker image
         working-directory: ./bookwyrm_frontend
-        run: docker build -t gurtejboparai/bookwyrm-frontend
+        run: docker build -t gurtejboparai/bookwyrm-frontend .
 
       - name: Build frontend Docker image
         working-directory: ./bookwyrm_frontend
