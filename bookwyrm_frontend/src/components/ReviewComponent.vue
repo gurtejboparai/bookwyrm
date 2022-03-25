@@ -1,6 +1,12 @@
 <template>
     <div id="container">
         <div id="focusedView"  v-if="focused">
+            <div>
+                <RatingComponent
+                    v-bind:displayOnly="true"
+                    v-bind:initialRatings="topic.ratingsList"
+                />
+            </div>
             <button @click="hideDetail()" class="btn btn-light">show all reviews</button>
             <div class=" p-3">
                 <div class="revDisplay card mt-4 p-2 shadow-sm">
@@ -14,6 +20,8 @@
                             <summary>Add a comment</summary>
                             <form @submit="postComment">
                                 <textarea name="commentInput" id="commentTextBox" v-model="newCommentText" placeholder="Write your comment here" class="rounded w-100 mt-3"></textarea>
+                                Post Anonymously <input type="checkbox" v-model="newCommentAnonymousFlag"/>
+                                <br>
                                 <input type="submit" class="btn btn-success mt-2">
                             </form>
                         </details>
@@ -29,13 +37,21 @@
                 </div>
             </div>
         </div>
+
+
         <div id="listView" v-else>
             <div id="reviewCreator" class="card foreground p-3 shadow-sm">
                 <details>
                     <summary>Add a review</summary>
                     <form @submit="postReview">
+                        <RatingComponent
+                            v-bind:displayOnly="false"
+                            v-bind:initialRatings="newReviewRatingsList"
+                        />
                         <textarea name="reviewInput" id="reviewTextBox" class="rounded w-100 mt-3" 
                             placeholder="Write your review here" v-model="newReviewText"></textarea>
+                            Post Anonymously <input type="checkbox" v-model="newReviewAnonymousFlag"/>
+                            <br>
                         <input type="submit" class="btn btn-success mt-2">
                     </form>
                 </details>
@@ -48,7 +64,11 @@
         </div>
     </div>
 </template>
+
+
+
 <script>
+import RatingComponent from "./RatingComponent.vue"
 import CommentComponent from "./CommentComponent.vue"
 export default{
     name: "ReviewComponent",
@@ -58,7 +78,10 @@ export default{
             focused: false,
             topic: null,
             newCommentText: "",
-            newReviewText:""
+            newCommentAnonymousFlag:false,
+            newReviewText:"",
+            newReviewRatingsList: [],
+            newReviewAnonymousFlag:false
         };
     },
     methods: {
@@ -73,14 +96,14 @@ export default{
         },
 
         postComment(){
-            this.$emit('addNewComment', {content: this.newCommentText, reviewId: this.topic.id});
+            this.$emit('addNewComment', {content: this.newCommentText, reviewId: this.topic.id, commentAnonymousFlag: this.newCommentAnonymousFlag});
         },
 
         postReview(){
-            this.$emit('addNewReview', this.newReviewText);
+            this.$emit('addNewReview', {reviewText: this.newReviewText, reviewAnonymousFlag: this.newReviewAnonymousFlag});
         }
     },
-    components: { CommentComponent }
+    components: { CommentComponent, RatingComponent }
 }
 </script>
 

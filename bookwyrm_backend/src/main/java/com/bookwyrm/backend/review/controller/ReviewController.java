@@ -35,11 +35,10 @@ public class ReviewController {
 
         if (errorList.isEmpty()) {
             ReviewDao reviewDao = new ReviewDao(
-                    reviewUploadInput.getAuthor(),
+                    (!reviewUploadInput.getAnonymousFlag()) ? reviewUploadInput.getAuthor() : "Anonymous",
                     reviewUploadInput.getAnonymousFlag(),
                     reviewUploadInput.getContent(),
-                    reviewUploadInput.getBookId()
-            );
+                    reviewUploadInput.getBookId());
             reviewService.save(reviewDao);
 
         } else {

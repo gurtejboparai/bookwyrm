@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -28,6 +29,10 @@ public class UserController {
         List<String> errorList = UserValidator.validateSignupInformation(userInput);
         HttpStatus status = HttpStatus.OK;
 
+        Optional<UserDao> foundUser = userService.findById(userInput.getUsername());
+        if(foundUser.isPresent()){
+            errorList.add("Username already exists. Please try a different username.");
+        }
         if (errorList.isEmpty()) {
             UserDao userDao = new UserDao(
                     userInput.getUsername(),
@@ -46,24 +51,22 @@ public class UserController {
             @RequestBody UserInput userInput){
 
         //Check that we have all the expected fields
-        Boolean result = UserValidator.validateSignupInformation(userInput).isEmpty();
-        if(result) {
+        Boolean result = false;
+        if(UserValidator.validateSignupInformation(userInput).isEmpty()) {
             //Check sign in attempt
-            result = userService.findById(userInput.getUsername())
-                    .get()
-                    .getPasswordHash()
-                    .equals(userInput.getPasswordHash());
-
-            //Primitive online dictionary attack prevention
-            if (!result) {
-                try {
-                    TimeUnit.SECONDS.sleep(3L);
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                }
+            Optional<UserDao> foundUser = userService.findById(userInput.getUsername());
+            if(foundUser.isPresent()) {
+                result = foundUser.get().getPasswordHash().equals(userInput.getPasswordHash());
             }
         }
-
+        //Primitive online dictionary attack prevention
+        if (!result) {
+            try {
+                TimeUnit.SECONDS.sleep(3L);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
