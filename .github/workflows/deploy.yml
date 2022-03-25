@@ -29,7 +29,7 @@ jobs:
         working-directory: ./bookwyrm_frontend
         run: docker push gurtejboparai/bookwyrm-
         
-    build-and-deploy-backend:
+        
       name: Build and Deploy Backend
       runs-on: ubuntu-latest
 
