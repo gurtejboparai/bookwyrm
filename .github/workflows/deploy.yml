@@ -1,10 +1,8 @@
-name: Deployment
+name: deployment
 
 on:
-  push:
-    branches: [user/Gurtej/#149]
-  pull_request:
-    branches: [main]
+  milestone:
+    types: [closed]
 
 jobs:
   build-and-deploy-frontend:
