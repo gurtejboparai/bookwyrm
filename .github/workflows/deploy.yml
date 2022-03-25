@@ -28,28 +28,29 @@ jobs:
       - name: Push frontend Docker image
         working-directory: ./bookwyrm_frontend
         run: docker push gurtejboparai/bookwyrm-
-        
-        
-      name: Build and Deploy Backend
-      runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v2
 
-        - name: Login to DockerHub
-          uses: docker/login-action@v1 
-          with:
-            username: ${{secrets.DOCKER_USERNAME}}
-            password: ${{secrets.DOCKER_PASSWORD}}
+  build-and-deploy-backend:
+    name: Build and Deploy Backend
+    runs-on: ubuntu-latest
 
-        - name: Build backend Docker image
-          working-directory: ./bookwyrm_backend
-          run: docker build -t gurtejboparai/bookwyrm-backend .
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-        - name: Push backend Docker image
-          working-directory: ./bookwyrm_backend
-          run: docker push gurtejboparai/bookwyrm-backend
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{secrets.DOCKER_USERNAME}}
+          password: ${{secrets.DOCKER_PASSWORD}}
+
+      - name: Build backend Docker image
+        working-directory: ./bookwyrm_backend
+        run: docker build -t gurtejboparai/bookwyrm-backend .
+
+      - name: Push backend Docker image
+        working-directory: ./bookwyrm_backend
+        run: docker push gurtejboparai/bookwyrm-backend
 
       
 
