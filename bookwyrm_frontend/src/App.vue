@@ -17,6 +17,10 @@ export default {
   name: 'Home',
   components: {
       SearchBar
+  },
+  created(){
+    if(localStorage.getItem("username"))
+      this.$store.commit('login',localStorage.getItem("username"));
   }
 }
 </script>
@@ -45,6 +49,7 @@ a.router-link-exact-active {
 }
 .foreground{
   background-color: #34383a;
+  color: #c4e0e9;
   box-shadow: 1px 5px #222425;
 }
 ::-webkit-scrollbar {
@@ -62,5 +67,10 @@ body{
     /* border-radius: 10px; */
     -webkit-box-shadow: inset 0 0 6px rgb(27, 27, 27); 
     background-color: rgb(126, 52, 52);
+}
+.highlight:hover {
+  background-color: #3f4346;
+  box-shadow: 2px 6px #222425;
+  color: #b3c9d1;
 }
 </style>

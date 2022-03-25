@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @SpringJUnitConfig
@@ -20,7 +21,7 @@ public class UserValidatorTests {
         //Setup
         UserInput input = new UserInput();
         input.setUsername("testUsername");
-        input.setPasswordHash("testPasswordHash");
+        input.setPasswordHash(new BigInteger(String.valueOf(123)));
 
         //Run Validation
         List<String> errorList =  UserValidator.validateSignupInformation(input);
@@ -32,7 +33,7 @@ public class UserValidatorTests {
     public void testMissingUsername(){
         //Setup
         UserInput input = new UserInput();
-        input.setPasswordHash("testPasswordHash");
+        input.setPasswordHash(new BigInteger(String.valueOf(123)));
 
         //Run Validation
         List<String> errorList =  UserValidator.validateSignupInformation(input);

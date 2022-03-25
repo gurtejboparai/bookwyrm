@@ -15,9 +15,11 @@ const store = createStore({
   mutations: {
     login (state, username) {
       state.username = username;
+      localStorage.setItem("username", username)
     },
     logout (state) {
       state.username = "";
+      localStorage.removeItem("username")
     }
   }
 })
