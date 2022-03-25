@@ -27,7 +27,7 @@ jobs:
 
       - name: Push frontend Docker image
         working-directory: ./bookwyrm_frontend
-        run: docker push gurtejboparai/bookwyrm-
+        run: docker push gurtejboparai/bookwyrm-frontend
 
 
   build-and-deploy-backend:
