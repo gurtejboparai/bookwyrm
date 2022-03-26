@@ -97,8 +97,8 @@ export default {
         };
     },
     methods: {
-      addReview(newReview){
-        ReviewService.postReview(this.$route.params.bookId, this.$store.state.username, newReview, false);
+      addReview(newReview, ratingsList){
+        ReviewService.postReview(this.$route.params.bookId, this.$store.state.username, newReview, false, ratingsList);
       },
       loadBookDetails(){
         BookService.searchBookDetail(this.$route.params.bookId).then(response => this.bookDetails = response.data.bookDao);

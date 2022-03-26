@@ -94,7 +94,7 @@ export default{
         },
 
         postReview(){
-            this.$emit('addNewReview', this.newReviewText);
+            this.$emit('addNewReview', this.newReviewText, this.newReviewRatingsList);
         }
     },
     components: { CommentComponent, RatingComponent }
