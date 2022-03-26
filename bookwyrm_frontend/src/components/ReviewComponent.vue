@@ -1,17 +1,18 @@
 <template>
     <div id="container">
         <div id="focusedView"  v-if="focused">
-            <div>
-                <RatingComponent
-                    v-bind:displayOnly="true"
-                    v-bind:initialRatings="topic.ratingsList"
-                />
-            </div>
+            
             <button @click="hideDetail()" class="btn btn-light">show all reviews</button>
             <div class=" p-3">
                 <div class="revDisplay card mt-4 p-2 shadow-sm">
                     <h2>{{(topic.author == "" || topic.author == null) ? "- Guest -" : topic.author }}</h2>
                     <p class="p-4">{{topic.content}}</p>
+                    <div>
+                        <RatingComponent
+                            v-bind:displayOnly="true"
+                            v-bind:initialRatings="topic.ratingsList"
+                        />
+                    </div>
                 </div>
                 <div class="pt-3">
                     <h4 class="text-align-center">Comments</h4>
@@ -100,7 +101,7 @@ export default{
         },
 
         postReview(){
-            this.$emit('addNewReview', {reviewText: this.newReviewText, reviewAnonymousFlag: this.newReviewAnonymousFlag});
+            this.$emit('addNewReview', {reviewText: this.newReviewText, reviewAnonymousFlag: this.newReviewAnonymousFlag, reviewRatingsList: this.newReviewRatingsList});
         }
     },
     components: { CommentComponent, RatingComponent }
