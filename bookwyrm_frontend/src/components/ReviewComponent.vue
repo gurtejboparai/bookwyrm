@@ -20,6 +20,8 @@
                             <summary>Add a comment</summary>
                             <form @submit="postComment">
                                 <textarea name="commentInput" id="commentTextBox" v-model="newCommentText" placeholder="Write your comment here" class="rounded w-100 mt-3"></textarea>
+                                Post Anonymously <input type="checkbox" v-model="newCommentAnonymousFlag"/>
+                                <br>
                                 <input type="submit" class="btn btn-success mt-2">
                             </form>
                         </details>
@@ -42,12 +44,14 @@
                 <details>
                     <summary>Add a review</summary>
                     <form @submit="postReview">
-                        <textarea name="reviewInput" id="reviewTextBox" class="rounded w-100 mt-3" 
-                            placeholder="Write your review here" v-model="newReviewText"></textarea>
                         <RatingComponent
                             v-bind:displayOnly="false"
                             v-model:ratings="newReviewRatingsList"
                         />
+                        <textarea name="reviewInput" id="reviewTextBox" class="rounded w-100 mt-3" 
+                            placeholder="Write your review here" v-model="newReviewText"></textarea>
+                            Post Anonymously <input type="checkbox" v-model="newReviewAnonymousFlag"/>
+                            <br>
                         <input type="submit" class="btn btn-success mt-2">
                     </form>
                 </details>
@@ -74,8 +78,10 @@ export default{
             focused: false,
             topic: null,
             newCommentText: "",
+            newCommentAnonymousFlag:false,
             newReviewText:"",
-            newReviewRatingsList: []
+            newReviewRatingsList: [],
+            newReviewAnonymousFlag:false
         };
     },
     methods: {
@@ -90,11 +96,11 @@ export default{
         },
 
         postComment(){
-            this.$emit('addNewComment', {content: this.newCommentText, reviewId: this.topic.id});
+            this.$emit('addNewComment', {content: this.newCommentText, reviewId: this.topic.id, commentAnonymousFlag: this.newCommentAnonymousFlag});
         },
 
         postReview(){
-            this.$emit('addNewReview', this.newReviewText, this.newReviewRatingsList);
+            this.$emit('addNewReview', {reviewText: this.newReviewText, reviewAnonymousFlag: this.newReviewAnonymousFlag});
         }
     },
     components: { CommentComponent, RatingComponent }

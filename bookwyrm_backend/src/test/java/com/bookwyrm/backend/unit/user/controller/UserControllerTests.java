@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +41,7 @@ public class UserControllerTests {
         //Setup
         UserInput input = new UserInput();
         input.setUsername("testUsername");
-        input.setPasswordHash("testPasswordHash");
+        input.setPasswordHash(new BigInteger(String.valueOf(123)));
 
         //Run
         ResponseEntity response =  controller.createUser(input);
