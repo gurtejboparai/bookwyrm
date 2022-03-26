@@ -34,7 +34,7 @@ public class CommentController {
         if (errorList.isEmpty()) {
             CommentDao comment = new CommentDao(
                     commentUploadInput.getContent(),
-                    commentUploadInput.getAuthor(),
+                    (!commentUploadInput.getAnonymousFlag()) ? commentUploadInput.getAuthor() : "Anonymous",
                     commentUploadInput.getAnonymousFlag(),
                     commentUploadInput.getReviewId());
             commentService.save(comment);
