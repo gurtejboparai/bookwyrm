@@ -6,13 +6,13 @@
             <div class=" p-3">
                 <div class="revDisplay card mt-4 p-2 shadow-sm">
                     <h2>{{(topic.author == "" || topic.author == null) ? "- Guest -" : topic.author }}</h2>
-                    <p class="p-4">{{topic.content}}</p>
                     <div>
                         <RatingComponent
                             v-bind:displayOnly="true"
                             v-bind:initialRatings="topic.ratingsList"
                         />
                     </div>
+                    <p class="p-4">{{topic.content}}</p>
                 </div>
                 <div class="pt-3">
                     <h4 class="text-align-center">Comments</h4>
@@ -45,12 +45,12 @@
                 <details>
                     <summary>Add a review</summary>
                     <form @submit="postReview">
+                        <textarea name="reviewInput" id="reviewTextBox" class="rounded w-100 mt-3" 
+                            placeholder="Write your review here" v-model="newReviewText"></textarea>
                         <RatingComponent
                             v-bind:displayOnly="false"
                             v-model:ratings="newReviewRatingsList"
                         />
-                        <textarea name="reviewInput" id="reviewTextBox" class="rounded w-100 mt-3" 
-                            placeholder="Write your review here" v-model="newReviewText"></textarea>
                         Post Anonymously <input type="checkbox" v-model="newReviewAnonymousFlag"/>
                         <br>
                         <input type="submit" class="btn btn-success mt-2">
