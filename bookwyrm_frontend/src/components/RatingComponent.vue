@@ -40,10 +40,13 @@ import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
         name: "RatingComponent",
         //The property "initialRatings" is used as an initial value for ratings in the data
         //The property "displayOnly" is UI specific and is therfore not in the database
-        props: ['initialRatings', 'displayOnly'],
+        props: ['ratings', 'displayOnly'],
+        emits: ['update:ratings'],
         data() {
             return {
-                ratings: this.initialRatings,
+                //ratings: this.initialRatings,
+                //Processing for rating is done on this variable before being sent to the parent component
+                localRatings: this.ratings,
                 nextNewRatingId:0,
                 //This is a temporary substitute for the planned genre enum
                 genres:[
@@ -70,19 +73,22 @@ import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
         },
         methods: {
             addRating(){
-                this.ratings.push({ratingId:this.nextNewRatingId, genre:"Select a genre", score:0.5})
+                this.localRatings.push({ratingId:this.nextNewRatingId, genre:"Select a genre", score:0.5})
                 this.nextNewRatingId++
+                this.$emit('update:ratings', this.$event.target.this.localRatings)
             },
 
             removeRating(index){
-                this.ratings.splice(index, 1)
+                this.localRatings.splice(index, 1)
+                this.$emit('update:ratings', this.$event.target.this.localRatings)
             },
             changeScoreOf(scoreChange){
-                this.ratings.forEach(rating => {
+                this.localRatings.forEach(rating => {
                     if(rating.ratingId == scoreChange.ratingId){
                         rating.score=scoreChange.newScore
                     }
-                });
+                })
+                this.$emit('update:ratings', this.$event.target.this.localRatings)
             }
         },
         components: {
