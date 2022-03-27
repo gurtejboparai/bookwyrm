@@ -45,14 +45,14 @@
                 <details>
                     <summary>Add a review</summary>
                     <form @submit="postReview">
+                        <textarea name="reviewInput" id="reviewTextBox" class="rounded w-100 mt-3" 
+                            placeholder="Write your review here" v-model="newReviewText"></textarea>
                         <RatingComponent
                             v-bind:displayOnly="false"
                             v-model:ratings="newReviewRatingsList"
                         />
-                        <textarea name="reviewInput" id="reviewTextBox" class="rounded w-100 mt-3" 
-                            placeholder="Write your review here" v-model="newReviewText"></textarea>
-                            Post Anonymously <input type="checkbox" v-model="newReviewAnonymousFlag"/>
-                            <br>
+                        Post Anonymously <input type="checkbox" v-model="newReviewAnonymousFlag"/>
+                        <br>
                         <input type="submit" class="btn btn-success mt-2">
                     </form>
                 </details>
