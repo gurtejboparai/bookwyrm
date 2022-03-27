@@ -1,6 +1,7 @@
 package com.bookwyrm.backend.review.dao;
 
 import com.bookwyrm.backend.comment.dao.CommentDao;
+import com.bookwyrm.backend.review.genre.Genre;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,16 +16,22 @@ public class ReviewDao {
     private String content;
     private String bookId;
     private List<CommentDao> commentList;
+    private ArrayList<Genre> ratings;
     private boolean anonymousFlag;
 
-    public ReviewDao( String user, boolean anonymousFlag, String content, String bookId) {
+
+    public ReviewDao(String user, boolean anonymousFlag, String content, String bookId, ArrayList<Genre> ratings) {
         super();
         this.bookId = bookId;
         this.user = user;
         this.anonymousFlag = anonymousFlag;
         this.content = content;
+        this.ratings = ratings;
     }
 
+    public ArrayList<Genre> getRatings() { return ratings;}
+
+    public void setRatings(ArrayList<Genre> ratings) { this.ratings = ratings;}
 
     public String getId() {
         return id;

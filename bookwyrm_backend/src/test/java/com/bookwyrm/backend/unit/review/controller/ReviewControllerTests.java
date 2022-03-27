@@ -5,6 +5,7 @@ import com.bookwyrm.backend.book.dao.BookDao;
 import com.bookwyrm.backend.book.service.BookService;
 import com.bookwyrm.backend.review.controller.ReviewController;
 import com.bookwyrm.backend.review.dao.ReviewService;
+import com.bookwyrm.backend.review.genre.Genre;
 import com.bookwyrm.backend.review.input.ReviewUploadInput;
 import com.bookwyrm.backend.review.payload.ReviewUploadPayload;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -45,7 +47,8 @@ public class ReviewControllerTests {
         input.setAnonymousFlag(true);
         input.setContent("testContent");
         input.setBookId("testId");
-
+        ArrayList<Genre> gen = new ArrayList<Genre>();
+        input.setRatings(gen);
         //Run
         ResponseEntity response =  controller.createReview(input);
 
