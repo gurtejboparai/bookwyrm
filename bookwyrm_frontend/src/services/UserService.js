@@ -6,5 +6,14 @@ export default {
   },
   signin(username, passwordhash){
     return bookwyrmClient.put('/api/user/login',{username:username, passwordHash:passwordhash});
+  },
+  updateUser(username, authorFlag, authorName, profJournalistFlag, profJournalistName){
+    return bookwyrmClient.put('/api/user/',{
+      username:username, 
+      authorFlag:authorFlag, 
+      authorName:authorName,
+      profJournalistFlag:profJournalistFlag,
+      profJournalistName:profJournalistName 
+    });
   }
 }
