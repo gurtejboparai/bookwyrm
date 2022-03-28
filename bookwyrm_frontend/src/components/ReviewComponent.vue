@@ -61,40 +61,6 @@
             />
           </div>
         </div>
-
-        <div class="pt-3">
-          <h4 class="text-align-center">Comments</h4>
-          <div class="card foreground p-3 shadow-sm m-3">
-            <details>
-              <summary>Add a comment</summary>
-              <form @submit="postComment">
-                <textarea
-                  name="commentInput"
-                  id="commentTextBox"
-                  v-model="newCommentText"
-                  placeholder="Write your comment here"
-                  class="rounded w-100 mt-3"
-                ></textarea>
-                Post Anonymously
-                <input type="checkbox" v-model="newCommentAnonymousFlag" />
-                <br />
-                <input type="submit" class="btn btn-success mt-2" />
-              </form>
-            </details>
-          </div>
-          <div
-            v-for="comment in topic.commentList"
-            :key="comment.commentId"
-            class="pt-3 p-2"
-          >
-            <CommentComponent
-              :commentId="comment.commentId"
-              :author="comment.author"
-              :content="comment.content"
-              :anonymousFlag="comment.anonymousFlag"
-            />
-          </div>
-        </div>
       </div>
     </div>
 
