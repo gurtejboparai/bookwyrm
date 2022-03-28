@@ -70,7 +70,7 @@ public class BookControllerTests {
     @Test
     public void testGoodSearch() {
         MockitoAnnotations.openMocks(this);
-        Mockito.when(bookService.findAllBooksWithTitle(any(String.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor")));
+        Mockito.when(bookService.findAllBooksWithTitle(any(String.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor", "testDesc","")));
 
         //Run
         ResponseEntity response =  controller.searchBookByTitle("the test book");
@@ -83,7 +83,7 @@ public class BookControllerTests {
     @Test
     public void testGoodSearchById() {
         MockitoAnnotations.openMocks(this);
-        Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor"));
+        Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor","testDesc",""));
 
         //Run
         ResponseEntity response = controller.searchBookById("the test book");
