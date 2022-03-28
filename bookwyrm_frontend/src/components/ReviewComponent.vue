@@ -48,9 +48,11 @@
                         <textarea name="reviewInput" id="reviewTextBox" class="rounded w-100 mt-3" 
                             placeholder="Write your review here" v-model="newReviewText"></textarea>
                         <RatingComponent
+                            v-if="$store.state.username"
                             v-bind:displayOnly="false"
                             v-model:ratings="newReviewRatingsList"
                         />
+                        <h2 v-else class="text-danger">You must log in to add star ratings to your review</h2>
                         Post Anonymously <input type="checkbox" v-model="newReviewAnonymousFlag"/>
                         <br>
                         <input type="submit" class="btn btn-success mt-2">
