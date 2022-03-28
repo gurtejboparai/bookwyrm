@@ -1,12 +1,6 @@
 <template>
   <div id="container">
     <div id="focusedView" v-if="focused">
-      <div>
-        <RatingComponent
-          v-bind:displayOnly="true"
-          v-bind:initialRatings="topic.ratingsList"
-        />
-      </div>
       <button @click="hideDetail()" class="btn btn-light">
         show all reviews
       </button>
@@ -19,6 +13,12 @@
                 : topic.author
             }}
           </h2>
+          <div>
+            <RatingComponent
+              v-bind:displayOnly="true"
+              v-bind:initialRatings="topic.ratingsList"
+            />
+          </div>
           <div class="row">
             <div class="col-1 m-2 btn-lg">
               <VotingComponent />
@@ -61,6 +61,40 @@
             />
           </div>
         </div>
+
+        <div class="pt-3">
+          <h4 class="text-align-center">Comments</h4>
+          <div class="card foreground p-3 shadow-sm m-3">
+            <details>
+              <summary>Add a comment</summary>
+              <form @submit="postComment">
+                <textarea
+                  name="commentInput"
+                  id="commentTextBox"
+                  v-model="newCommentText"
+                  placeholder="Write your comment here"
+                  class="rounded w-100 mt-3"
+                ></textarea>
+                Post Anonymously
+                <input type="checkbox" v-model="newCommentAnonymousFlag" />
+                <br />
+                <input type="submit" class="btn btn-success mt-2" />
+              </form>
+            </details>
+          </div>
+          <div
+            v-for="comment in topic.commentList"
+            :key="comment.commentId"
+            class="pt-3 p-2"
+          >
+            <CommentComponent
+              :commentId="comment.commentId"
+              :author="comment.author"
+              :content="comment.content"
+              :anonymousFlag="comment.anonymousFlag"
+            />
+          </div>
+        </div>
       </div>
     </div>
 
@@ -69,10 +103,6 @@
         <details>
           <summary>Add a review</summary>
           <form @submit="postReview">
-            <RatingComponent
-              v-bind:displayOnly="false"
-              v-bind:initialRatings="newReviewRatingsList"
-            />
             <textarea
               name="reviewInput"
               id="reviewTextBox"
@@ -80,6 +110,10 @@
               placeholder="Write your review here"
               v-model="newReviewText"
             ></textarea>
+            <RatingComponent
+              v-bind:displayOnly="false"
+              v-model:ratings="newReviewRatingsList"
+            />
             Post Anonymously
             <input type="checkbox" v-model="newReviewAnonymousFlag" />
             <br />
@@ -150,6 +184,7 @@ export default {
       this.$emit("addNewReview", {
         reviewText: this.newReviewText,
         reviewAnonymousFlag: this.newReviewAnonymousFlag,
+        reviewRatingsList: this.newReviewRatingsList,
       });
     },
   },
