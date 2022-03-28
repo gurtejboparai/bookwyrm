@@ -9,5 +9,8 @@ export default {
   },
   searchBook(title){
     return bookwyrmClient.get('/api/book/'+title);
+  },
+  searchBookViaGoogle(isbn){
+    return bookwyrmClient.get(`/api/book/deepsearch/`+isbn);
   }
 }

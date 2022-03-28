@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +30,8 @@ public class BookController {
     ReviewService reviewService;
     @Autowired
     CommentService commentService;
+    @Autowired
+    RestTemplate restTemplate;
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -98,5 +101,11 @@ public class BookController {
         }
 
         return ResponseEntity.status(status).body(response);
+    }
+
+    @CrossOrigin
+    @GetMapping("/deepsearch/{isbn}")
+    public ResponseEntity<String> searchBookGoogleApi(@PathVariable("isbn") String isbn) {
+        return ResponseEntity.status(HttpStatus.OK).body(restTemplate.getForObject("https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn,String.class));
     }
 }
