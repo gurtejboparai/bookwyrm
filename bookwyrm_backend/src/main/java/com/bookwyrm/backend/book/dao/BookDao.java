@@ -13,12 +13,16 @@ public class BookDao {
     private String id;
     private String title;
     private List<ReviewDao> reviewList;
+    private String description;
     private String author;
+    private String isbn;
 
-    public BookDao(String title, String author){
+    public BookDao(String title, String author, String description, String isbn){
         super();
         this.title = title;
         this.author = author;
+        this.description = description;
+        this.isbn = isbn;
     }
 
     public String getId() {
@@ -51,5 +55,21 @@ public class BookDao {
 
     public void setReviewList(List<ReviewDao> reviewList) {
         this.reviewList = reviewList;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 }
