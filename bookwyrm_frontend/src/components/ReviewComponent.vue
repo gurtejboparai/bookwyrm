@@ -5,7 +5,7 @@
             <button @click="hideDetail()" class="btn btn-light">show all reviews</button>
             <div class=" p-3">
                 <div class="revDisplay card mt-4 p-2 shadow-sm">
-                    <h2>{{(topic.author == "" || topic.author == null) ? "- Guest -" : topic.author }}</h2>
+                    <h2>{{(topic.user == "" || topic.user == null) ? "- Guest -" : topic.user }}</h2>
                     <div>
                         <RatingComponent
                             v-bind:displayOnly="true"
