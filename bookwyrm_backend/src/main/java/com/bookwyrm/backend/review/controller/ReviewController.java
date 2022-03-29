@@ -39,7 +39,8 @@ public class ReviewController {
                     reviewUploadInput.getAnonymousFlag(),
                     reviewUploadInput.getContent(),
                     reviewUploadInput.getBookId(),
-                    reviewUploadInput.getProfJournalistFlag()
+                    reviewUploadInput.getJournalistFlag(),
+                    reviewUploadInput.getJournalistName()
                     );
             reviewService.save(reviewDao);
 

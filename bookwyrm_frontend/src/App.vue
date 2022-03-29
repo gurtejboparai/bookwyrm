@@ -25,8 +25,8 @@ export default {
         username: localStorage.getItem("username"),
         authorFlag: localStorage.getItem("authorFlag"),
         authorName: localStorage.getItem("authorName"),
-        profJournalistFlag: localStorage.getItem("journalistFlag"),
-        profJournalistName: localStorage.getItem("journalistName")
+        journalistFlag: localStorage.getItem("journalistFlag"),
+        journalistName: localStorage.getItem("journalistName")
       });
   }
 }
