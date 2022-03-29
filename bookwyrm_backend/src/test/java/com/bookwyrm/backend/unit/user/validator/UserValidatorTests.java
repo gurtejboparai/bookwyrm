@@ -1,8 +1,6 @@
 package com.bookwyrm.backend.unit.user.validator;
 
-import com.bookwyrm.backend.review.input.ReviewUploadInput;
-import com.bookwyrm.backend.review.validator.ReviewValidator;
-import com.bookwyrm.backend.user.input.UserInput;
+import com.bookwyrm.backend.user.input.UserAuthInput;
 import com.bookwyrm.backend.user.validator.UserValidator;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +17,7 @@ public class UserValidatorTests {
     @Test
     public void testHappyPath(){
         //Setup
-        UserInput input = new UserInput();
+        UserAuthInput input = new UserAuthInput();
         input.setUsername("testUsername");
         input.setPasswordHash(new BigInteger(String.valueOf(123)));
 
@@ -32,7 +30,7 @@ public class UserValidatorTests {
     @Test
     public void testMissingUsername(){
         //Setup
-        UserInput input = new UserInput();
+        UserAuthInput input = new UserAuthInput();
         input.setPasswordHash(new BigInteger(String.valueOf(123)));
 
         //Run Validation
@@ -44,7 +42,7 @@ public class UserValidatorTests {
     @Test
     public void testMissingPassword(){
         //Setup
-        UserInput input = new UserInput();
+        UserAuthInput input = new UserAuthInput();
         input.setUsername("testUsername");
 
         //Run Validation
@@ -56,7 +54,7 @@ public class UserValidatorTests {
     @Test
     public void testMissingEverything(){
         //Setup
-        UserInput input = new UserInput();
+        UserAuthInput input = new UserAuthInput();
 
         //Run Validation
         List<String> errorList =  UserValidator.validateSignupInformation(input);

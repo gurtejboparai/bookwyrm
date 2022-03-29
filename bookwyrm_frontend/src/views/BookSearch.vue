@@ -20,16 +20,13 @@ import BookService from "@/services/BookService"
 import BookBriefView from "@/components/BookBriefView"
 export default {
   name: 'Book Search',
-  props:{
-    searchTerm: String
-  },
   data(){
     return {
       bookList : []
     }
   },
   created(){
-    BookService.searchBook(this.searchTerm).then(response => this.bookList = response.data.bookDaoList);
+    BookService.searchBook(this.$route.params.searchTerm).then(response => this.bookList = response.data.bookDaoList);
   },
   components: {BookBriefView}
 }

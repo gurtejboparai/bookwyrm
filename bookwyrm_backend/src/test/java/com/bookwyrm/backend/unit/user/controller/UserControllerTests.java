@@ -1,19 +1,11 @@
 package com.bookwyrm.backend.unit.user.controller;
 
-import com.bookwyrm.backend.book.dao.BookDao;
-import com.bookwyrm.backend.book.service.BookService;
-import com.bookwyrm.backend.review.controller.ReviewController;
-import com.bookwyrm.backend.review.dao.ReviewService;
-import com.bookwyrm.backend.review.input.ReviewUploadInput;
-import com.bookwyrm.backend.review.payload.ReviewUploadPayload;
 import com.bookwyrm.backend.user.controller.UserController;
 import com.bookwyrm.backend.user.dao.UserService;
-import com.bookwyrm.backend.user.input.UserInput;
+import com.bookwyrm.backend.user.input.UserAuthInput;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +14,6 @@ import org.springframework.util.Assert;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -39,7 +30,7 @@ public class UserControllerTests {
     public void testHappyPathSignup(){
 
         //Setup
-        UserInput input = new UserInput();
+        UserAuthInput input = new UserAuthInput();
         input.setUsername("testUsername");
         input.setPasswordHash(new BigInteger(String.valueOf(123)));
 
@@ -54,7 +45,7 @@ public class UserControllerTests {
     @Test
     public void testBadRequest(){
         //Setup
-        UserInput input = new UserInput();
+        UserAuthInput input = new UserAuthInput();
 
         //Run
         ResponseEntity response =  controller.createUser(input);

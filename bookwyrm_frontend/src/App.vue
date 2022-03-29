@@ -20,7 +20,14 @@ export default {
   },
   created(){
     if(localStorage.getItem("username"))
-      this.$store.commit('login',localStorage.getItem("username"));
+      this.$store.commit('login',
+      {
+        username: localStorage.getItem("username"),
+        authorFlag: localStorage.getItem("authorFlag"),
+        authorName: localStorage.getItem("authorName"),
+        profJournalistFlag: localStorage.getItem("journalistFlag"),
+        profJournalistName: localStorage.getItem("journalistName")
+      });
   }
 }
 </script>

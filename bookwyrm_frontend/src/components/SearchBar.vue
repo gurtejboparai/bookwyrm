@@ -8,7 +8,7 @@
       <div class="col">
         <div class=" p-4 text-center input-group">
           <input type="text" id="search_bar" class="form-control" v-model="searchString" placeholder="Search"/> 
-          <router-link :to="{name:'Search', params:{searchTerm:searchString}}" class="btn btn-primary ">Go!</router-link>
+          <router-link :to="searchRoute" class="btn btn-primary ">Go!</router-link>
         </div>
       </div>
       <div class="col p-2">
@@ -25,6 +25,11 @@ export default {
         return {
             searchString: null
         };
+    },
+    computed:{
+      searchRoute(){
+        return '/search/'+this.searchString;
+      }
     },
     components: { userComponent }
 }
