@@ -19,8 +19,8 @@ const store = createStore({
         localStorage.setItem("username", user.username);
         localStorage.setItem("authorFlag", user.authorFlag);
         localStorage.setItem("authorName", user.authorName);
-        localStorage.setItem("journalistFlag", user.profJournalistFlag);
-        localStorage.setItem("journalistName", user.profJournalistName);
+        localStorage.setItem("journalistFlag", user.journalistFlag);
+        localStorage.setItem("journalistName", user.journalistName);
       }
     },
     logout (state) {

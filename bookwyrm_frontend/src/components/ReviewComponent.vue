@@ -5,8 +5,14 @@
         show all reviews
       </button>
       <div class="p-3">
-        <div class="revDisplay card mt-4 p-2 shadow-sm">
-          <h2>
+        <div class="revDisplay card mt-4 p-2 shadow-sm foreground">
+          <div
+            v-if="topic.journalistReview"
+            class="text-center professionalJournalistHeader m-0"
+          >
+            Professional Reviewer: {{ topic.journalistName }}
+          </div>
+          <h2 class="pt-2">
             {{
               topic.user == "" || topic.user == null ? "- Guest -" : topic.user
             }}
@@ -61,6 +67,7 @@
         </div>
       </div>
     </div>
+
     <div id="listView" v-else>
       <div id="reviewCreator" class="card foreground p-3 shadow-sm">
         <details>
@@ -83,6 +90,10 @@
             </h2>
             Post Anonymously
             <input type="checkbox" v-model="newReviewAnonymousFlag" />
+            <div v-if="isJournalist">
+              Highlight review
+              <input type="checkbox" v-model="newReviewJournalistFlag" />
+            </div>
             <br />
             <input type="submit" class="btn btn-success mt-2" />
           </form>
@@ -91,7 +102,7 @@
       <div
         v-for="review in reviews"
         v-bind:key="review.reviewId"
-        class="revDisplay card mt-4 p-2 shadow-sm"
+        :class="this.isHighlightedReview(review.journalistReview)"
       >
         <h2>{{ review.user == "" ? "- Guest -" : review.user }}</h2>
         <div class="row">
@@ -126,6 +137,7 @@ export default {
       newReviewText: "",
       newReviewRatingsList: [],
       newReviewAnonymousFlag: false,
+      newReviewJournalistFlag: false,
     };
   },
   methods: {
@@ -152,13 +164,22 @@ export default {
         reviewText: this.newReviewText,
         reviewAnonymousFlag: this.newReviewAnonymousFlag,
         reviewRatingsList: this.newReviewRatingsList,
+        reviewJournalistFlag: this.newReviewJournalistFlag,
       });
+    },
+    isHighlightedReview(journalistFlag) {
+      return "revDisplay card mt-4 p-2 shadow-sm foreground ".concat(
+        journalistFlag ? "highlightedReview" : ""
+      );
     },
   },
   components: { CommentComponent, RatingComponent, VotingComponent },
   computed: {
     isLoggedIn() {
       return this.$store.state.username != "";
+    },
+    isJournalist() {
+      return localStorage.getItem("journalistFlag") == "true";
     },
   },
 };
@@ -175,5 +196,15 @@ export default {
 #reviewTextBox {
   max-height: 20em;
   min-height: 2em;
+}
+.highlightedReview {
+  border-top-color: #e1f878;
+  border-top-style: groove;
+  border-top-width: 10px;
+}
+.professionalJournalistHeader {
+  border-color: #e1f878;
+  border-style: groove;
+  border-width: 10px;
 }
 </style>

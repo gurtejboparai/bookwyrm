@@ -45,7 +45,6 @@ export default {
             compoundedDigest = element * compoundedDigest
           });
           UserService.signin(this.accountName, compoundedDigest).then((response)=>{
-            console.log(response.data.user);
             if(response.data.user!=null){
               this.$store.commit('login',response.data.user);
               this.$router.push('/')  

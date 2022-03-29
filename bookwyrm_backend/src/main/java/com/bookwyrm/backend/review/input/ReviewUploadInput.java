@@ -5,6 +5,8 @@ public class ReviewUploadInput {
     private String bookId;
     private String author;
     private String content;
+    private boolean journalistFlag;
+    private String journalistName;
 
     private boolean anonymousFlag;
 
@@ -38,5 +40,29 @@ public class ReviewUploadInput {
 
     public void setAnonymousFlag(boolean anonymousFlag) {
         this.anonymousFlag = anonymousFlag;
+    }
+
+    public boolean getJournalistFlag() {
+        return journalistFlag;
+    }
+
+    public void setJournalistFlag(boolean journalistFlag) {
+        this.journalistFlag = journalistFlag;
+    }
+
+    public boolean isAnonymousFlag() {
+        return anonymousFlag;
+    }
+
+    public boolean isJournalistFlag() {
+        return journalistFlag;
+    }
+
+    public String getJournalistName() {
+        return journalistName;
+    }
+
+    public void setJournalistName(String journalistName) {
+        this.journalistName = journalistName;
     }
 }

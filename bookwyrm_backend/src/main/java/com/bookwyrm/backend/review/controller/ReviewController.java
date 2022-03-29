@@ -40,7 +40,10 @@ public class ReviewController {
                     (!reviewUploadInput.getAnonymousFlag()) ? reviewUploadInput.getAuthor() : "Anonymous",
                     reviewUploadInput.getAnonymousFlag(),
                     reviewUploadInput.getContent(),
-                    reviewUploadInput.getBookId());
+                    reviewUploadInput.getBookId(),
+                    reviewUploadInput.getJournalistFlag(),
+                    reviewUploadInput.getJournalistName()
+                    );
             reviewService.save(reviewDao);
 
         } else {

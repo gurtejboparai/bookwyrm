@@ -49,8 +49,8 @@ export default {
   methods:{
     updateUser(){
       userService.updateUser(this.$store.state.username, this.authorFlag, this.authorName, this.profJournalistFlag, this.profJournalistName).then((response)=>{
-        console.log(response);
         this.displayMessage("Update successful!");
+        this.$store.commit('login', response.data.user)
       }).catch((error)=>{
         let errorMessage = ""
         error.response.data.forEach(error => {
@@ -70,8 +70,8 @@ export default {
     if(localStorage.getItem("username") != undefined){
       this.profJournalistName=localStorage.getItem("journalistName");
       this.authorName=localStorage.getItem("authorName");
-      this.profJournalistFlag=localStorage.getItem("journalistFlag");
-      this.authorFlag=(localStorage.getItem("authorFlag") != undefined)? localStorage.getItem("authorFlag"):false;
+      this.profJournalistFlag=localStorage.getItem("journalistFlag") == 'true';
+      this.authorFlag=localStorage.getItem("authorFlag") == 'true';
     }
   }
 }
