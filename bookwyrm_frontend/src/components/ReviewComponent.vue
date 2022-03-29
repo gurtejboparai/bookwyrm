@@ -4,8 +4,9 @@
             
             <button @click="hideDetail()" class="btn btn-light">show all reviews</button>
             <div class=" p-3">
-                <div class="revDisplay card mt-4 p-2 shadow-sm">
-                    <h2>{{(topic.user == "" || topic.user == null) ? "- Guest -" : topic.user }}</h2>
+                <div class="revDisplay card mt-4 p-2 shadow-sm foreground">
+                    <div v-if="(topic.journalistReview)" class="text-center professionalJournalistHeader m-0">Professional Reviewer: {{topic.journalistName}}</div>
+                    <h2 class="pt-2">{{(topic.user == "" || topic.user == null) ? "- Guest -" : topic.user }}</h2>
                     <div>
                         <RatingComponent
                             v-bind:displayOnly="true"
@@ -54,12 +55,13 @@
                         />
                         <h2 v-else class="text-danger">You must log in to add star ratings to your review</h2>
                         Post Anonymously <input type="checkbox" v-model="newReviewAnonymousFlag"/>
+                        <div v-if="isJournalist">Highlight review <input type="checkbox" v-model="newReviewJournalistFlag"/></div>
                         <br>
                         <input type="submit" class="btn btn-success mt-2">
                     </form>
                 </details>
             </div>
-            <div v-for="review in reviews" v-bind:key="review.reviewId" class="revDisplay card mt-4 p-2 shadow-sm">
+            <div v-for="review in reviews" v-bind:key="review.reviewId" :class="this.isHighlightedReview(review.journalistReview)">
                 <h2>{{(review.user == "") ? "- Guest -" : review.user }}</h2>
                 <p class="p-4">{{review.content}}</p>
                 <div @click="showDetail(review)" class="btn btn-light">show comments</div>
@@ -84,7 +86,8 @@ export default{
             newCommentAnonymousFlag:false,
             newReviewText:"",
             newReviewRatingsList: [],
-            newReviewAnonymousFlag:false
+            newReviewAnonymousFlag:false,
+            newReviewJournalistFlag:false
         };
     },
     methods: {
@@ -103,13 +106,25 @@ export default{
         },
 
         postReview(){
-            this.$emit('addNewReview', {reviewText: this.newReviewText, reviewAnonymousFlag: this.newReviewAnonymousFlag, reviewRatingsList: this.newReviewRatingsList});
+            this.$emit('addNewReview', 
+            {
+                reviewText: this.newReviewText, 
+                reviewAnonymousFlag: this.newReviewAnonymousFlag, 
+                reviewRatingsList: this.newReviewRatingsList, 
+                reviewJournalistFlag: this.newReviewJournalistFlag
+            });
+        },
+        isHighlightedReview(journalistFlag){
+            return ("revDisplay card mt-4 p-2 shadow-sm foreground ".concat((journalistFlag)?"highlightedReview":""));
         }
     },
     components: { CommentComponent, RatingComponent },
     computed: {
         isLoggedIn() {
             return this.$store.state.username != "";
+        },
+        isJournalist(){
+            return localStorage.getItem("journalistFlag") == 'true'
         }
     }
 }
@@ -126,5 +141,15 @@ export default{
     #reviewTextBox{
         max-height: 20em;
         min-height: 2em;
+    }
+    .highlightedReview{
+        border-top-color: #e1f878;
+        border-top-style:groove;
+        border-top-width: 10px;
+    }
+    .professionalJournalistHeader{
+        border-color: #e1f878;
+        border-style:groove;
+        border-width: 10px;
     }
 </style>

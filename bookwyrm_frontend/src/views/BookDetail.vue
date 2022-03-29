@@ -94,7 +94,15 @@ export default {
     },
     methods: {
       addReview(newReview){
-        ReviewService.postReview(this.$route.params.bookId, (this.$store.state.username)?this.$store.state.username:"Guest", newReview.reviewText, newReview.reviewAnonymousFlag, newReview.reviewRatingsList);
+        ReviewService.postReview(
+          this.$route.params.bookId, 
+          (this.$store.state.username)?this.$store.state.username:"Guest", 
+          newReview.reviewText, 
+          newReview.reviewAnonymousFlag, 
+          newReview.reviewRatingsList, 
+          newReview.reviewJournalistFlag, 
+          (localStorage.getItem("journalistName")!=undefined)?localStorage.getItem("journalistName"):null
+        );
       },
       loadBookDetails(){
         BookService.searchBookDetail(this.$route.params.bookId).then(response => this.bookDetails = response.data.bookDao);
