@@ -16,6 +16,8 @@ public class ReviewDao {
     private String bookId;
     private List<CommentDao> commentList;
     private boolean anonymousFlag;
+    private List<String> upVoteIdsList;
+    private List<String> downVoteIdsList;
 
     public ReviewDao( String user, boolean anonymousFlag, String content, String bookId) {
         super();
@@ -23,6 +25,8 @@ public class ReviewDao {
         this.user = user;
         this.anonymousFlag = anonymousFlag;
         this.content = content;
+        this.upVoteIdsList = new ArrayList<>();
+        this.downVoteIdsList = new ArrayList<>();
     }
 
 
@@ -72,5 +76,21 @@ public class ReviewDao {
 
     public void setCommentList(List<CommentDao> commentList) {
         this.commentList = commentList;
+    }
+
+    public List<String> getUpVoteIdsList() {
+        return upVoteIdsList;
+    }
+
+    public void setUpVoteIdsList(List<String> upVoteIdsList) {
+        this.upVoteIdsList = upVoteIdsList;
+    }
+
+    public List<String> getDownVoteIdsList() {
+        return downVoteIdsList;
+    }
+
+    public void setDownVoteIdsList(List<String> downVoteIdsList) {
+        this.downVoteIdsList = downVoteIdsList;
     }
 }
