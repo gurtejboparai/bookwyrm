@@ -1,6 +1,5 @@
 package com.bookwyrm.backend.unit.review.controller;
 
-import com.bookwyrm.backend.book.controller.BookController;
 import com.bookwyrm.backend.book.dao.BookDao;
 import com.bookwyrm.backend.book.service.BookService;
 import com.bookwyrm.backend.review.controller.ReviewController;
@@ -38,7 +37,7 @@ public class ReviewControllerTests {
 
         MockitoAnnotations.openMocks(this);
 
-        Mockito.when(bookService.findById(any(String.class))).thenReturn(Optional.of(new BookDao("testTitle","testAuthor")));
+        Mockito.when(bookService.findById(any(String.class))).thenReturn(Optional.of(new BookDao("testTitle","testAuthor","testDesc","")));
         //Setup
         ReviewUploadInput input = new ReviewUploadInput();
         input.setAuthor("testAuthor");
