@@ -13,7 +13,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "detail" */ '../views/BookDetail.vue')
   },
   {
-    path: '/search',
+    path: '/search/:searchTerm',
     name: 'Search',
     component: () => import(/* webpackChunkName: "search" */ '../views/BookSearch.vue'),
     props: true
@@ -27,6 +27,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '../views/LoginScreen.vue')
+  },
+  {
+    path: '/user',
+    name: 'User',
+    component: () => import(/* webpackChunkName: "login" */ '../views/UserDetailsScreen.vue')
   }
 ]
 

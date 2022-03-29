@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <div v-if="isLoggedIn" class="text-end">
-            <span>You are logged in as {{activeUser}}</span><br>
+            <span>You are logged in as <router-link to="/user">{{activeUser}}</router-link></span><br>
             <div class="btn btn-link p-0 text-info text-decoration-none" @click="logout">Logout</div>
         </div>
         <div v-else class="text-end">

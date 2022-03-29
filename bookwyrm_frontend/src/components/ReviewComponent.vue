@@ -1,18 +1,23 @@
 <template>
-    <div id="container">
-        <div id="focusedView"  v-if="focused">
-            
-            <button @click="hideDetail()" class="btn btn-light">show all reviews</button>
-            <div class=" p-3">
-                <div class="revDisplay card mt-4 p-2 shadow-sm">
-                    <h2>{{(topic.user == "" || topic.user == null) ? "- Guest -" : topic.user }}</h2>
-                    <div>
-                        <RatingComponent
-                            v-bind:displayOnly="true"
-                            v-bind:initialRatings="topic.ratingsList"
-                        />
-                    </div>
-                    <div class="row">
+  <div id="container">
+    <div id="focusedView" v-if="focused">
+      <button @click="hideDetail()" class="btn btn-light">
+        show all reviews
+      </button>
+      <div class="p-3">
+        <div class="revDisplay card mt-4 p-2 shadow-sm">
+          <h2>
+            {{
+              topic.user == "" || topic.user == null ? "- Guest -" : topic.user
+            }}
+          </h2>
+          <div>
+            <RatingComponent
+              v-bind:displayOnly="true"
+              v-bind:initialRatings="topic.ratingsList"
+            />
+          </div>
+          <div class="row">
             <div class="col-1 m-2 btn-lg">
               <VotingComponent />
             </div>
@@ -20,68 +25,85 @@
               <p class="p-4">{{ topic.content }}</p>
             </div>
           </div>
-                </div>
-                <div class="pt-3">
-                    <h4 class="text-align-center">Comments</h4>
-                    <div class="card foreground p-3 shadow-sm m-3">
-                        <details>
-                            <summary>Add a comment</summary>
-                            <form @submit="postComment">
-                                <textarea name="commentInput" id="commentTextBox" v-model="newCommentText" placeholder="Write your comment here" class="rounded w-100 mt-3"></textarea>
-                                Post Anonymously <input type="checkbox" v-model="newCommentAnonymousFlag"/>
-                                <br>
-                                <input type="submit" class="btn btn-success mt-2">
-                            </form>
-                        </details>
-                    </div>
-                    <div v-for="comment in topic.commentList" :key="comment.commentId" class="pt-3 p-2">
-                        <CommentComponent
-                            :commentId="comment.commentId"
-                            :author="comment.author"
-                            :content="comment.content"
-                            :anonymousFlag="comment.anonymousFlag"
-                        />
-                    </div>
-                </div>
-    <div id="listView" v-else>
-      <div id="reviewCreator" class="card foreground p-3 shadow-sm">
-        <details>
-          <summary>Add a review</summary>
-          <form @submit="postReview">
-            <textarea
-              name="reviewInput"
-              id="reviewTextBox"
-              class="rounded w-100 mt-3"
-              placeholder="Write your review here"
-              v-model="newReviewText"
-            ></textarea>
-            <RatingComponent
-              v-bind:displayOnly="false"
-              v-model:ratings="newReviewRatingsList"
-            />
-            Post Anonymously
-            <input type="checkbox" v-model="newReviewAnonymousFlag" />
-            <br />
-            <input type="submit" class="btn btn-success mt-2" />
-          </form>
-        </details>
-      </div>
-      <div
-        v-for="review in reviews"
-        v-bind:key="review.reviewId"
-        class="revDisplay card mt-4 p-2 shadow-sm"
-      >
-        <h2>{{ review.user == "" ? "- Guest -" : review.user }}</h2>
-        <div class="row">
-          <div class="col-1 m-2 btn-lg">
-            <VotingComponent />
+        </div>
+        <div class="pt-3">
+          <h4 class="text-align-center">Comments</h4>
+          <div class="card foreground p-3 shadow-sm m-3">
+            <details>
+              <summary>Add a comment</summary>
+              <form @submit="postComment">
+                <textarea
+                  name="commentInput"
+                  id="commentTextBox"
+                  v-model="newCommentText"
+                  placeholder="Write your comment here"
+                  class="rounded w-100 mt-3"
+                ></textarea>
+                Post Anonymously
+                <input type="checkbox" v-model="newCommentAnonymousFlag" />
+                <br />
+                <input type="submit" class="btn btn-success mt-2" />
+              </form>
+            </details>
           </div>
-          <div class="col-10">
-            <p class="p-4">{{ review.content }}</p>
+          <div
+            v-for="comment in topic.commentList"
+            :key="comment.commentId"
+            class="pt-3 p-2"
+          >
+            <CommentComponent
+              :commentId="comment.commentId"
+              :author="comment.author"
+              :content="comment.content"
+              :anonymousFlag="comment.anonymousFlag"
+            />
           </div>
         </div>
-        <div @click="showDetail(review)" class="btn btn-light">
-          show comments
+        <div id="listView" v-else>
+          <div id="reviewCreator" class="card foreground p-3 shadow-sm">
+            <details>
+              <summary>Add a review</summary>
+              <form @submit="postReview">
+                <textarea
+                  name="reviewInput"
+                  id="reviewTextBox"
+                  class="rounded w-100 mt-3"
+                  placeholder="Write your review here"
+                  v-model="newReviewText"
+                ></textarea>
+                <RatingComponent
+                  v-if="isLoggedIn"
+                  v-bind:displayOnly="false"
+                  v-model:ratings="newReviewRatingsList"
+                />
+                <h2 v-else class="text-danger">
+                  You must log in to add star ratings to your review
+                </h2>
+                Post Anonymously
+                <input type="checkbox" v-model="newReviewAnonymousFlag" />
+                <br />
+                <input type="submit" class="btn btn-success mt-2" />
+              </form>
+            </details>
+          </div>
+          <div
+            v-for="review in reviews"
+            v-bind:key="review.reviewId"
+            class="revDisplay card mt-4 p-2 shadow-sm"
+          >
+            <h2>{{ review.user == "" ? "- Guest -" : review.user }}</h2>
+            <div class="row">
+              <div class="col-1 m-2 btn-lg">
+                <VotingComponent />
+              </div>
+              <div class="col-10">
+                <p class="p-4">{{ review.content }}</p>
+              </div>
+            </div>
+            <div @click="showDetail(review)" class="btn btn-light">
+              show comments
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -132,9 +154,13 @@ export default {
         reviewRatingsList: this.newReviewRatingsList,
       });
     },
-  },
-  components: { CommentComponent, RatingComponent, VotingComponent },
-};
+    components: { CommentComponent, RatingComponent, VotingComponent },
+    computed: {
+        isLoggedIn() {
+            return this.$store.state.username != "";
+        }
+    }
+}
 </script>
 
 <style scoped>
