@@ -5,6 +5,7 @@ public class ReviewUploadInput {
     private String bookId;
     private String author;
     private String content;
+    private boolean profJournalistFlag;
 
     private boolean anonymousFlag;
 
@@ -38,5 +39,17 @@ public class ReviewUploadInput {
 
     public void setAnonymousFlag(boolean anonymousFlag) {
         this.anonymousFlag = anonymousFlag;
+    }
+
+    public boolean getProfJournalistFlag() {
+        return profJournalistFlag;
+    }
+
+    public void setProfJournalistFlag(boolean profJournalistFlag) {
+        this.profJournalistFlag = profJournalistFlag;
+    }
+
+    public boolean isAnonymousFlag() {
+        return anonymousFlag;
     }
 }

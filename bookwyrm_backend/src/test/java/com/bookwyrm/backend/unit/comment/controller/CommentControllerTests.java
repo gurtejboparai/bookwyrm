@@ -40,7 +40,7 @@ public class CommentControllerTests {
     @Test
     public void testHappyPath(){
         MockitoAnnotations.openMocks(this);
-        Mockito.when(reviewService.findById(any(String.class))).thenReturn(Optional.of(new ReviewDao("testauthor",false, "test content", "bookId")));
+        Mockito.when(reviewService.findById(any(String.class))).thenReturn(Optional.of(new ReviewDao("testauthor",false, "test content", "bookId", false)));
         //Setup
         CommentUploadInput input = new CommentUploadInput();
         input.setAuthor("testAuthor");

@@ -14,15 +14,17 @@ public class ReviewDao {
     private String user;
     private String content;
     private String bookId;
+    private Boolean professionalReivew;
     private List<CommentDao> commentList;
     private boolean anonymousFlag;
 
-    public ReviewDao( String user, boolean anonymousFlag, String content, String bookId) {
+    public ReviewDao( String user, boolean anonymousFlag, String content, String bookId, boolean professionalReivew) {
         super();
         this.bookId = bookId;
         this.user = user;
         this.anonymousFlag = anonymousFlag;
         this.content = content;
+        this.professionalReivew = professionalReivew;
     }
 
 
@@ -72,5 +74,13 @@ public class ReviewDao {
 
     public void setCommentList(List<CommentDao> commentList) {
         this.commentList = commentList;
+    }
+
+    public Boolean getProfessionalReivew() {
+        return professionalReivew;
+    }
+
+    public void setProfessionalReivew(Boolean professionalReivew) {
+        this.professionalReivew = professionalReivew;
     }
 }
