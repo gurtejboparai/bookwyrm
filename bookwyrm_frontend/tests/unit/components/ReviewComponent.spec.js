@@ -1,10 +1,26 @@
 import {shallowMount} from '@vue/test-utils'
 import ReviewComponent from '@/components/ReviewComponent.vue'
+import {createStore} from 'vuex'
+import {createApp} from 'vue'
+
+
+const store = createStore({
+    data() {
+    return {
+        username: ""
+    }
+}
+})
+const app = createApp(ReviewComponent)
+app.use(store)
 
 describe('ReviewComponent.vue Test', ()=> {
 
     it('renders the component', ()=> {
         const wrapper = shallowMount(ReviewComponent, {
+            global: {
+                plugins: [store]
+            },
             data() {
                 return {
                     focused: false,
@@ -18,6 +34,9 @@ describe('ReviewComponent.vue Test', ()=> {
     })
     it('processes valid prop data', ()=> {
         const wrapper = shallowMount(ReviewComponent, {
+            global: {
+                plugins: [store]
+            },
             data() {
                 return {
                     focused: false,
