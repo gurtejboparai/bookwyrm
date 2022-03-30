@@ -1,6 +1,6 @@
 <template>
     <div id="container">
-        <div id="focusedView"  v-if="focused">
+        <div id="focusedView" v-if="focused">
             
             <button @click="hideDetail()" class="btn btn-light">show all reviews</button>
             <div class=" p-3">

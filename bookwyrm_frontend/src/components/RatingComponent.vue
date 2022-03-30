@@ -47,7 +47,7 @@ import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
                 //ratings: this.initialRatings,
                 //Processing for rating is done on this variable before being sent to the parent component
                 localRatings: this.ratings,
-                nextNewRatingId:0,
+                nextNewRatingId: 0,
                 //This is a temporary substitute for the planned genre enum
                 genres:[
                     "Overall",

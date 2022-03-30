@@ -5,13 +5,14 @@ describe('CommentComponent.vue Test', ()=> {
 
     it('renders the component', ()=> {
         const wrapper = shallowMount(CommentComponent, {
-            props:[
-                'commentId',
-                'author',
-                'content',
-                'anonymousFlag'
-            ]
-        })
+            propsData: {
+                    'commentId': '',
+                    'author': '',
+                    'content': '',
+                    'anonymousFlag': false
+                }
+            }
+        )
         expect(wrapper.vm.$options.name).toMatch('CommentComponent')
     })
     it('processes valid prop data', ()=> {

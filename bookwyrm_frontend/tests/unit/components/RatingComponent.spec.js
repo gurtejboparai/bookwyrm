@@ -5,10 +5,10 @@ describe('RatingComponent.vue Test', ()=> {
 
     it('renders the component', ()=> {
         const wrapper = shallowMount(RatingComponent, {
-            props:[
-                'localRatings',
-                'nextNewRatingId'
-            ]
+            propsData:{
+                'localRatings': [],
+                'nextNewRatingId': 0
+            }
         })
         expect(wrapper.vm.$options.name).toMatch('RatingComponent')
     })
