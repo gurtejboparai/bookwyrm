@@ -37,20 +37,33 @@
 </template>
 
 <script>
+import ReviewService from "@/services/ReviewService";
 export default {
   name: "votingComponent",
-  data() {
-    return {
-      voteCount: 0,
-    };
-  },
   methods: {
     upVote() {
-      this.voteCount++;
+      if (localStorage.getItem("username")) {
+        ReviewService.updateVoting(localStorage.getItem("username"),this.reviewId,true).then((response)=>{console.log(response.data)})
+      }
     },
     downVote() {
-      this.voteCount--;
+      if (localStorage.getItem("username")) {
+        ReviewService.updateVoting(localStorage.getItem("username"),this.reviewId,false).then((response)=>{console.log(response.data)})
+      }
     },
   },
+  props: {
+    reviewId:String,
+    upVoteUserList: Array,
+    downVoteUserList: Array
+  },
+  computed: {
+    voteCount(){
+      if (this.upVoteUserList == undefined || this.downVoteUserList == undefined) {
+        return 0;
+      }
+      return this.upVoteUserList.length - this.downVoteUserList.length
+    }
+  }
 };
 </script>

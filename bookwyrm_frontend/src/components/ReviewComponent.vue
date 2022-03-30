@@ -25,7 +25,7 @@
           </div>
           <div class="row">
             <div class="col-1 m-2 btn-lg">
-              <VotingComponent />
+              <VotingComponent :reviewId = "topic.id" :downVoteUserList = "review.downVoteIdsList" :upVoteUserList = "review.upVoteIdsList"/>
             </div>
             <div class="col-10">
               <p class="p-4">{{ topic.content }}</p>
@@ -107,7 +107,7 @@
         <h2>{{ review.user == "" ? "- Guest -" : review.user }}</h2>
         <div class="row">
           <div class="col-1 m-2 btn-lg">
-            <VotingComponent />
+            <VotingComponent :reviewId = "review.id" :downVoteUserList = "review.downVoteIdsList" :upVoteUserList = "review.upVoteIdsList"/>
           </div>
           <div class="col-10">
             <p class="p-4">{{ review.content }}</p>
