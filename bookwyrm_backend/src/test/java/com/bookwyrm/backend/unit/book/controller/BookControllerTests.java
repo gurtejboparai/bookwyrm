@@ -19,6 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -88,6 +89,32 @@ public class BookControllerTests {
     }
 
     @Test
+    public void testEmptySearch() {
+        MockitoAnnotations.openMocks(this);
+        Mockito.when(bookService.findAllBooksWithTitle(any(String.class))).thenReturn(new ArrayList<>());
+
+        //Run
+        ResponseEntity response =  controller.searchBookByTitle("the test book");
+
+        //Check results
+        Assert.isTrue(response.getStatusCode() == HttpStatus.NOT_FOUND, "Expected failed endpoint call with 404 status");
+        Assert.notNull(((BookSearchPayload)response.getBody()).getMessages() , "Expected failed endpoint call with error message");
+    }
+
+    @Test
+    public void testEmptyIdSearch() {
+        MockitoAnnotations.openMocks(this);
+        Mockito.when(bookService.findAllBooksWithTitle(any(String.class))).thenReturn(new ArrayList<>());
+
+        //Run
+        ResponseEntity response =  controller.searchBookById("FakeId");
+
+        //Check results
+        Assert.isTrue(response.getStatusCode() == HttpStatus.NOT_FOUND, "Expected failed endpoint call with 404 status");
+        Assert.notNull(((BookDetailSearchPayload)response.getBody()).getMessages() , "Expected failed endpoint call with error message");
+    }
+
+    @Test
     public void testGoodSearchById() {
         MockitoAnnotations.openMocks(this);
         Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor","testDesc",""));
@@ -107,6 +134,7 @@ public class BookControllerTests {
         BookUpdateInput bookUpdateInput = new BookUpdateInput();
         bookUpdateInput.setId("testId");
         bookUpdateInput.setDesc("testDescUpdate");
+        bookUpdateInput.setGenre("testGenre");
 
         //Run
         ResponseEntity response = controller.updateBookDesc(bookUpdateInput);
@@ -122,6 +150,8 @@ public class BookControllerTests {
         Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor","testDesc",""));
         BookUpdateInput bookUpdateInput = new BookUpdateInput();
         bookUpdateInput.setDesc("testDescUpdate");
+        bookUpdateInput.setGenre("testGenre");
+
 
         //Run
         ResponseEntity response = controller.updateBookDesc(bookUpdateInput);

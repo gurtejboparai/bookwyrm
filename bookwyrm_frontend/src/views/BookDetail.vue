@@ -1,42 +1,60 @@
 <template>
-  <div class="BookDetail">
+  <div class="BookDetail" v-if="pageLoaded">
     <div class="container justify-content-center">
+      <!-- Book Info -->
       <div class="row justify-content-center">
         <div class="col-6 foreground w-50 mt-3 p-3">
-          <h2>{{bookDetails.title}}</h2>
-          <h5>By {{bookDetails.author}}</h5>
-          <div class="btn btn-light mt-3 mb-3" @click="editing=!editing; descEdit=bookDetails.description;" v-if="isAuthor"> {{(editing)?"Cancel":"Edit"}}
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-              <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-            </svg>
-          </div>
+          <h2>{{ bookDetails.title }}</h2>
+          <h4>By {{ bookDetails.author }}</h4>
+          <h5 v-if="bookDetails.genre">Genre: {{ bookDetails.genre }}</h5>
+
+          <!-- Editing Mode -->
           <div v-if="editing">
+            <select v-model="genreEdit" class="col-4 form-select w-50 mb-3">
+              <option value="null" selected>No Genre</option>
+              <option v-for="genre in genres" v-bind:key="genre" v-bind:value="genre">{{ genre }}</option>
+            </select>
             <textarea class="w-100" id="" cols="30" rows="10" v-model="descEdit"></textarea>
-            <div class="btn btn-success" @click="updateDesc">Update</div>
-            <div class="spinner-border text-light" role="status" v-if="saving">
-            </div>
           </div>
           <div v-else>
-            <p>{{bookDetails.description}}</p>
+            <p>{{ bookDetails.description }}</p>
           </div>
-          <br>
-          <div id="ratings_block">
-            <RatingComponent
-            v-bind:displayOnly="true"
-            v-bind:initialRatings="ratingsData"
-            />
+          <!-- Edit / Cancel / Save Buttons -->
+          <div>
+            <div
+              class="btn btn-light"
+              @click="
+                editing = !editing;
+                descEdit = bookDetails.description;
+                genreEdit = bookDetails.genre;
+              "
+              v-if="isAuthor"
+            >
+              {{ editing ? "Cancel" : "" }}
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16" v-if="!editing">
+                <path
+                  d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+                />
+              </svg>
+            </div>
+            <div class="btn btn-success m-3" @click="updateDesc" v-if="editing">Update</div>
+            <div class="spinner-border text-light" role="status" v-if="saving"></div>
           </div>
+          <br />
+          <!-- Avg Rating -->
+          <RatingComponent v-bind:displayOnly="true" v-bind:initialRatings="ratingsData" />
         </div>
       </div>
+      <!-- Review List -->
       <div class="row">
         <div class="col-6 foreground w-100 mt-3 p-3">
           <ReviewComponent
-              :reviews="bookDetails.reviewList"
-              :bookTitle="bookDetails.title"
-              :bookAuthor="bookDetails.author"
-              @addNewReview="addReview"
-              @addNewComment="addComment"
-            />
+            :reviews="bookDetails.reviewList"
+            :bookTitle="bookDetails.title"
+            :bookAuthor="bookDetails.author"
+            @addNewReview="addReview"
+            @addNewComment="addComment"
+          />
         </div>
       </div>
     </div>
@@ -50,100 +68,78 @@ import BookService from "@/services/BookService";
 import ReviewService from "@/services/ReviewService";
 import CommentService from "@/services/CommentService";
 export default {
-    name: "Book Detail",
-    data() {
-        return {
-          editing:false,
-          descEdit:"",
-          saving:false,
-          ratingsData: [
-            {
-              ratingId: 0,
-              genre: "Fantasy",
-              score: 3.0
-            },
-            {
-              ratingId:1,
-              genre: "Adventure",
-              score: 4.5
-            }
-          ],
-          bookDetails:{
-            title: "loading",
-            author: "loading",
-            description: "loading",
-            //Hard coded sample data for now in the future this should retrieve data from the backend
-           
-            reviewList: [
-                { 
-                    reviewId:0,
-                    bookId: "loading", 
-                    author: "loading", 
-                    content: "loading", 
-                    commentList: [], 
-                    anonymous: true 
-                },
-                { 
-                    reviewId:1,
-                    bookId: "loading",
-                    author: "loading", 
-                    content: "loading", 
-                    commentList: [
-                        {
-                            commentId:0,
-                            author:"loading",
-                            content:"loading",
-                            anonymousFlag:true
-                        },
-                        {
-                            commentId:1,
-                            author:"loading",
-                            content:"loading",
-                            anonymousFlag:false
-                        }
-                        ], 
-                    anonymous: false 
-                }
-            ]
-        }
-        };
+  name: "Book Detail",
+  data() {
+    return {
+      editing: false,
+      descEdit: "",
+      genreEdit: "",
+      saving: false,
+      pageLoaded: false,
+      ratingsData: null,
+      genres: [
+        "Adventure",
+        "Action",
+        "Bedtime",
+        "Comedy/Humor",
+        "Children's",
+        "Drama",
+        "Fantasy",
+        "Gothic",
+        "Horror",
+        "Historical Fiction",
+        "Alternate History",
+        "Mystery",
+        "Romance",
+        "Sport",
+        "Science-Fiction",
+        "Thriller",
+      ],
+    };
+  },
+  methods: {
+    addReview(newReview) {
+      ReviewService.postReview(
+        this.$route.params.bookId,
+        this.$store.state.username ? this.$store.state.username : "Guest",
+        newReview.reviewText,
+        newReview.reviewAnonymousFlag,
+        newReview.reviewRatingsList,
+        newReview.reviewJournalistFlag,
+        localStorage.getItem("journalistName") != undefined ? localStorage.getItem("journalistName") : null
+      );
     },
-    methods: {
-      addReview(newReview){
-        ReviewService.postReview(
-          this.$route.params.bookId, 
-          (this.$store.state.username)?this.$store.state.username:"Guest", 
-          newReview.reviewText, 
-          newReview.reviewAnonymousFlag, 
-          newReview.reviewRatingsList, 
-          newReview.reviewJournalistFlag, 
-          (localStorage.getItem("journalistName")!=undefined)?localStorage.getItem("journalistName"):null
-        );
-      },
-      loadBookDetails(){
-        BookService.searchBookDetail(this.$route.params.bookId).then(response => this.bookDetails = response.data.bookDao);
-      },
-      addComment(newComment){
-        CommentService.uploadComment(newComment.reviewId, (this.$store.state.username)?this.$store.state.username:"Guest", newComment.content, newComment.commentAnonymousFlag);
-      },
-      updateDesc(){
-        this.saving = true;
-        BookService.searchBookUpdate(this.bookDetails.id, this.descEdit).then((response)=>{
-          this.bookDetails.description = response.data.bookDao.description;
-        }).finally(()=>{
-          this.saving=false;
-          this.editing=false;
+    addComment(newComment) {
+      CommentService.uploadComment(
+        newComment.reviewId,
+        this.$store.state.username ? this.$store.state.username : "Guest",
+        newComment.content,
+        newComment.commentAnonymousFlag
+      );
+    },
+    updateDesc() {
+      this.saving = true;
+      BookService.searchBookUpdate(this.bookDetails.id, this.descEdit, this.genreEdit)
+        .then((response) => {
+          this.bookDetails = response.data.bookDao;
+        })
+        .finally(() => {
+          this.saving = false;
+          this.editing = false;
         });
-      }
     },
-    components: { ReviewComponent, RatingComponent },
-    created(){
-      this.loadBookDetails();
+  },
+  components: { ReviewComponent, RatingComponent },
+  mounted() {
+    BookService.searchBookDetail(this.$route.params.bookId).then((response) => {
+      this.bookDetails = response.data.bookDao;
+      this.pageLoaded = true;
+    });
+  },
+  computed: {
+    isAuthor() {
+      return localStorage.getItem("authorName") == this.bookDetails.author && localStorage.getItem("authorFlag") == "true";
     },
-    computed:{
-      isAuthor(){
-        return localStorage.getItem('authorName')==this.bookDetails.author && localStorage.getItem("authorFlag")=='true';
-      }
-    }
-}
+  },
+};
 </script>
