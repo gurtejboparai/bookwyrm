@@ -125,6 +125,7 @@ public class BookController {
             if(foundBook!=null){
                 //Update and save book
                 foundBook.setDescription(bookUpdateInput.getDesc());
+                foundBook.setGenre(bookUpdateInput.getGenre());
                 bookService.save(foundBook);
 
                 //Add book to send back

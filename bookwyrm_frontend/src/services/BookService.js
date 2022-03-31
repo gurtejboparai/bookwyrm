@@ -13,10 +13,11 @@ export default {
   searchBookViaGoogle(isbn){
     return bookwyrmClient.get(`/api/book/deepsearch/`+isbn);
   },
-  searchBookUpdate(id, newDesc){
+  searchBookUpdate(id, newDesc, newGenre){
     return bookwyrmClient.put(`/api/book/`,{
       desc: newDesc,
-      id:id
+      id:id,
+      genre:newGenre
     });
   }
 }
