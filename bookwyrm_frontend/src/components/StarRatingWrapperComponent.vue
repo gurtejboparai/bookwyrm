@@ -17,7 +17,7 @@
 <script>
 import StarRating from 'vue-star-rating'
 export default {
-    
+    name: "StarRatingWrapperComponent",
     props:['score', 'ratingId', 'displayOnly'],
     methods:{
         changeScore(changedTo){
