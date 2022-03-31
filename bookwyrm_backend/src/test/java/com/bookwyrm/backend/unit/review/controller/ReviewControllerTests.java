@@ -37,13 +37,16 @@ public class ReviewControllerTests {
 
         MockitoAnnotations.openMocks(this);
 
-        Mockito.when(bookService.findById(any(String.class))).thenReturn(Optional.of(new BookDao("testTitle","testAuthor","testDesc","")));
+        Mockito.when(bookService.findById(any(String.class))).then((x)-> new BookDao("testTitle","testAuthor","testDesc",""));
         //Setup
         ReviewUploadInput input = new ReviewUploadInput();
         input.setAuthor("testAuthor");
         input.setAnonymousFlag(true);
         input.setContent("testContent");
         input.setBookId("testId");
+        input.setAnonymousFlag(false);
+        input.setJournalistFlag(false);
+        input.setJournalistName("testJournName");
 
         //Run
         ResponseEntity response =  controller.createReview(input);

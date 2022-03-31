@@ -21,6 +21,9 @@ public class ReviewValidatorTests {
         input.setAnonymousFlag(true);
         input.setContent("testContent");
         input.setBookId("testId");
+        input.setAnonymousFlag(false);
+        input.setJournalistFlag(false);
+        input.setJournalistName("testJournName");
 
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
@@ -35,6 +38,9 @@ public class ReviewValidatorTests {
         input.setAnonymousFlag(true);
         input.setContent("testContent");
         input.setBookId("testId");
+        input.setAnonymousFlag(false);
+        input.setJournalistFlag(false);
+        input.setJournalistName("testJournName");
 
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
@@ -49,6 +55,9 @@ public class ReviewValidatorTests {
         input.setAuthor("testAuthor");
         input.setAnonymousFlag(true);
         input.setBookId("testId");
+        input.setAnonymousFlag(false);
+        input.setJournalistFlag(false);
+        input.setJournalistName("testJournName");
 
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
@@ -63,6 +72,9 @@ public class ReviewValidatorTests {
         input.setAuthor("testAuthor");
         input.setContent("testContent");
         input.setBookId("testId");
+        input.setAnonymousFlag(false);
+        input.setJournalistFlag(false);
+        input.setJournalistName("testJournName");
 
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
@@ -77,6 +89,9 @@ public class ReviewValidatorTests {
         input.setAuthor("testAuthor");
         input.setAnonymousFlag(true);
         input.setContent("testContent");
+        input.setAnonymousFlag(false);
+        input.setJournalistFlag(false);
+        input.setJournalistName("testJournName");
 
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);

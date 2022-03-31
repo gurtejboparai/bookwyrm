@@ -1,6 +1,5 @@
 package com.bookwyrm.backend.unit.user.validator;
 
-import com.bookwyrm.backend.user.input.UserAuthInput;
 import com.bookwyrm.backend.user.input.UserUpdateInput;
 import com.bookwyrm.backend.user.validator.UserValidator;
 import org.junit.jupiter.api.Test;
@@ -8,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @SpringJUnitConfig
@@ -22,8 +20,8 @@ public class UserUpdateValidatorTests {
         input.setUsername("testUsername");
         input.setAuthorName("testAuthorName");
         input.setAuthorFlag(false);
-        input.setProfJournalistFlag(false);
-        input.setProfJournalistName("testJournalistName");
+        input.setJournalistFlag(false);
+        input.setJournalistName("testJournalistName");
 
         //Run Validation
         List<String> errorList =  UserValidator.validateUpdateInformation(input);
@@ -37,8 +35,8 @@ public class UserUpdateValidatorTests {
         UserUpdateInput input = new UserUpdateInput();
         input.setAuthorName("testAuthorName");
         input.setAuthorFlag(false);
-        input.setProfJournalistFlag(false);
-        input.setProfJournalistName("testJournalistName");
+        input.setJournalistFlag(false);
+        input.setJournalistName("testJournalistName");
 
         //Run Validation
         List<String> errorList =  UserValidator.validateUpdateInformation(input);
@@ -52,8 +50,8 @@ public class UserUpdateValidatorTests {
         UserUpdateInput input = new UserUpdateInput();
         input.setUsername("testUsername");
         input.setAuthorFlag(false);
-        input.setProfJournalistFlag(false);
-        input.setProfJournalistName("testJournalistName");
+        input.setJournalistFlag(false);
+        input.setJournalistName("testJournalistName");
 
         //Run Validation
         List<String> errorList =  UserValidator.validateUpdateInformation(input);
@@ -67,8 +65,8 @@ public class UserUpdateValidatorTests {
         UserUpdateInput input = new UserUpdateInput();
         input.setUsername("testUsername");
         input.setAuthorName("testAuthorName");
-        input.setProfJournalistFlag(false);
-        input.setProfJournalistName("testJournalistName");
+        input.setJournalistFlag(false);
+        input.setJournalistName("testJournalistName");
 
         //Run Validation
         List<String> errorList =  UserValidator.validateUpdateInformation(input);
@@ -83,7 +81,7 @@ public class UserUpdateValidatorTests {
         input.setUsername("testUsername");
         input.setAuthorName("testAuthorName");
         input.setAuthorFlag(false);
-        input.setProfJournalistName("testJournalistName");
+        input.setJournalistName("testJournalistName");
 
         //Run Validation
         List<String> errorList =  UserValidator.validateUpdateInformation(input);
@@ -98,7 +96,7 @@ public class UserUpdateValidatorTests {
         input.setUsername("testUsername");
         input.setAuthorName("testAuthorName");
         input.setAuthorFlag(false);
-        input.setProfJournalistFlag(false);
+        input.setJournalistFlag(false);
 
         //Run Validation
         List<String> errorList =  UserValidator.validateUpdateInformation(input);
