@@ -6,36 +6,39 @@
         <div class="col-6 foreground w-50 mt-3 p-3">
           <h2>{{ bookDetails.title }}</h2>
           <h4>By {{ bookDetails.author }}</h4>
-          <h5 v-if="bookDetails.genre">Genre: {{bookDetails.genre}}</h5>
-          <!-- Edit / Cancel Button -->
-          <div
-            class="btn btn-light mt-3 mb-3"
-            @click="
-              editing = !editing;
-              descEdit = bookDetails.description;
-              genreEdit = bookDetails.genre;
-            "
-            v-if="isAuthor"
-          >
-            {{ editing ? "Cancel" : "Edit" }}
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-              <path
-                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
-              />
-            </svg>
-          </div>
+          <h5 v-if="bookDetails.genre">Genre: {{ bookDetails.genre }}</h5>
+
           <!-- Editing Mode -->
           <div v-if="editing">
             <select v-model="genreEdit" class="col-4 form-select w-50 mb-3">
-              <option value=null selected>No Genre</option>
+              <option value="null" selected>No Genre</option>
               <option v-for="genre in genres" v-bind:key="genre" v-bind:value="genre">{{ genre }}</option>
             </select>
             <textarea class="w-100" id="" cols="30" rows="10" v-model="descEdit"></textarea>
-            <div class="btn btn-success" @click="updateDesc">Update</div>
-            <div class="spinner-border text-light" role="status" v-if="saving"></div>
           </div>
           <div v-else>
             <p>{{ bookDetails.description }}</p>
+          </div>
+          <!-- Edit / Cancel / Save Buttons -->
+          <div>
+            <div
+              class="btn btn-light"
+              @click="
+                editing = !editing;
+                descEdit = bookDetails.description;
+                genreEdit = bookDetails.genre;
+              "
+              v-if="isAuthor"
+            >
+              {{ editing ? "Cancel" : "" }}
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16" v-if="!editing">
+                <path
+                  d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+                />
+              </svg>
+            </div>
+            <div class="btn btn-success m-3" @click="updateDesc" v-if="editing">Update</div>
+            <div class="spinner-border text-light" role="status" v-if="saving"></div>
           </div>
           <br />
           <!-- Avg Rating -->
@@ -73,7 +76,7 @@ export default {
       genreEdit: "",
       saving: false,
       pageLoaded: false,
-      ratingsData:null,
+      ratingsData: null,
       genres: [
         "Adventure",
         "Action",
@@ -129,9 +132,9 @@ export default {
   components: { ReviewComponent, RatingComponent },
   mounted() {
     BookService.searchBookDetail(this.$route.params.bookId).then((response) => {
-        this.bookDetails = response.data.bookDao;
-        this.pageLoaded = true;
-      });
+      this.bookDetails = response.data.bookDao;
+      this.pageLoaded = true;
+    });
   },
   computed: {
     isAuthor() {
