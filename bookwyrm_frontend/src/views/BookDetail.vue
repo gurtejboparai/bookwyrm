@@ -5,7 +5,8 @@
       <div class="row justify-content-center">
         <div class="col-6 foreground w-50 mt-3 p-3">
           <h2>{{ bookDetails.title }}</h2>
-          <h5>By {{ bookDetails.author }}</h5>
+          <h4>By {{ bookDetails.author }}</h4>
+          <h5 v-if="bookDetails.genre">Genre: {{bookDetails.genre}}</h5>
           <!-- Edit / Cancel Button -->
           <div
             class="btn btn-light mt-3 mb-3"
@@ -115,7 +116,7 @@ export default {
     },
     updateDesc() {
       this.saving = true;
-      BookService.searchBookUpdate(this.bookDetails.id, this.descEdit, this.bookDetails.genre)
+      BookService.searchBookUpdate(this.bookDetails.id, this.descEdit, this.genreEdit)
         .then((response) => {
           this.bookDetails = response.data.bookDao;
         })
