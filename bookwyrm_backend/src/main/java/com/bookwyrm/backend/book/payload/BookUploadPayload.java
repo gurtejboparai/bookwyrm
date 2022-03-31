@@ -23,8 +23,5 @@ public class BookUploadPayload {
     public void setBookId(String bookId) {
         this.bookId = bookId;
     }
-
-    public void loadBookDao(BookDao bookDao) {
-        bookId = bookDao.getId();
-    }
+    
 }

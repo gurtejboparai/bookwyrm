@@ -50,14 +50,6 @@ public class ReviewUploadInput {
         this.journalistFlag = journalistFlag;
     }
 
-    public boolean isAnonymousFlag() {
-        return anonymousFlag;
-    }
-
-    public boolean isJournalistFlag() {
-        return journalistFlag;
-    }
-
     public String getJournalistName() {
         return journalistName;
     }

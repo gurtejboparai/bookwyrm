@@ -1,5 +1,6 @@
 package com.bookwyrm.backend.unit.book.validator;
 
+import com.bookwyrm.backend.book.input.BookUpdateInput;
 import com.bookwyrm.backend.book.input.BookUploadInput;
 import com.bookwyrm.backend.book.validator.BookValidator;
 import org.junit.jupiter.api.Test;
@@ -69,6 +70,63 @@ public class BookValidatorTests {
                 "Expect missing book name error");
         Assert.isTrue(errorList.contains("Author name missing. Please add an author name and try again."),
                 "Expect missing author error");
+    }
+
+    @Test
+    public void testHappyPathUpdate() {
+        // Setup
+        BookUpdateInput input = new BookUpdateInput();
+        input.setDesc("testDesc");
+        input.setId("testId");
+
+        // Run Validation
+        List<String> errorList = BookValidator.validateUpdateInformation(input);
+
+        // Check output
+        Assert.isTrue(errorList.isEmpty(), "Expect no messages from valid input");
+    }
+
+    @Test
+    public void testMissingIdUpdate() {
+        // Setup
+        BookUpdateInput input = new BookUpdateInput();
+        input.setDesc("testDesc");
+
+        // Run Validation
+        List<String> errorList = BookValidator.validateUpdateInformation(input);
+
+        // Check output
+        Assert.isTrue(errorList.contains("Book id missing. Please add a book id and try again."),
+                "Expect missing book id error");
+    }
+
+    @Test
+    public void testMissingDescUpdate() {
+        // Setup
+        BookUpdateInput input = new BookUpdateInput();
+        input.setId("testId");
+
+        // Run Validation
+        List<String> errorList = BookValidator.validateUpdateInformation(input);
+
+        // Check output
+        Assert.isTrue(errorList.contains("Book description missing. Please add a book description and try again."),
+                "Expect missing book description error");
+    }
+
+    @Test
+    public void testMissingEverythingUpdate() {
+        // Setup
+        BookUpdateInput input = new BookUpdateInput();
+
+        // Run Validation
+        List<String> errorList = BookValidator.validateUpdateInformation(input);
+
+        // Check output
+        Assert.isTrue(errorList.contains("Book id missing. Please add a book id and try again."),
+                "Expect missing book id error");
+        Assert.isTrue(errorList.contains("Book description missing. Please add a book description and try again."),
+                "Expect missing book description error");
     }
 
 }
