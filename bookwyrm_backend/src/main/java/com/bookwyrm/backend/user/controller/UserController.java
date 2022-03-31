@@ -63,7 +63,7 @@ public class UserController {
             }
         }
         //Primitive online dictionary attack prevention
-        if (payload.getUser()!=null) {
+        if (payload.getUser()==null) {
             try {
                 TimeUnit.SECONDS.sleep(3L);
             } catch (InterruptedException ie) {
@@ -80,22 +80,24 @@ public class UserController {
         HttpStatus status = HttpStatus.OK;
         UserPayload payload = new UserPayload();
         if(UserValidator.validateUpdateInformation(userUpdateInput).isEmpty()) {
-            //If user exists, update their details
 
+            //If user exists, update their details
             if(foundUser.isPresent()) {
                 foundUser.get().setAuthorFlag(userUpdateInput.getAuthorFlag());
-                foundUser.get().setProfJournalistFlag(userUpdateInput.getProfJournalistFlag());
+                foundUser.get().setProfJournalistFlag(userUpdateInput.getJournalistFlag());
                 foundUser.get().setAuthorName(userUpdateInput.getAuthorName());
-                foundUser.get().setProfJournalistName(userUpdateInput.getProfJournalistName());
+                foundUser.get().setProfJournalistName(userUpdateInput.getJournalistName());
+
                 //Save user
                 userService.save(foundUser.get());
+                payload.setUser(foundUser.get());
             }
         }
         if(foundUser.isEmpty()){
             status = HttpStatus.NOT_FOUND;
             payload.setErrorList(Arrays.asList("User could not be found"));
         }
-        payload.setUser(foundUser.get());
+
 
         return ResponseEntity.status(status).body(payload);
     }

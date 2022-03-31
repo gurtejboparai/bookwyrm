@@ -31,10 +31,10 @@ public class UserValidator {
         if (userUpdateInput.getAuthorName() == null) {
             errorList.add(createMissingFieldMessage("Author Name"));
         }
-        if (userUpdateInput.getProfJournalistFlag() == null) {
+        if (userUpdateInput.getJournalistFlag() == null) {
             errorList.add(createMissingFieldMessage("Professional Journalist Flag"));
         }
-        if (userUpdateInput.getProfJournalistName() == null) {
+        if (userUpdateInput.getJournalistName() == null) {
             errorList.add(createMissingFieldMessage("Professional Journalist Name"));
         }
 

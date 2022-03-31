@@ -16,6 +16,8 @@ public class BookDao {
     private String description;
     private String author;
     private String isbn;
+    private String genre;
+
 
     public BookDao(String title, String author, String description, String isbn){
         super();
@@ -71,5 +73,13 @@ public class BookDao {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }
