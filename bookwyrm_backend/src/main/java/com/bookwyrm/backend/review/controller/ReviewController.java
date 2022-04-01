@@ -39,6 +39,7 @@ public class ReviewController {
                     reviewUploadInput.getAnonymousFlag(),
                     reviewUploadInput.getContent(),
                     reviewUploadInput.getBookId(),
+                    reviewUploadInput.getRatings(),
                     reviewUploadInput.getJournalistFlag(),
                     reviewUploadInput.getJournalistName()
                     );
