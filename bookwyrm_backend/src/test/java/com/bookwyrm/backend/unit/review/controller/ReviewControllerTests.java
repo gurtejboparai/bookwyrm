@@ -17,7 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -47,6 +48,9 @@ public class ReviewControllerTests {
         input.setAnonymousFlag(false);
         input.setJournalistFlag(false);
         input.setJournalistName("testJournName");
+        Map<String, Float> map = new HashMap<>();
+        map.put("test rate", 4.5F);
+        input.setRatings(map);
 
         //Run
         ResponseEntity response =  controller.createReview(input);

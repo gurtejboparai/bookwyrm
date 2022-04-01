@@ -20,9 +20,9 @@ public class ReviewDao {
     private List<String> upVoteIdsList;
     private List<String> downVoteIdsList;
     private String journalistName;
+    private Map<String, Float> ratings;
 
-    public ReviewDao(String user, boolean anonymousFlag, String content, String bookId, boolean journalistReview,
-            String journalistName) {
+    public ReviewDao( String user, boolean anonymousFlag, String content, String bookId, Map<String, Float> ratings, boolean journalistReview, String journalistName) {
         super();
         this.bookId = bookId;
         this.user = user;
@@ -32,7 +32,12 @@ public class ReviewDao {
         this.downVoteIdsList = new ArrayList<>();
         this.journalistReview = journalistReview;
         this.journalistName = journalistName;
+        this.ratings = ratings;
     }
+
+    public Map<String, Float> getRatings() { return ratings;}
+
+    public void setRatings(Map<String, Float> ratings) {this.ratings = ratings;}
 
     public String getId() {
         return id;
