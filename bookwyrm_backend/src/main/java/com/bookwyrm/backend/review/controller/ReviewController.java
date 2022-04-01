@@ -58,22 +58,23 @@ public class ReviewController {
     @PutMapping(value = "/voting",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReviewUploadPayload> updateVoting(
             @RequestBody ReviewVotingInput reviewVotingInput) {
-        Optional<ReviewDao> foundReview = reviewService.findById(reviewVotingInput.getReviewId());
+        ReviewDao foundReview = reviewService.findById(reviewVotingInput.getReviewId()).get();
         HttpStatus status = HttpStatus.OK;
         ReviewUploadPayload payload = new ReviewUploadPayload();
         List<String> errorList = ReviewValidator.validateVotingInput(reviewVotingInput);
 
         if (errorList.isEmpty()) {
-            if ((reviewVotingInput.getVoteValue() == false) && !(foundReview.get().getDownVoteIdsList().contains(reviewVotingInput.getUserId()))) {
-                foundReview.get().getDownVoteIdsList().add(reviewVotingInput.getUserId());
-                foundReview.get().getUpVoteIdsList().remove(reviewVotingInput.getUserId());
+            if ((reviewVotingInput.getVoteValue() == false) && !(foundReview.getDownVoteIdsList().contains(reviewVotingInput.getUserId()))) {
+                foundReview.getDownVoteIdsList().add(reviewVotingInput.getUserId());
+                foundReview.getUpVoteIdsList().remove(reviewVotingInput.getUserId());
             }
-            if ((reviewVotingInput.getVoteValue() == true) && !(foundReview.get().getUpVoteIdsList().contains(reviewVotingInput.getUserId()))) {
-                foundReview.get().getUpVoteIdsList().add(reviewVotingInput.getUserId());
-                foundReview.get().getDownVoteIdsList().remove(reviewVotingInput.getUserId());
+            if ((reviewVotingInput.getVoteValue() == true) && !(foundReview.getUpVoteIdsList().contains(reviewVotingInput.getUserId()))) {
+                foundReview.getUpVoteIdsList().add(reviewVotingInput.getUserId());
+                foundReview.getDownVoteIdsList().remove(reviewVotingInput.getUserId());
             }
             //Save review
-            reviewService.save(foundReview.get());
+            reviewService.save(foundReview);
+            payload.setReviewDao(foundReview);
 
         }else {
             payload.setMessages(errorList);

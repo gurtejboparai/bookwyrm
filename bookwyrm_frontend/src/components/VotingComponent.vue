@@ -5,6 +5,7 @@
       xmlns="http://www.w3.org/2000/svg"
       width="30"
       height="30"
+      :color="upVoteColour"
       fill="currentColor"
       class="bi bi-hand-thumbs-up"
       viewBox="0 0 16 16"
@@ -25,6 +26,7 @@
       xmlns="http://www.w3.org/2000/svg"
       width="30"
       height="30"
+      :color="downVoteColour"
       fill="currentColor"
       class="bi bi-hand-thumbs-down"
       viewBox="0 0 16 16"
@@ -40,15 +42,27 @@
 import ReviewService from "@/services/ReviewService";
 export default {
   name: "votingComponent",
+  data() {
+    return{
+      localUpVote: this.upVoteUserList,
+      localDownVote: this.downVoteUserList
+    }
+  },
   methods: {
     upVote() {
       if (localStorage.getItem("username")) {
-        ReviewService.updateVoting(localStorage.getItem("username"),this.reviewId,true).then((response)=>{console.log(response.data)})
+        ReviewService.updateVoting(localStorage.getItem("username"),this.reviewId,true).then((response)=>{
+          this.localUpVote = response.data.reviewDao.upVoteIdsList
+          this.localDownVote = response.data.reviewDao.downVoteIdsList
+        })
       }
     },
     downVote() {
       if (localStorage.getItem("username")) {
-        ReviewService.updateVoting(localStorage.getItem("username"),this.reviewId,false).then((response)=>{console.log(response.data)})
+        ReviewService.updateVoting(localStorage.getItem("username"),this.reviewId,false).then((response)=>{
+          this.localDownVote = response.data.reviewDao.downVoteIdsList
+          this.localUpVote = response.data.reviewDao.upVoteIdsList
+        })
       }
     },
   },
@@ -62,7 +76,13 @@ export default {
       if (this.upVoteUserList == undefined || this.downVoteUserList == undefined) {
         return 0;
       }
-      return this.upVoteUserList.length - this.downVoteUserList.length
+      return this.localUpVote.length - this.localDownVote.length
+    },
+    upVoteColour() {
+      return (this.localUpVote.includes(localStorage.getItem("username")))?"cyan":"grey"
+    },
+    downVoteColour() {
+      return (this.localDownVote.includes(localStorage.getItem("username")))?"cyan":"grey"
     }
   }
 };
