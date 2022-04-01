@@ -19,6 +19,14 @@ public class ReviewValidator {
             errorList.add("Review content is missing. Please add some content and try again.");
         }
 
+        if (reviewUploadInput.getRatings() != null && reviewUploadInput.getRatings().isEmpty()){
+            errorList.add("Ratings are missing. Please rate the book and try again.");
+        }
+
+        if (reviewUploadInput.getRatings() == null){
+            errorList.add("Rating object is missing.");
+        }
+
         return errorList;
     }
 }

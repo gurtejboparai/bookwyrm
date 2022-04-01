@@ -1,18 +1,13 @@
 package com.bookwyrm.backend.review.input;
 
-import com.bookwyrm.backend.review.genre.Genre;
-
-import java.util.ArrayList;
+import java.util.Map;
 
 public class ReviewUploadInput {
 
     private String bookId;
     private String author;
     private String content;
-
-
-
-    private ArrayList<Genre> ratings;
+    private Map<String, Float> ratings;
     private boolean anonymousFlag;
 
     public String getBookId() {
@@ -35,13 +30,11 @@ public class ReviewUploadInput {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+    public void setContent(String content) {this.content = content;}
 
-    public ArrayList<Genre> getRatings() {return ratings;}
+    public Map<String, Float> getRatings() {return ratings;}
 
-    public void setRatings(ArrayList<Genre> ratings) {this.ratings = ratings;}
+    public void setRatings(Map<String, Float> ratings) { this.ratings = ratings;}
     
     public boolean getAnonymousFlag() {
         return anonymousFlag;
