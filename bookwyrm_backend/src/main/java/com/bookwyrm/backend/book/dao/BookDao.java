@@ -5,6 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Document("book")
 public class BookDao {
@@ -16,7 +18,7 @@ public class BookDao {
     private String description;
     private String author;
     private String isbn;
-    private String genre;
+    private Map<String, Float> genre;
 
 
     public BookDao(String title, String author, String description, String isbn){

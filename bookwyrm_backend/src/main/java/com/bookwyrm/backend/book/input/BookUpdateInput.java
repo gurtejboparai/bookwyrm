@@ -1,10 +1,13 @@
 package com.bookwyrm.backend.book.input;
 
+import java.util.Map;
+import java.util.HashMap;
+
 public class BookUpdateInput {
 
     private String desc;
     private String id;
-    private String genre;
+    private Map<String, Float> ratings;
 
     public String getDesc() {
         return desc;
@@ -22,11 +25,11 @@ public class BookUpdateInput {
         this.id = id;
     }
 
-    public String getGenre() {
-        return genre;
+    public Map<String, Float> getGenre() {
+        return ratings;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setGenre(Map<String, Float> ratings) {
+        this.ratings = ratings;
     }
 }
