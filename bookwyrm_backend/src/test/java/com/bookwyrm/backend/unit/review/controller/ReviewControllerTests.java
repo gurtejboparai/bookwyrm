@@ -20,6 +20,7 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -47,7 +48,9 @@ public class ReviewControllerTests {
         input.setAnonymousFlag(true);
         input.setContent("testContent");
         input.setBookId("testId");
-        input.setRatings(new HashMap<String, Float>());
+        Map<String, Float> map = new HashMap<>();
+        map.put("testrate", 3.0F);
+        input.setRatings(map);
         //Run
         ResponseEntity response =  controller.createReview(input);
 
