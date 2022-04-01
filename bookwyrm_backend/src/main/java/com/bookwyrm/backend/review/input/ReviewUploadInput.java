@@ -1,5 +1,7 @@
 package com.bookwyrm.backend.review.input;
 
+import java.util.Map;
+
 public class ReviewUploadInput {
 
     private String bookId;
@@ -7,8 +9,12 @@ public class ReviewUploadInput {
     private String content;
     private boolean journalistFlag;
     private String journalistName;
-
+    private Map<String, Float> ratings;
     private boolean anonymousFlag;
+
+    public Map<String, Float> getRatings() {return ratings;}
+
+    public void setRatings(Map<String, Float> ratings) {this.ratings = ratings;}
 
     public String getBookId() {
         return bookId;

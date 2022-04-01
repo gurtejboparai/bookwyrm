@@ -7,7 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SpringJUnitConfig
 @SpringBootTest
@@ -24,7 +26,9 @@ public class ReviewValidatorTests {
         input.setAnonymousFlag(false);
         input.setJournalistFlag(false);
         input.setJournalistName("testJournName");
-
+        Map<String, Float> map = new HashMap<>();
+        map.put("overall", 3.5F);
+        input.setRatings(map);
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
 
@@ -41,7 +45,9 @@ public class ReviewValidatorTests {
         input.setAnonymousFlag(false);
         input.setJournalistFlag(false);
         input.setJournalistName("testJournName");
-
+        Map<String, Float> map = new HashMap<>();
+        map.put("overall", 3.5F);
+        input.setRatings(map);
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
 
@@ -58,6 +64,9 @@ public class ReviewValidatorTests {
         input.setAnonymousFlag(false);
         input.setJournalistFlag(false);
         input.setJournalistName("testJournName");
+        Map<String, Float> map = new HashMap<>();
+        map.put("overall", 3.5F);
+        input.setRatings(map);
 
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
@@ -75,7 +84,9 @@ public class ReviewValidatorTests {
         input.setAnonymousFlag(false);
         input.setJournalistFlag(false);
         input.setJournalistName("testJournName");
-
+        Map<String, Float> map = new HashMap<>();
+        map.put("overall", 3.5F);
+        input.setRatings(map);
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
 
@@ -92,12 +103,44 @@ public class ReviewValidatorTests {
         input.setAnonymousFlag(false);
         input.setJournalistFlag(false);
         input.setJournalistName("testJournName");
-
+        Map<String, Float> map = new HashMap<>();
+        map.put("overall", 3.5F);
+        input.setRatings(map);
         //Run Validation
         List<String> errorList =  ReviewValidator.validateUploadInformation(input);
 
         //Check output
         Assert.isTrue(errorList.contains("Book ID missing. Please add a book Id and try again."), "Expect missing book ID error");
+    }
+    @Test
+    public void testEmptyRatings(){
+        //Setup
+        ReviewUploadInput input = new ReviewUploadInput();
+        input.setAuthor("testAuthor");
+        input.setAnonymousFlag(true);
+        input.setContent("testContent");
+        input.setBookId("testId");
+        Map<String, Float> map = new HashMap<>();
+        input.setRatings(map);
+        //Run Validation
+        List<String> errorList = ReviewValidator.validateUploadInformation(input);
+
+        //Check output
+        Assert.isTrue(errorList.contains("Ratings are missing. Please rate the book and try again."), "Expect empty ratings error");
+    }
+    @Test
+    public void TestMissingRatings(){
+        //Setup
+        ReviewUploadInput input = new ReviewUploadInput();
+        input.setAuthor("testAuthor");
+        input.setAnonymousFlag(true);
+        input.setContent("testContent");
+        input.setBookId("testId");
+        //Run Validation
+        List<String> errorList = ReviewValidator.validateUploadInformation(input);
+
+        //Check output
+        Assert.isTrue(errorList.contains("Rating object is missing."), "Expect empty ratings error");
     }
 
     @Test

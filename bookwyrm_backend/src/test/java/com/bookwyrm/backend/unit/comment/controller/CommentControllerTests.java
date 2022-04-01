@@ -17,6 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,8 @@ public class CommentControllerTests {
     @Test
     public void testHappyPath(){
         MockitoAnnotations.openMocks(this);
-        Mockito.when(reviewService.findById(any(String.class))).thenReturn(Optional.of(new ReviewDao("testauthor",false, "test content", "bookId", false, null)));
+        Mockito.when(reviewService.findById(any(String.class))).thenReturn(Optional.of(new ReviewDao("testauthor",
+                false, "test content", "bookId",new HashMap<String, Float>(), false, null)));
         //Setup
         CommentUploadInput input = new CommentUploadInput();
         input.setAuthor("testAuthor");
