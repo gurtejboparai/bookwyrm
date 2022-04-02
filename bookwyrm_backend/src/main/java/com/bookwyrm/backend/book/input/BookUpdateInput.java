@@ -7,6 +7,7 @@ public class BookUpdateInput {
 
     private String desc;
     private String id;
+    private String genre;
     private Map<String, Float> ratings;
 
     public String getDesc() {
@@ -24,6 +25,10 @@ public class BookUpdateInput {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getGenre() { return genre;}
+
+    public void setGenre(String genre) {this.genre = genre;}
 
     public Map<String, Float> getRate() {
         return ratings;

@@ -18,8 +18,9 @@ public class BookDao {
     private String description;
     private String author;
     private String isbn;
-    private Map<String, Float> avg;
-    private Map<String, Integer> num;
+    private String genre;
+    private Map<String, Float> avgRate;
+    private Map<String, Integer> numRate;
 
 
     public BookDao(String title, String author, String description, String isbn){
@@ -28,26 +29,26 @@ public class BookDao {
         this.author = author;
         this.description = description;
         this.isbn = isbn;
-        avg = new HashMap<String, Float>();
-        num = new HashMap<String, Integer>();
+        avgRate = new HashMap<String, Float>();
+        numRate = new HashMap<String, Integer>();
     }
 
     public void UpdateAvgRate(Map<String, Float> rate){
         for (Map.Entry m:rate.entrySet()){
             Object key = m.getKey();
-            if (avg.containsKey(key)){
-                int new_num = num.get(key) + 1;
-                Float result = ((avg.get(key) *num.get(key) + rate.get(key))/new_num);
+            if (avgRate.containsKey(key)){
+                int new_num = numRate.get(key) + 1;
+                Float result = ((avgRate.get(key) *numRate.get(key) + rate.get(key))/new_num);
                 result = ((int) (result*2 + 0.5))/2.0F;
-                avg.replace(key.toString(),result);
-                num.replace(key.toString(), new_num);
+                avgRate.replace(key.toString(),result);
+                numRate.replace(key.toString(), new_num);
             }else{
-                num.put(key.toString(), 1);
-                avg.put(m.getKey().toString(), rate.get(key));
+                numRate.put(key.toString(), 1);
+                avgRate.put(m.getKey().toString(), rate.get(key));
             }
         }
     }
-
+    public void setGenre(String genre) { this.genre = genre;}
     public String getId() {
         return id;
     }
@@ -96,7 +97,7 @@ public class BookDao {
         this.isbn = isbn;
     }
 
-    public Map<String, Float> getAvg() {return avg;}
+    public Map<String, Float> getAvg() {return avgRate;}
 
-    public void setAvg(Map<String, Float> avg) {this.avg = avg;}
+    public void setAvg(Map<String, Float> avg) {this.avgRate = avg;}
 }

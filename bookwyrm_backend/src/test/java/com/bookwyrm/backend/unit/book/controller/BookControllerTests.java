@@ -133,6 +133,7 @@ public class BookControllerTests {
         Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor","testDesc",""));
         BookUpdateInput bookUpdateInput = new BookUpdateInput();
         bookUpdateInput.setId("testId");
+        bookUpdateInput.setGenre("testGenre");
         bookUpdateInput.setDesc("testDescUpdate");
         Map<String, Float> map = new HashMap<>();
         bookUpdateInput.setRate(map);
