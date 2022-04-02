@@ -36,15 +36,17 @@ public class BookDao {
     public void UpdateAvgRate(Map<String, Float> rate){
         for (Map.Entry m:rate.entrySet()){
             Object key = m.getKey();
-            if (avgRate.containsKey(key)){
-                int new_num = numRate.get(key) + 1;
-                Float result = ((avgRate.get(key) *numRate.get(key) + rate.get(key))/new_num);
-                result = ((int) (result*2 + 0.5))/2.0F;
-                avgRate.replace(key.toString(),result);
-                numRate.replace(key.toString(), new_num);
-            }else{
-                numRate.put(key.toString(), 1);
-                avgRate.put(m.getKey().toString(), rate.get(key));
+            if (rate.get(key) != 0) {
+                if (avgRate.containsKey(key)) {
+                    int new_num = numRate.get(key) + 1;
+                    Float result = ((avgRate.get(key) * numRate.get(key) + rate.get(key)) / new_num);
+                    result = ((int) (result * 2 + 0.5)) / 2.0F;
+                    avgRate.replace(key.toString(), result);
+                    numRate.replace(key.toString(), new_num);
+                } else {
+                    numRate.put(key.toString(), 1);
+                    avgRate.put(m.getKey().toString(), rate.get(key));
+                }
             }
         }
     }
