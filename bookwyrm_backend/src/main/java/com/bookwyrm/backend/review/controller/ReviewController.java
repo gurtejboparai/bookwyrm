@@ -47,23 +47,11 @@ public class ReviewController {
                     reviewUploadInput.getJournalistName()
                     );
             reviewService.save(reviewDao);
-            //setup:
-            //change the setGenre in BookDao
-            //change the genre in BookUpdateInput
-
-            //update the book avg ratings
-            //get bookDao by id = reviewUploadInput.getBookId(), using BookService.findBookById
-            //create bookUpdateInput. set its id as the one from bookDao
-            // set its description as the one from bookDao.
-            //update bookUpdateInput genre ratings
-            //call BookUpdateDesc from BookController
-            
-            //Updating the book with new ratings - Not the best way
+            //Update avg ratings for Book
             BookDao foundBook = bookService.findByBookId(reviewUploadInput.getBookId());
             if(foundBook!=null){
                 //Update and save book
-                foundBook.setDescription("Long - testUpdateDesc");
-                foundBook.setGenre("Long - adventure?");
+                foundBook.UpdateAvgRate(reviewUploadInput.getRatings());
                 bookService.save(foundBook);
             }
         } else {

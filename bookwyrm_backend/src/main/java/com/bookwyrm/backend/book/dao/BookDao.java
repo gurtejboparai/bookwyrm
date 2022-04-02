@@ -18,7 +18,8 @@ public class BookDao {
     private String description;
     private String author;
     private String isbn;
-    private Map<String, Float> genre;
+    private Map<String, Float> avg;
+    private Map<String, Integer> num;
 
 
     public BookDao(String title, String author, String description, String isbn){
@@ -27,6 +28,22 @@ public class BookDao {
         this.author = author;
         this.description = description;
         this.isbn = isbn;
+        avg = new HashMap<String, Float>();
+        num = new HashMap<String, Integer>();
+    }
+
+    public void UpdateAvgRate(Map<String, Float> rate){
+        for (Map.Entry m:rate.entrySet()){
+            Object key = m.getKey();
+            if (avg.containsKey(key)){
+                int new_num = num.get(key) + 1;
+                avg.replace(key.toString(),((avg.get(key) *num.get(key) + rate.get(key))/new_num));
+                num.replace(key.toString(), new_num);
+            }else{
+                num.put(key.toString(), 1);
+                avg.put(m.getKey().toString(), rate.get(key));
+            }
+        }
     }
 
     public String getId() {
@@ -77,11 +94,7 @@ public class BookDao {
         this.isbn = isbn;
     }
 
-    public String getGenre() {
-        return genre;
-    }
+    public Map<String, Float> getAvg() {return avg;}
 
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
+    public void setAvg(Map<String, Float> avg) {this.avg = avg;}
 }

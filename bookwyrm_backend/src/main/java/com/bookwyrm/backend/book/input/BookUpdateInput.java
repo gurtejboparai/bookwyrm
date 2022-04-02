@@ -25,11 +25,11 @@ public class BookUpdateInput {
         this.id = id;
     }
 
-    public Map<String, Float> getGenre() {
+    public Map<String, Float> getRate() {
         return ratings;
     }
 
-    public void setGenre(Map<String, Float> ratings) {
+    public void setRate(Map<String, Float> ratings) {
         this.ratings = ratings;
     }
 }
