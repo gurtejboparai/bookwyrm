@@ -37,7 +37,9 @@ public class BookDao {
             Object key = m.getKey();
             if (avg.containsKey(key)){
                 int new_num = num.get(key) + 1;
-                avg.replace(key.toString(),((avg.get(key) *num.get(key) + rate.get(key))/new_num));
+                Float result = ((avg.get(key) *num.get(key) + rate.get(key))/new_num);
+                result = ((int) (result*2 + 0.5))/2.0F;
+                avg.replace(key.toString(),result);
                 num.replace(key.toString(), new_num);
             }else{
                 num.put(key.toString(), 1);
