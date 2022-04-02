@@ -10,22 +10,21 @@
         <div id="ratingSpace" class="p-1">
             <div v-for="(genreRating, index) in localRatings" :key="genreRating.ratingId" 
                 class="ratingDisp m-2 p-2 rounded row">
-                <div>
-                    <h3 v-if="displayOnly" class="col-4">{{genreRating.genre}}</h3>
-                    <select name="genreSelection" id="genreSelector" v-else v-model="genreRating.genre" class="col-4">
-                        <option value="" disabled selected>Select a genre</option>
-                        <option v-for="genre in genres" v-bind:key="genre" v-bind:value="genre">{{genre}}</option>
-                    </select>
-                    <StarRatingWrapperComponent 
-                        v-bind:score="genreRating.score"
-                        v-bind:ratingId="genreRating.ratingId"
-                        v-bind:displayOnly="displayOnly"
-                        @updateScoreOf="changeScoreOf"
-                        class="col-8 flex-shrink-1"
-                    />
-                    <button v-if="!displayOnly" v-on:click.prevent="removeRating(index)" 
-                        class="btn btn-danger btn-sm align-self-center" id="delbtn">X</button>
-                </div>
+                <h3 v-if="displayOnly" class="col-4">{{genreRating.genre}}</h3>
+                <select name="genreSelection" id="genreSelector" v-else v-model="genreRating.genre" class="col-4"
+                    v-on:change="genreChanged(genreRating)">
+                    <option value="" disabled selected>Select a genre</option>
+                    <option v-for="genre in genres" v-bind:key="genre" v-bind:value="genre">{{genre}}</option>
+                </select>
+                <StarRatingWrapperComponent 
+                    v-bind:score="genreRating.score"
+                    v-bind:ratingId="genreRating.ratingId"
+                    v-bind:displayOnly="displayOnly"
+                    @updateScoreOf="changeScoreOf"
+                    class="col-8 flex-shrink-1"
+                />
+                <button v-if="!displayOnly" v-on:click.prevent="removeRating(index)" 
+                    class="btn btn-danger btn-sm align-self-center" id="delbtn">X</button>
             </div>
         </div>
     </div>
@@ -97,18 +96,25 @@ import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
         },
         methods: {
             addRating(){
+                this.updateAvailableGenres()
                 let initialGenre = this.findAvailableGenre()
                 if(initialGenre != ""){
                     this.localRatings.push({ratingId:this.nextNewRatingId, genre:initialGenre, score:0.5})
                     this.availableGenres[initialGenre] = false
                     this.nextNewRatingId++
-                    this.$emit('update:ratings', this.$event.target.this.localRatings)
+                    this.ratingsObject[initialGenre]=0.5
+                    this.$emit('update:ratings', this.ratingsObject)
                 }
             },
 
             removeRating(index){
+                let targetGenre = this.localRatings[index].genre
+                //remove rating from list
                 this.localRatings.splice(index, 1)
-                this.$emit('update:ratings', this.$event.target.this.localRatings)
+                //upadate local data to reflect the change
+                this.ratingsObject[targetGenre]=0;
+                this.updateAvailableGenres()
+                this.$emit('update:ratings', this.ratingsObject)
             },
             
             changeScoreOf(scoreChange){
@@ -120,14 +126,37 @@ import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
                     }
                 })
                 //change the score for the appropriate genre
-                this.localRatings[targetGenre]=scoreChange.newScore
+                this.ratingsObject[targetGenre]=scoreChange.newScore
                 this.localRatings.forEach(rating => {
                     if(targetGenre == rating.genre){
                         rating.score=scoreChange.newScore
                     }
                 })
                 
-                this.$emit('update:ratings', this.$event.target.this.localRatings)
+                this.$emit('update:ratings', this.ratingsObject)
+            },
+
+            //This function is called when genres are changed to keep the data displayed and stored in sync
+            genreChanged(whatChanged){
+                this.updateAvailableGenres()
+                //update scores
+                this.ratingsObject[whatChanged.genre] = whatChanged.score
+                this.changeScoreOf({ratingId:whatChanged.ratingId, newScore:whatChanged.score})
+                this.$emit('update:ratings', this.ratingsObject)
+            },
+
+            //this is a utility function that updates genre availability and resets scores to 0 if don't have
+            //a rating currently
+            //!NOTE! this function assumes that it will be proceeded by an emit to update ratings
+            updateAvailableGenres(){
+                this.genres.forEach(category => {
+                    this.availableGenres[category] = this.localRatings.every(genreRating =>{
+                        return genreRating.genre != category
+                    })
+                    if(this.availableGenres[category]){
+                        this.ratingsObject[category] = 0.0
+                    }
+                })
             },
 
             //this utility function will retrieve the first genre that doesn't have a rating
@@ -151,13 +180,36 @@ import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
             StarRatingWrapperComponent
         },
         created(){
-            //inititalize local ratings variable
+            //check if given data is null and fix it if it is
+            if(this.ratingsObject == null){
+                this.ratingsObject = {
+                    "Overall":0,
+                    "Adventure":0,
+                    "Action":0,
+                    "Bedtime":0,
+                    "Comedy/Humor":0,
+                    "Children's":0,
+                    "Drama":0,
+                    "Fantasy":0,
+                    "Gothic":0,
+                    "Horror":0,
+                    "Historical Fiction":0,
+                    "Alternate History":0,
+                    "Mystery":0,
+                    "Romance":0,
+                    "Sport":0,
+                    "Science-Fiction":0,
+                    "Thriller":0
+                }
+            }
+            //inititalize localRatings variable
             this.genres.forEach(category => {
                 if(this.ratingsObject[category] > 0.0){
                     this.localRatings.push({ratingId:this.nextNewRatingId, genre:category, score:this.ratingsObject[category]})
                     this.availableGenres[category] = true
                     this.nextNewRatingId++
                 }
+
             });
         }
     }

@@ -102,7 +102,7 @@ export default{
                 "Romance":0,
                 "Sport":0,
                 "Science-Fiction":0,
-                "Thriller":0,
+                "Thriller":0
                 },
             newReviewAnonymousFlag:false,
             newReviewJournalistFlag:false
