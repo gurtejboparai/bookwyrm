@@ -1,7 +1,9 @@
 package com.bookwyrm.backend.review.controller;
 
 import com.bookwyrm.backend.book.dao.BookDao;
+import com.bookwyrm.backend.book.input.BookUpdateInput;
 import com.bookwyrm.backend.book.service.BookService;
+import com.bookwyrm.backend.book.controller.BookController;
 import com.bookwyrm.backend.review.dao.ReviewDao;
 import com.bookwyrm.backend.review.dao.ReviewService;
 import com.bookwyrm.backend.review.input.ReviewUploadInput;
@@ -46,7 +48,13 @@ public class ReviewController {
                     reviewUploadInput.getJournalistName()
                     );
             reviewService.save(reviewDao);
-
+            //Update avg ratings for Book
+            BookDao foundBook = bookService.findByBookId(reviewUploadInput.getBookId());
+            if(foundBook!=null){
+                //Update and save book
+                foundBook.UpdateAvgRate(reviewUploadInput.getRatings());
+                bookService.save(foundBook);
+            }
         } else {
             response.setMessages(errorList);
             status = HttpStatus.BAD_REQUEST;
