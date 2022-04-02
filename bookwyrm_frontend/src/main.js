@@ -13,13 +13,23 @@ const store = createStore({
     }
   },
   mutations: {
-    login (state, username) {
-      state.username = username;
-      localStorage.setItem("username", username)
+    login (state, user) {
+      if(user){
+        state.username = user.username;
+        localStorage.setItem("username", user.username);
+        localStorage.setItem("authorFlag", user.authorFlag);
+        localStorage.setItem("authorName", user.authorName);
+        localStorage.setItem("journalistFlag", user.journalistFlag);
+        localStorage.setItem("journalistName", user.journalistName);
+      }
     },
     logout (state) {
       state.username = "";
-      localStorage.removeItem("username")
+      localStorage.removeItem("username");
+      localStorage.removeItem("authorFlag");
+      localStorage.removeItem("authorName");
+      localStorage.removeItem("journalistFlag");
+      localStorage.removeItem("journalistName");
     }
   }
 })

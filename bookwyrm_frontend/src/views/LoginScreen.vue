@@ -45,8 +45,8 @@ export default {
             compoundedDigest = element * compoundedDigest
           });
           UserService.signin(this.accountName, compoundedDigest).then((response)=>{
-            if(response.data){
-              this.$store.commit('login',this.accountName);
+            if(response.data.user!=null){
+              this.$store.commit('login',response.data.user);
               this.$router.push('/')  
             }else{
               this.displayMessage("Username password combination not found." );
@@ -64,8 +64,7 @@ export default {
             compoundedDigest = element * compoundedDigest
           });
           UserService.signup(this.accountName,compoundedDigest).then(()=>{
-            this.$store.commit('login',this.accountName);
-            this.$router.push('/');
+            this.login();
           }).catch((error)=>{
             let errorMessage = ""
             error.response.data.forEach(error => {

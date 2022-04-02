@@ -1,6 +1,5 @@
 package com.bookwyrm.backend.unit.review.controller;
 
-import com.bookwyrm.backend.book.controller.BookController;
 import com.bookwyrm.backend.book.dao.BookDao;
 import com.bookwyrm.backend.book.service.BookService;
 import com.bookwyrm.backend.review.controller.ReviewController;
@@ -18,7 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -38,13 +38,19 @@ public class ReviewControllerTests {
 
         MockitoAnnotations.openMocks(this);
 
-        Mockito.when(bookService.findById(any(String.class))).thenReturn(Optional.of(new BookDao("testTitle","testAuthor")));
+        Mockito.when(bookService.findById(any(String.class))).then((x)-> new BookDao("testTitle","testAuthor","testDesc",""));
         //Setup
         ReviewUploadInput input = new ReviewUploadInput();
         input.setAuthor("testAuthor");
         input.setAnonymousFlag(true);
         input.setContent("testContent");
         input.setBookId("testId");
+        input.setAnonymousFlag(false);
+        input.setJournalistFlag(false);
+        input.setJournalistName("testJournName");
+        Map<String, Float> map = new HashMap<>();
+        map.put("test rate", 4.5F);
+        input.setRatings(map);
 
         //Run
         ResponseEntity response =  controller.createReview(input);

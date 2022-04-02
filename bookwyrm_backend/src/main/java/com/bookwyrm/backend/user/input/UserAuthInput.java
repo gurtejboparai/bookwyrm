@@ -2,7 +2,7 @@ package com.bookwyrm.backend.user.input;
 
 import java.math.BigInteger;
 
-public class UserInput {
+public class UserAuthInput {
 
     private String username;
     private BigInteger passwordHash;

@@ -1,6 +1,7 @@
 package com.bookwyrm.backend.book.controller;
 
 import com.bookwyrm.backend.book.dao.BookDao;
+import com.bookwyrm.backend.book.input.BookUpdateInput;
 import com.bookwyrm.backend.book.input.BookUploadInput;
 import com.bookwyrm.backend.book.payload.BookDetailSearchPayload;
 import com.bookwyrm.backend.book.payload.BookSearchPayload;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +31,8 @@ public class BookController {
     ReviewService reviewService;
     @Autowired
     CommentService commentService;
+    @Autowired
+    RestTemplate restTemplate;
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,13 +47,13 @@ public class BookController {
 
         if (errorList.isEmpty()) {
             //Create Book
-            BookDao newBook = new BookDao(bookUploadInput.getTitle(), bookUploadInput.getAuthor());
-
+            BookDao newBook = new BookDao(bookUploadInput.getTitle(), bookUploadInput.getAuthor(), bookUploadInput.getDesc(), bookUploadInput.getIsbn());
+            
             //Save book
             bookService.save(newBook);
 
             //Ensure book got saved properly
-            response.loadBookDao(newBook);
+            response.setBookId(newBook.getId());
 
         } else {
             //Inform user of error
@@ -62,7 +66,7 @@ public class BookController {
 
     @CrossOrigin
     @GetMapping("/{title}")
-    public ResponseEntity searchBookByTitle(@PathVariable("title") String title) {
+    public ResponseEntity<BookSearchPayload> searchBookByTitle(@PathVariable("title") String title) {
 
         BookSearchPayload response = new BookSearchPayload();
         HttpStatus status = HttpStatus.OK;
@@ -77,7 +81,7 @@ public class BookController {
 
     @CrossOrigin
     @GetMapping("/details/{id}")
-    public ResponseEntity searchBookById(@PathVariable("id") String id) {
+    public ResponseEntity<BookDetailSearchPayload> searchBookById(@PathVariable("id") String id) {
 
         BookDetailSearchPayload response = new BookDetailSearchPayload();
         HttpStatus status = HttpStatus.OK;
@@ -95,6 +99,43 @@ public class BookController {
             });
             //Attach Reviews to book
             response.getBookDao().setReviewList(reviewList);
+        }
+
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @CrossOrigin
+    @GetMapping("/deepsearch/{isbn}")
+    public ResponseEntity<String> searchBookGoogleApi(@PathVariable("isbn") String isbn) {
+        return ResponseEntity.status(HttpStatus.OK).body(restTemplate.getForObject("https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn,String.class));
+    }
+
+    @CrossOrigin
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BookDetailSearchPayload> updateBookDesc(@RequestBody BookUpdateInput bookUpdateInput){
+        //Check input
+        List<String> errorList = BookValidator.validateUpdateInformation(bookUpdateInput);
+
+        //Prepare payload
+        BookDetailSearchPayload response = new BookDetailSearchPayload();
+        HttpStatus status = HttpStatus.OK;
+
+        if (errorList.isEmpty()) {
+            BookDao foundBook = bookService.findByBookId(bookUpdateInput.getId());
+            if(foundBook!=null){
+                //Update and save book
+                foundBook.setDescription(bookUpdateInput.getDesc());
+                foundBook.setAvg(bookUpdateInput.getRate());
+                foundBook.setGenre(bookUpdateInput.getGenre());
+                bookService.save(foundBook);
+
+                //Add book to send back
+                response.setBookDao(foundBook);
+            }
+        } else {
+            //Inform user of error
+            response.setMessages(errorList);
+            status = HttpStatus.BAD_REQUEST;
         }
 
         return ResponseEntity.status(status).body(response);

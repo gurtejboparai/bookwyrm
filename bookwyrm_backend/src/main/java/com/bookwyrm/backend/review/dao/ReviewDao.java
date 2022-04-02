@@ -14,17 +14,30 @@ public class ReviewDao {
     private String user;
     private String content;
     private String bookId;
+    private Boolean journalistReview;
     private List<CommentDao> commentList;
     private boolean anonymousFlag;
+    private List<String> upVoteIdsList;
+    private List<String> downVoteIdsList;
+    private String journalistName;
+    private Map<String, Float> ratings;
 
-    public ReviewDao( String user, boolean anonymousFlag, String content, String bookId) {
+    public ReviewDao( String user, boolean anonymousFlag, String content, String bookId, Map<String, Float> ratings, boolean journalistReview, String journalistName) {
         super();
         this.bookId = bookId;
         this.user = user;
         this.anonymousFlag = anonymousFlag;
         this.content = content;
+        this.upVoteIdsList = new ArrayList<>();
+        this.downVoteIdsList = new ArrayList<>();
+        this.journalistReview = journalistReview;
+        this.journalistName = journalistName;
+        this.ratings = ratings;
     }
 
+    public Map<String, Float> getRatings() { return ratings;}
+
+    public void setRatings(Map<String, Float> ratings) {this.ratings = ratings;}
 
     public String getId() {
         return id;
@@ -72,5 +85,37 @@ public class ReviewDao {
 
     public void setCommentList(List<CommentDao> commentList) {
         this.commentList = commentList;
+    }
+
+    public List<String> getUpVoteIdsList() {
+        return upVoteIdsList;
+    }
+
+    public void setUpVoteIdsList(List<String> upVoteIdsList) {
+        this.upVoteIdsList = upVoteIdsList;
+    }
+
+    public List<String> getDownVoteIdsList() {
+        return downVoteIdsList;
+    }
+
+    public void setDownVoteIdsList(List<String> downVoteIdsList) {
+        this.downVoteIdsList = downVoteIdsList;
+    }
+
+    public Boolean getJournalistReview() {
+        return journalistReview;
+    }
+
+    public void setJournalistReview(Boolean journalistReview) {
+        this.journalistReview = journalistReview;
+    }
+
+    public String getJournalistName() {
+        return journalistName;
+    }
+
+    public void setJournalistName(String journalistName) {
+        this.journalistName = journalistName;
     }
 }
