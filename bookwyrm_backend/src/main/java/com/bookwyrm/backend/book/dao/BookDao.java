@@ -31,24 +31,24 @@ public class BookDao {
         this.isbn = isbn;
         avgRate = new HashMap<String, Float>();
         numRate = new HashMap<String, Integer>();
-        String genres[] = {"Overall", "Adventure", "Action", "Bedtime", "Comedy/Humor", "Children's", "Drama",
-        "Fantasy", "Gothic", "Horror", "Historical Fiction", "Alternative History", "Mystery", "Romance", "Sport",
-        "Science Fiction", "Thriller"};
-        for (String str:genres){
-            avgRate.put(str, 0.0F);
-            numRate.put(str, 0);
-        }
+
     }
 
     public void UpdateAvgRate(Map<String, Float> rate){
         for (Map.Entry m:rate.entrySet()){
             Object key = m.getKey();
-            if (avgRate.containsKey(key)) {
-                int new_num = numRate.get(key) + 1;
-                Float result = ((avgRate.get(key) * numRate.get(key) + rate.get(key)) / new_num);
-                result = ((int) (result * 2 + 0.5)) / 2.0F;
-                avgRate.replace(key.toString(), result);
-                numRate.replace(key.toString(), new_num);
+            if (avgRate.containsKey(key)) { //2nd review onward
+                if (rate.get(key) != 0) {
+                    int new_num = numRate.get(key) + 1;
+                    Float result = ((avgRate.get(key) * numRate.get(key) + rate.get(key)) / new_num);
+                    result = ((int) (result * 2 + 0.5)) / 2.0F;
+                    avgRate.replace(key.toString(), result);
+                    numRate.replace(key.toString(), new_num);
+                }
+            }else{ //first review: add all genres
+                avgRate.put(key.toString(), rate.get(key));
+                if (rate.get(key) != 0) {numRate.put(key.toString(), 1);}
+                else {numRate.put(key.toString(), 0);}
             }
         }
     }
