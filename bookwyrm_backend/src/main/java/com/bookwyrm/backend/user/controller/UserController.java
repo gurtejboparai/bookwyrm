@@ -84,14 +84,16 @@ public class UserController {
             //If user exists, update their details
             if(foundUser.isPresent()) {
                 foundUser.get().setAuthorFlag(userUpdateInput.getAuthorFlag());
-                foundUser.get().setProfJournalistFlag(userUpdateInput.getJournalistFlag());
+                foundUser.get().setJournalistFlag(userUpdateInput.getJournalistFlag());
                 foundUser.get().setAuthorName(userUpdateInput.getAuthorName());
-                foundUser.get().setProfJournalistName(userUpdateInput.getJournalistName());
+                foundUser.get().setJournalistName(userUpdateInput.getJournalistName());
 
                 //Save user
                 userService.save(foundUser.get());
                 payload.setUser(foundUser.get());
             }
+        }else{
+            payload.setErrorList(UserValidator.validateUpdateInformation(userUpdateInput));
         }
         if(foundUser.isEmpty()){
             status = HttpStatus.NOT_FOUND;

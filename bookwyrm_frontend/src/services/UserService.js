@@ -12,8 +12,8 @@ export default {
       username:username, 
       authorFlag:authorFlag, 
       authorName:authorName,
-      profJournalistFlag:profJournalistFlag,
-      profJournalistName:profJournalistName 
+      journalistFlag:profJournalistFlag,
+      journalistName:profJournalistName 
     });
   }
 }

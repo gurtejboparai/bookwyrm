@@ -121,20 +121,6 @@ public class BookValidatorTests {
         Assert.isTrue(errorList.contains("Book description missing. Please add a book description and try again."),
                 "Expect missing book description error");
     }
-    @Test
-    public void testMissingRateUpdate(){
-        //Setup
-        BookUpdateInput input = new BookUpdateInput();
-        input.setDesc("testDesc");
-        input.setId("testId");
-        // Run Validation
-        List<String> errorList = BookValidator.validateUpdateInformation(input);
-
-        // Check output
-        Assert.isTrue(errorList.contains("Book update: Review rating is missing. Please add a rating and try again"),
-                "Expect missing review ratings error");
-
-    }
 
     @Test
     public void testMissingEverythingUpdate() {
@@ -149,8 +135,6 @@ public class BookValidatorTests {
                 "Expect missing book id error");
         Assert.isTrue(errorList.contains("Book description missing. Please add a book description and try again."),
                 "Expect missing book description error");
-        Assert.isTrue(errorList.contains("Book update: Review rating is missing. Please add a rating and try again"),
-                "Expect missing review ratings error");
     }
 
 }

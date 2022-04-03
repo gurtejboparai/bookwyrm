@@ -13,10 +13,10 @@ public class UserDao {
     private BigInteger passwordHash;
     private Boolean authorFlag;
     private String authorName;
-    private Boolean profJournalistFlag;
-    private String profJournalistName;
+    private Boolean journalistFlag;
+    private String journalistName;
 
-    public UserDao( String username, BigInteger passwordHash) {
+    public UserDao(String username, BigInteger passwordHash) {
         super();
         this.username = username;
         this.passwordHash = passwordHash;
@@ -54,19 +54,19 @@ public class UserDao {
         this.authorName = authorName;
     }
 
-    public Boolean getProfJournalistFlag() {
-        return profJournalistFlag;
+    public Boolean getJournalistFlag() {
+        return journalistFlag;
     }
 
-    public void setProfJournalistFlag(Boolean profJournalistFlag) {
-        this.profJournalistFlag = profJournalistFlag;
+    public void setJournalistFlag(Boolean journalistFlag) {
+        this.journalistFlag = journalistFlag;
     }
 
-    public String getProfJournalistName() {
-        return profJournalistName;
+    public String getJournalistName() {
+        return journalistName;
     }
 
-    public void setProfJournalistName(String profJournalistName) {
-        this.profJournalistName = profJournalistName;
+    public void setJournalistName(String journalistName) {
+        this.journalistName = journalistName;
     }
 }
