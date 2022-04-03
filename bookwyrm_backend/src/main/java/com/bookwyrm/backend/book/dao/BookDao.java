@@ -53,6 +53,11 @@ public class BookDao {
         }
     }
     public void setGenre(String genre) { this.genre = genre;}
+
+    public String getGenre() {
+        return genre;
+    }
+
     public String getId() {
         return id;
     }
@@ -104,4 +109,5 @@ public class BookDao {
     public Map<String, Float> getAvg() {return avgRate;}
 
     public void setAvg(Map<String, Float> avg) {this.avgRate = avg;}
+
 }
