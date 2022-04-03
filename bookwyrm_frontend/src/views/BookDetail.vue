@@ -70,7 +70,7 @@
           <!-- Avg Rating -->
           <RatingComponent
             v-bind:displayOnly="true"
-            v-bind:initialRatings="ratingsData"
+            v-bind:ratings="bookDetails.avg"
           />
         </div>
       </div>

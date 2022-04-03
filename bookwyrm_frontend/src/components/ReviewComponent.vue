@@ -20,7 +20,7 @@
           <div>
             <RatingComponent
               v-bind:displayOnly="true"
-              v-bind:initialRatings="topic.ratingsList"
+              v-bind:ratings="topic.ratings"
             />
           </div>
           <div class="row">
