@@ -12,5 +12,14 @@ export default {
             journalistFlag:journalistFlag,
             journalistName:journalistName
         });
+    },
+
+    updateVoting(userId, reviewId, voteValue) {
+        return bookwyrmClient.put('/api/review/voting',
+        {
+            userId:userId,
+            reviewId:reviewId,
+            voteValue:voteValue
+        });
     }
 }

@@ -19,8 +19,8 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
+
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -133,8 +133,10 @@ public class BookControllerTests {
         Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor","testDesc",""));
         BookUpdateInput bookUpdateInput = new BookUpdateInput();
         bookUpdateInput.setId("testId");
-        bookUpdateInput.setDesc("testDescUpdate");
         bookUpdateInput.setGenre("testGenre");
+        bookUpdateInput.setDesc("testDescUpdate");
+        Map<String, Float> map = new HashMap<>();
+        bookUpdateInput.setRate(map);
 
         //Run
         ResponseEntity response = controller.updateBookDesc(bookUpdateInput);
@@ -150,7 +152,8 @@ public class BookControllerTests {
         Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor","testDesc",""));
         BookUpdateInput bookUpdateInput = new BookUpdateInput();
         bookUpdateInput.setDesc("testDescUpdate");
-        bookUpdateInput.setGenre("testGenre");
+        Map<String, Float> map = new HashMap<>();
+        bookUpdateInput.setRate(map);
 
 
         //Run

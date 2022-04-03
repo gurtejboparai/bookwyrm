@@ -1,6 +1,7 @@
 package com.bookwyrm.backend.unit.review.validator;
 
 import com.bookwyrm.backend.review.input.ReviewUploadInput;
+import com.bookwyrm.backend.review.input.ReviewVotingInput;
 import com.bookwyrm.backend.review.validator.ReviewValidator;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -155,6 +156,77 @@ public class ReviewValidatorTests {
         Assert.isTrue(errorList.contains("Review content is missing. Please add some content and try again."), "Expect missing description name error");
         Assert.isTrue(errorList.contains("Author name missing. Please add an author name and try again."), "Expect missing author error");
         Assert.isTrue(errorList.contains("Book ID missing. Please add a book Id and try again."), "Expect missing book ID error");
+    }
+
+    @Test
+    public void testGoodValidateVotingInput() {
+        //Setup
+        ReviewVotingInput input = new ReviewVotingInput();
+        input.setUserId("TestUserId");
+        input.setReviewId("TestReviewId");
+        input.setVoteValue(true);
+
+        //Run Validation
+        List<String> errorList = ReviewValidator.validateVotingInput(input);
+
+        //Check output
+        Assert.isTrue(errorList.isEmpty(), "Expect no messages from valid input");
+    }
+
+    @Test
+    public  void testMissingUserIdVotingInput() {
+        //Setup
+        ReviewVotingInput input = new ReviewVotingInput();
+        input.setReviewId("TestReviewId");
+        input.setVoteValue(true);
+
+        //Run Validation
+        List<String> errorList = ReviewValidator.validateVotingInput(input);
+
+        //Check output
+        Assert.isTrue(errorList.contains("User ID missing. Please try again."), "Expect missing user ID error");
+    }
+
+    @Test
+    public  void testMissingReviewIdVotingInput() {
+        //Setup
+        ReviewVotingInput input = new ReviewVotingInput();
+        input.setUserId("TestUserId");
+        input.setVoteValue(true);
+
+        //Run Validation
+        List<String> errorList = ReviewValidator.validateVotingInput(input);
+
+        //Check output
+        Assert.isTrue(errorList.contains("review ID missing. Please try again."), "Expect missing review ID error");
+    }
+
+    @Test
+    public  void testMissingVoteValueVotingInput() {
+        //Setup
+        ReviewVotingInput input = new ReviewVotingInput();
+        input.setUserId("TestUserId");
+        input.setReviewId("TestReviewId");
+
+        //Run Validation
+        List<String> errorList = ReviewValidator.validateVotingInput(input);
+
+        //Check output
+        Assert.isTrue(errorList.contains("Vote value missing. Please down vote or upvote and try again."), "Expect missing vote value error");
+    }
+
+    @Test
+    public void testMissingEverythingVotingInput(){
+        //Setup
+        ReviewVotingInput input = new ReviewVotingInput();
+
+        //Run Validation
+        List<String> errorList =  ReviewValidator.validateVotingInput(input);
+
+        //Check output
+        Assert.isTrue(errorList.contains("User ID missing. Please try again."), "Expect missing user ID error");
+        Assert.isTrue(errorList.contains("review ID missing. Please try again."), "Expect missing review ID error");
+        Assert.isTrue(errorList.contains("Vote value missing. Please down vote or upvote and try again."), "Expect missing vote value error");
     }
 
 }

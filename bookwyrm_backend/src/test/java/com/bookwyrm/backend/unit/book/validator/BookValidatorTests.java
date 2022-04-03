@@ -8,7 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SpringJUnitConfig
 @SpringBootTest
@@ -78,6 +80,8 @@ public class BookValidatorTests {
         BookUpdateInput input = new BookUpdateInput();
         input.setDesc("testDesc");
         input.setId("testId");
+        Map<String, Float> map = new HashMap<String, Float>();
+        input.setRate(map);
 
         // Run Validation
         List<String> errorList = BookValidator.validateUpdateInformation(input);
@@ -91,6 +95,8 @@ public class BookValidatorTests {
         // Setup
         BookUpdateInput input = new BookUpdateInput();
         input.setDesc("testDesc");
+        Map<String, Float> map = new HashMap<String, Float>();
+        input.setRate(map);
 
         // Run Validation
         List<String> errorList = BookValidator.validateUpdateInformation(input);
@@ -105,6 +111,8 @@ public class BookValidatorTests {
         // Setup
         BookUpdateInput input = new BookUpdateInput();
         input.setId("testId");
+        Map<String, Float> map = new HashMap<String, Float>();
+        input.setRate(map);
 
         // Run Validation
         List<String> errorList = BookValidator.validateUpdateInformation(input);
@@ -112,6 +120,20 @@ public class BookValidatorTests {
         // Check output
         Assert.isTrue(errorList.contains("Book description missing. Please add a book description and try again."),
                 "Expect missing book description error");
+    }
+    @Test
+    public void testMissingRateUpdate(){
+        //Setup
+        BookUpdateInput input = new BookUpdateInput();
+        input.setDesc("testDesc");
+        input.setId("testId");
+        // Run Validation
+        List<String> errorList = BookValidator.validateUpdateInformation(input);
+
+        // Check output
+        Assert.isTrue(errorList.contains("Book update: Review rating is missing. Please add a rating and try again"),
+                "Expect missing review ratings error");
+
     }
 
     @Test
@@ -127,6 +149,8 @@ public class BookValidatorTests {
                 "Expect missing book id error");
         Assert.isTrue(errorList.contains("Book description missing. Please add a book description and try again."),
                 "Expect missing book description error");
+        Assert.isTrue(errorList.contains("Book update: Review rating is missing. Please add a rating and try again"),
+                "Expect missing review ratings error");
     }
 
 }
