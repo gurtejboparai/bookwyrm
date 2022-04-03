@@ -31,9 +31,7 @@ public class BookValidator {
         if (bookUpdateInput.getId() == null) {
             errorList.add("Book id missing. Please add a book id and try again.");
         }
-        if(bookUpdateInput.getRate() == null){
-            errorList.add("Book update: Review rating is missing. Please add a rating and try again");
-        }
+
         return errorList;
     }
 }
