@@ -31,22 +31,24 @@ public class BookDao {
         this.isbn = isbn;
         avgRate = new HashMap<String, Float>();
         numRate = new HashMap<String, Integer>();
+        String genres[] = {"Overall", "Adventure", "Action", "Bedtime", "Comedy/Humor", "Children's", "Drama",
+        "Fantasy", "Gothic", "Horror", "Historical Fiction", "Alternative History", "Mystery", "Romance", "Sport",
+        "Science Fiction", "Thriller"};
+        for (String str:genres){
+            avgRate.put(str, 0.0F);
+            numRate.put(str, 0);
+        }
     }
 
     public void UpdateAvgRate(Map<String, Float> rate){
         for (Map.Entry m:rate.entrySet()){
             Object key = m.getKey();
-            if (rate.get(key) != 0) {
-                if (avgRate.containsKey(key)) {
-                    int new_num = numRate.get(key) + 1;
-                    Float result = ((avgRate.get(key) * numRate.get(key) + rate.get(key)) / new_num);
-                    result = ((int) (result * 2 + 0.5)) / 2.0F;
-                    avgRate.replace(key.toString(), result);
-                    numRate.replace(key.toString(), new_num);
-                } else {
-                    numRate.put(key.toString(), 1);
-                    avgRate.put(m.getKey().toString(), rate.get(key));
-                }
+            if (avgRate.containsKey(key)) {
+                int new_num = numRate.get(key) + 1;
+                Float result = ((avgRate.get(key) * numRate.get(key) + rate.get(key)) / new_num);
+                result = ((int) (result * 2 + 0.5)) / 2.0F;
+                avgRate.replace(key.toString(), result);
+                numRate.replace(key.toString(), new_num);
             }
         }
     }
