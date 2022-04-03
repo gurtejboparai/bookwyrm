@@ -27,8 +27,8 @@
             <div class="col-1 m-2 btn-lg">
               <VotingComponent
                 :reviewId="topic.id"
-                :downVoteUserList="review.downVoteIdsList"
-                :upVoteUserList="review.upVoteIdsList"
+                :downVoteUserList="topic.downVoteIdsList"
+                :upVoteUserList="topic.upVoteIdsList"
               />
             </div>
             <div class="col-10">

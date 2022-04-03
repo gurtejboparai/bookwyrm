@@ -8,11 +8,12 @@
     </div>
     <div></div>
     <div id="ratingSpace" class="p-1">
-      <div v-for="(genreRating, index) in ratings" :key="genreRating.ratingId"
+      <div v-for="(genreRating, index) in localRatings" :key="genreRating.ratingId"
            class="ratingDisp m-2 p-2 rounded row">
 
         <h3 v-if="displayOnly" class="col-4">{{genreRating.genre}}</h3>
-        <select name="genreSelection" id="genreSelector" v-else v-model="genreRating.genre" class="col-4">
+        <select name="genreSelection" id="genreSelector" v-else v-model="genreRating.genre" 
+          class="col-4" v-on:change="genreChanged(genreRating)">
           <option value="" disabled selected>Select a genre</option>
           <option v-for="genre in genres" v-bind:key="genre" v-bind:value="genre">{{genre}}</option>
         </select>
