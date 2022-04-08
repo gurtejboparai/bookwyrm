@@ -96,6 +96,7 @@ import RatingComponent from "@/components/RatingComponent.vue";
 import BookService from "@/services/BookService";
 import ReviewService from "@/services/ReviewService";
 import CommentService from "@/services/CommentService";
+import GenreList from "@/GenreList.js"
 export default {
   name: "Book Detail",
   data() {
@@ -106,24 +107,7 @@ export default {
       saving: false,
       pageLoaded: false,
       ratingsData: null,
-      genres: [
-        "Adventure",
-        "Action",
-        "Bedtime",
-        "Comedy/Humor",
-        "Children's",
-        "Drama",
-        "Fantasy",
-        "Gothic",
-        "Horror",
-        "Historical Fiction",
-        "Alternate History",
-        "Mystery",
-        "Romance",
-        "Sport",
-        "Science-Fiction",
-        "Thriller",
-      ],
+      genres: GenreList.getStrictGenres(),
     };
   },
   methods: {

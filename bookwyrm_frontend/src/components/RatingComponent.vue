@@ -37,6 +37,7 @@
 <script>
 //import StarRating from 'vue-star-rating'
 import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
+import GenreList from '../GenreList'
     export default{
         name: "RatingComponent",
         //The property "initialRatings" is used as an initial value for ratings in the data
@@ -52,45 +53,9 @@ import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
                 ratingsObject: this.ratings,
                 nextNewRatingId: 0,
                 //This is a temporary substitute for the planned genre enum
-                genres:[
-                    "Overall",
-                    "Adventure",
-                    "Action",
-                    "Bedtime",
-                    "Comedy/Humor",
-                    "Children's",
-                    "Drama",
-                    "Fantasy",
-                    "Gothic",
-                    "Horror",
-                    "Historical Fiction",
-                    "Alternate History",
-                    "Mystery",
-                    "Romance",
-                    "Sport",
-                    "Science-Fiction",
-                    "Thriller"
-                ],
-                //list of genres that are available, these don't have a rating yet
-                availableGenres:{
-                    "Overall": true,
-                    "Adventure": true,
-                    "Action": true,
-                    "Bedtime": true,
-                    "Comedy/Humor": true,
-                    "Children's": true,
-                    "Drama": true,
-                    "Fantasy": true,
-                    "Gothic": true,
-                    "Horror": true,
-                    "Historical Fiction": true,
-                    "Alternate History": true,
-                    "Mystery": true,
-                    "Romance": true,
-                    "Sport": true,
-                    "Science-Fiction": true,
-                    "Thriller": true
-                },
+                genres: GenreList.getGenres(),
+                //If the value stored here is true that mean that the genre doesn't have a rating
+                availableGenres:{},
 
 
             }
@@ -183,34 +148,19 @@ import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
         created(){
             //check if given data is null and fix it if it is
             if(this.ratingsObject == null){
-                this.ratingsObject = {
-                    "Overall":0,
-                    "Adventure":0,
-                    "Action":0,
-                    "Bedtime":0,
-                    "Comedy/Humor":0,
-                    "Children's":0,
-                    "Drama":0,
-                    "Fantasy":0,
-                    "Gothic":0,
-                    "Horror":0,
-                    "Historical Fiction":0,
-                    "Alternate History":0,
-                    "Mystery":0,
-                    "Romance":0,
-                    "Sport":0,
-                    "Science-Fiction":0,
-                    "Thriller":0
-                }
+                this.ratingsObject = {}
+                this.genres.forEach(category=> {
+                    this.ratingsObject[category]=0
+                })
             }
-            //inititalize localRatings variable
+            //inititalize localRatings variable and genre Availability
             this.genres.forEach(category => {
-                if(this.ratingsObject[category] > 0.0){
+                this.availableGenres[category] = !this.ratingsObject[category] > 0.0
+                if(!this.availableGenres[category]){
                     this.localRatings.push({ratingId:this.nextNewRatingId, genre:category, score:this.ratingsObject[category]})
                     this.availableGenres[category] = true
                     this.nextNewRatingId++
                 }
-
             });
         }
       
