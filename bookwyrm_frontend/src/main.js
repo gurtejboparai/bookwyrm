@@ -18,9 +18,11 @@ const store = createStore({
         state.username = user.username;
         localStorage.setItem("username", user.username);
         localStorage.setItem("authorFlag", user.authorFlag);
-        localStorage.setItem("authorName", user.authorName);
+        if(user.authorFlag)
+          localStorage.setItem("authorName", user.authorName);
         localStorage.setItem("journalistFlag", user.journalistFlag);
-        localStorage.setItem("journalistName", user.journalistName);
+        if(user.journalistFlag)
+          localStorage.setItem("journalistName", user.journalistName);
       }
     },
     logout (state) {

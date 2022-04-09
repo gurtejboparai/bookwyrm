@@ -68,8 +68,8 @@ export default {
   },
   mounted(){
     if(localStorage.getItem("username") != undefined){
-      this.profJournalistName=localStorage.getItem("journalistName");
-      this.authorName=localStorage.getItem("authorName");
+      this.profJournalistName=localStorage.getItem("journalistName")??"";
+      this.authorName=localStorage.getItem("authorName")??"";
       this.profJournalistFlag=localStorage.getItem("journalistFlag") == 'true';
       this.authorFlag=localStorage.getItem("authorFlag") == 'true';
     }
