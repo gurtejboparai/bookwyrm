@@ -133,7 +133,6 @@
 import VotingComponent from "@/components/VotingComponent";
 import RatingComponent from "./RatingComponent.vue";
 import CommentComponent from "./CommentComponent.vue";
-import GenreList from "../GenreList";
 export default {
   name: "ReviewComponent",
   props: ["reviews", "bookTitle", "bookAuthor"],
@@ -141,28 +140,10 @@ export default {
     return {
       focused: false,
       topic: null,
-      genres: GenreList.getGenres(),
       newCommentText: "",
       newCommentAnonymousFlag: false,
       newReviewText: "",
-      newReviewRatingsList: {
-                "Overall":0,
-                "Adventure":0,
-                "Action":0,
-                "Bedtime":0,
-                "Comedy/Humor":0,
-                "Children's":0,
-                "Drama":0,
-                "Fantasy":0,
-                "Horror":0,
-                "Historical Fiction":0,
-                "Alternate History":0,
-                "Mystery":0,
-                "Romance":0,
-                "Sport":0,
-                "Science-Fiction":0,
-                "Thriller":0
-                },
+      newReviewRatingsList: {},
       newReviewAnonymousFlag: false,
       newReviewJournalistFlag: false,
     };
@@ -207,6 +188,9 @@ export default {
     },
     isJournalist() {
       return localStorage.getItem("journalistFlag") == "true";
+    },
+    genres(){
+      return this.$store.getters.getGenres
     },
   },
   created(){

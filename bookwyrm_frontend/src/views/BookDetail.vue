@@ -96,7 +96,6 @@ import RatingComponent from "@/components/RatingComponent.vue";
 import BookService from "@/services/BookService";
 import ReviewService from "@/services/ReviewService";
 import CommentService from "@/services/CommentService";
-import GenreList from "@/GenreList.js"
 export default {
   name: "Book Detail",
   data() {
@@ -107,7 +106,6 @@ export default {
       saving: false,
       pageLoaded: false,
       ratingsData: null,
-      genres: GenreList.getStrictGenres(),
     };
   },
   methods: {
@@ -161,6 +159,10 @@ export default {
         localStorage.getItem("authorName") == this.bookDetails.author &&
         localStorage.getItem("authorFlag") == "true"
       );
+    },
+    
+    genres(){
+      return this.$store.getters.getStrictGenres
     },
   },
 };

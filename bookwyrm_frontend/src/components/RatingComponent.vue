@@ -35,9 +35,7 @@
 
 
 <script>
-//import StarRating from 'vue-star-rating'
 import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
-import GenreList from '../GenreList'
     export default{
         name: "RatingComponent",
         //The property "initialRatings" is used as an initial value for ratings in the data
@@ -52,8 +50,6 @@ import GenreList from '../GenreList'
                 //This is the storage for the backend friendly ratings data
                 ratingsObject: this.ratings,
                 nextNewRatingId: 0,
-                //This is a temporary substitute for the planned genre enum
-                genres: GenreList.getGenres(),
                 //If the value stored here is true that mean that the genre doesn't have a rating
                 availableGenres:{},
 
@@ -144,6 +140,11 @@ import GenreList from '../GenreList'
         },
         components: {
             StarRatingWrapperComponent
+        },
+        computed: {
+            genres(){
+                return this.$store.getters.getGenres
+            },
         },
         created(){
             //check if given data is null and fix it if it is
