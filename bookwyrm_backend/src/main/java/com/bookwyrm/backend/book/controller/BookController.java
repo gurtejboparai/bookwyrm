@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.websocket.server.PathParam;
 import java.util.Arrays;
 import java.util.List;
 
@@ -136,6 +137,24 @@ public class BookController {
             //Inform user of error
             response.setMessages(errorList);
             status = HttpStatus.BAD_REQUEST;
+        }
+
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @CrossOrigin
+    @GetMapping("/newest")
+    public ResponseEntity<BookDetailSearchPayload> getNewestBookByGenre(@PathParam("genre") String genre) {
+
+        BookDetailSearchPayload response = new BookDetailSearchPayload();
+        HttpStatus status = HttpStatus.OK;
+
+        List<BookDao> bookDaoList = bookService.findByGenre(genre);
+        if(bookDaoList!=null && !bookDaoList.isEmpty()){
+            response.setBookDao(bookDaoList.get(0));
+        }else{
+            response.setMessages(Arrays.asList("No books found."));
+            status=HttpStatus.NOT_FOUND;
         }
 
         return ResponseEntity.status(status).body(response);
