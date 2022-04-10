@@ -144,6 +144,23 @@ public class BookController {
     }
 
     @CrossOrigin
+    @GetMapping("/newest")
+    public ResponseEntity<BookDetailSearchPayload> getNewestBookByGenre(@PathParam("genre") String genre) {
+
+        BookDetailSearchPayload response = new BookDetailSearchPayload();
+        HttpStatus status = HttpStatus.OK;
+
+        List<BookDao> bookDaoList = bookService.findByGenre(genre);
+        if(bookDaoList!=null && !bookDaoList.isEmpty()){
+            response.setBookDao(bookDaoList.get(0));
+        }else{
+            response.setMessages(Arrays.asList("No books found."));
+            status=HttpStatus.NOT_FOUND;
+        }
+
+        return ResponseEntity.status(status).body(response);
+    }
+    
     @GetMapping("/top")
     public ResponseEntity<BookDetailSearchPayload> getTopRatedInGenre(@PathParam("genre") String genre){
 
