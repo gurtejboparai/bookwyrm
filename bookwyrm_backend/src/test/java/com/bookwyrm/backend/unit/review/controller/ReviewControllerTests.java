@@ -38,7 +38,7 @@ public class ReviewControllerTests {
 
         MockitoAnnotations.openMocks(this);
 
-        Mockito.when(bookService.findById(any(String.class))).then((x)-> new BookDao("testTitle","testAuthor","testDesc",""));
+        Mockito.when(bookService.findById(any(String.class))).then((x)-> new BookDao("testTitle","testAuthor","testDesc","", ""));
         //Setup
         ReviewUploadInput input = new ReviewUploadInput();
         input.setAuthor("testAuthor");

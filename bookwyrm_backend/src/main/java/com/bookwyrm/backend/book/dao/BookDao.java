@@ -25,7 +25,7 @@ public class BookDao {
     private Date creationDate;
 
 
-    public BookDao(String title, String author, String description, String isbn){
+    public BookDao(String title, String author, String description, String isbn, String genre){
         super();
         this.title = title;
         this.author = author;
@@ -34,6 +34,7 @@ public class BookDao {
         avgRate = new HashMap<String, Float>();
         numRate = new HashMap<String, Integer>();
         this.creationDate = new Date();
+        this.genre = genre;
     }
 
     public void UpdateAvgRate(Map<String, Float> rate){

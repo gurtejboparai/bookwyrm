@@ -6,6 +6,7 @@ public class BookUploadInput {
     private String author;
     private String desc;
     private String isbn;
+    private String genre;
 
     public String getTitle() {
         return title;
@@ -38,4 +39,9 @@ public class BookUploadInput {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+
+    public String getGenre() {
+        return genre;
+    }
+
 }
