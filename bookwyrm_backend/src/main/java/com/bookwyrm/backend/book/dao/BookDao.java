@@ -4,6 +4,7 @@ import com.bookwyrm.backend.review.dao.ReviewDao;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,7 @@ public class BookDao {
     private String genre;
     private Map<String, Float> avgRate;
     private Map<String, Integer> numRate;
+    private Date creationDate;
 
 
     public BookDao(String title, String author, String description, String isbn, String genre){
@@ -31,8 +33,8 @@ public class BookDao {
         this.isbn = isbn;
         avgRate = new HashMap<String, Float>();
         numRate = new HashMap<String, Integer>();
+        this.creationDate = new Date();
         this.genre = genre;
-
     }
 
     public void UpdateAvgRate(Map<String, Float> rate){
@@ -111,4 +113,11 @@ public class BookDao {
 
     public void setAvg(Map<String, Float> avg) {this.avgRate = avg;}
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
 }
