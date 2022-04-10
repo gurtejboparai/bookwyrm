@@ -194,6 +194,7 @@ export default {
     },
   },
   created(){
+    
     this.newReviewRatingsList = {}
       this.genres.forEach(category=> {
         this.newReviewRatingsList[category]=0

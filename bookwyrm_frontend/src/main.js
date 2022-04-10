@@ -28,7 +28,7 @@ const store = createStore({
         "Sport",
         "Science-Fiction",
         "Thriller"
-    ]
+      ]
     }
   },
   getters: {

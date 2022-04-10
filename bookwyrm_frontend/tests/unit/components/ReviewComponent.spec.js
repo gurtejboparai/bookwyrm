@@ -5,11 +5,38 @@ import {createApp} from 'vue'
 
 
 const store = createStore({
-    data() {
-    return {
-        username: ""
+    state () {
+        return {
+        username: "",
+        genreList: [
+                "Overall",
+                "Adventure",
+                "Action",
+                "Bedtime",
+                "Comedy/Humor",
+                "Children's",
+                "Drama",
+                "Fantasy",
+                "Gothic",
+                "Horror",
+                "Historical Fiction",
+                "Alternate History",
+                "Mystery",
+                "Romance",
+                "Sport",
+                "Science-Fiction",
+                "Thriller"
+            ]
+        }
+    },
+    getters: {
+        getGenres(state){
+            return state.genreList
+        },
+        getStrictGenres(state){
+            return state.genreList.slice(1, state.genreList.length)
+        }
     }
-}
 })
 const app = createApp(ReviewComponent)
 app.use(store)

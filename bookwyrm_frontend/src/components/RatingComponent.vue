@@ -144,7 +144,7 @@ import StarRatingWrapperComponent from './StarRatingWrapperComponent.vue'
         computed: {
             genres(){
                 return this.$store.getters.getGenres
-            },
+            }
         },
         created(){
             //check if given data is null and fix it if it is
