@@ -32,7 +32,25 @@
         <input type="text" id="author" class="form-control" v-model="bookAuthor" placeholder="The Book's Author"/>
       </div>
     </div>
-
+    <div class="row justify-content-center p-2 pt-4">
+      <div class="col-sm-12 col-md-4">
+        <label for="genre">Genre (Optional):</label>
+      </div>
+    </div>
+    <div class="row justify-content-center p-2  text-center">
+      <div class="col-sm-12 col-md-4">
+        <select id="genre" v-model="genreEdit" class="form-select w-50 mb-3">
+          <option value="null" selected>No Genre</option>
+          <option
+            v-for="genre in genres"
+            v-bind:key="genre"
+            v-bind:value="genre"
+          >
+            {{ genre }}
+          </option>
+        </select>
+      </div>
+    </div>
     <div class="row justify-content-center p-2 pt-4">
       <div class="col-sm-12 col-md-4">
         <label for="desc">Description:</label>
@@ -61,12 +79,31 @@ import BookService from '@/services/BookService';
         bookName: "",
         bookAuthor: "",
         isbn:"",
-        bookDesc:""
+        bookDesc:"",
+        genreEdit: "",
+        genres: [
+        "Adventure",
+        "Action",
+        "Bedtime",
+        "Comedy/Humor",
+        "Children's",
+        "Drama",
+        "Fantasy",
+        "Gothic",
+        "Horror",
+        "Historical Fiction",
+        "Alternate History",
+        "Mystery",
+        "Romance",
+        "Sport",
+        "Science-Fiction",
+        "Thriller",
+      ],
       }
     },
     methods: {
       submitBook() {
-        BookService.uploadBook(this.bookName, this.bookAuthor, this.bookDesc, this.isbn)
+        BookService.uploadBook(this.bookName, this.bookAuthor, this.bookDesc, this.isbn, this.genreEdit)
           .then((response) => this.$router.push('/detail/' + response.data.bookId) );
       },
       searchAutofill(){
