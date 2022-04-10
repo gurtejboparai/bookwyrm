@@ -47,7 +47,7 @@ public class BookController {
 
         if (errorList.isEmpty()) {
             //Create Book
-            BookDao newBook = new BookDao(bookUploadInput.getTitle(), bookUploadInput.getAuthor(), bookUploadInput.getDesc(), bookUploadInput.getIsbn());
+            BookDao newBook = new BookDao(bookUploadInput.getTitle(), bookUploadInput.getAuthor(), bookUploadInput.getDesc(), bookUploadInput.getIsbn(), bookUploadInput.getGenre());
             
             //Save book
             bookService.save(newBook);

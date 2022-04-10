@@ -23,7 +23,7 @@ public class BookDao {
     private Map<String, Integer> numRate;
 
 
-    public BookDao(String title, String author, String description, String isbn){
+    public BookDao(String title, String author, String description, String isbn, String genre){
         super();
         this.title = title;
         this.author = author;
@@ -31,6 +31,7 @@ public class BookDao {
         this.isbn = isbn;
         avgRate = new HashMap<String, Float>();
         numRate = new HashMap<String, Integer>();
+        this.genre = genre;
 
     }
 
