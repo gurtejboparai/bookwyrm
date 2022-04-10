@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!(displayOnly && localRatings.length==0)">
     <h3>Ratings</h3>
     <div v-if="!displayOnly">
       <button v-on:click.prevent="addRating" class="btn btn-light mb-1">

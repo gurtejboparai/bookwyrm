@@ -14,4 +14,6 @@ public interface BookService extends MongoRepository<BookDao,String> {
     @Query("{id:'?0'}")
     BookDao findByBookId(String id);
 
+    @Query(value = "{genre:'?0'}", sort = "{creationDate:-1}")
+    List<BookDao> findByGenre(String genre);
 }
