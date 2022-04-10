@@ -12,6 +12,7 @@ import com.bookwyrm.backend.comment.dao.CommentService;
 import com.bookwyrm.backend.review.dao.ReviewDao;
 import com.bookwyrm.backend.review.dao.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -155,6 +156,25 @@ public class BookController {
         }else{
             response.setMessages(Arrays.asList("No books found."));
             status=HttpStatus.NOT_FOUND;
+        }
+
+        return ResponseEntity.status(status).body(response);
+    }
+    
+    @GetMapping("/top")
+    public ResponseEntity<BookDetailSearchPayload> getTopRatedInGenre(@PathParam("genre") String genre){
+
+        //Prepare payload
+        BookDetailSearchPayload response = new BookDetailSearchPayload();
+        HttpStatus status = HttpStatus.OK;
+
+        List<BookDao> byGenreSortedList = bookService.findAll(Sort.by(Sort.Direction.DESC,"avgRate."+genre));
+        if(byGenreSortedList!=null && !byGenreSortedList.isEmpty()) {
+            //Search for top
+            response.setBookDao(byGenreSortedList.get(0));
+        }else{
+            response.setMessages(Arrays.asList("No books found."));
+            status= HttpStatus.NOT_FOUND;
         }
 
         return ResponseEntity.status(status).body(response);
