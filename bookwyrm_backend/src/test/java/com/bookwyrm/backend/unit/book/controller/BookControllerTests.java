@@ -168,7 +168,7 @@ public class BookControllerTests {
     @Test
     public void testGoodTopGenreSearch() {
         MockitoAnnotations.openMocks(this);
-        Mockito.when(bookService.findAll(any(Sort.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor","testDesc","")));
+        Mockito.when(bookService.findAll(any(Sort.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor","testDesc","", "")));
 
         //Run
         ResponseEntity response = controller.getTopRatedInGenre("Adventure");
