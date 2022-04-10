@@ -13,6 +13,7 @@ import com.bookwyrm.backend.review.dao.ReviewService;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -161,6 +162,32 @@ public class BookControllerTests {
 
         //Check results
         Assert.isTrue(response.getStatusCode() == HttpStatus.BAD_REQUEST, "Expected failed endpoint call with 400 status");
+        Assert.notNull(((BookDetailSearchPayload)response.getBody()).getMessages() , "Expected failed endpoint call with error messages");
+    }
+
+    @Test
+    public void testGoodTopGenreSearch() {
+        MockitoAnnotations.openMocks(this);
+        Mockito.when(bookService.findAll(any(Sort.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor","testDesc","")));
+
+        //Run
+        ResponseEntity response = controller.getTopRatedInGenre("Adventure");
+
+        //Check results
+        Assert.isTrue(response.getStatusCode() == HttpStatus.OK, "Expected successful endpoint call with 200 status");
+        Assert.isNull(((BookDetailSearchPayload)response.getBody()).getMessages() , "Expected successful endpoint call with no error messages");
+    }
+
+    @Test
+    public void testBadTopGenreSearch() {
+        MockitoAnnotations.openMocks(this);
+        Mockito.when(bookService.findAll(any(Sort.class))).thenReturn(Arrays.asList());
+
+        //Run
+        ResponseEntity response = controller.getTopRatedInGenre("Adventure");
+
+        //Check results
+        Assert.isTrue(response.getStatusCode() == HttpStatus.NOT_FOUND, "Expected failed endpoint call with 404 status");
         Assert.notNull(((BookDetailSearchPayload)response.getBody()).getMessages() , "Expected failed endpoint call with error messages");
     }
 
