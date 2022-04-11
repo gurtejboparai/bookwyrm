@@ -81,24 +81,6 @@ import BookService from '@/services/BookService';
         isbn:"",
         bookDesc:"",
         genreEdit: "",
-        genres: [
-        "Adventure",
-        "Action",
-        "Bedtime",
-        "Comedy/Humor",
-        "Children's",
-        "Drama",
-        "Fantasy",
-        "Gothic",
-        "Horror",
-        "Historical Fiction",
-        "Alternate History",
-        "Mystery",
-        "Romance",
-        "Sport",
-        "Science-Fiction",
-        "Thriller",
-      ],
       }
     },
     methods: {
@@ -126,6 +108,11 @@ import BookService from '@/services/BookService';
         this.bookAuthor= "";
         this.bookDesc= "";
         this.isbn= "";
+      }
+    },
+    computed: {
+      genres(){
+        return this.$store.getters.getGenres
       }
     }
   }

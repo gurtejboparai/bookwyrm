@@ -9,7 +9,34 @@ import {createStore} from 'vuex'
 const store = createStore({
   state () {
     return {
-      username: ""
+      username: "",
+      genreList: [
+        "Overall",
+        "Adventure",
+        "Action",
+        "Bedtime",
+        "Comedy/Humor",
+        "Children's",
+        "Drama",
+        "Fantasy",
+        "Gothic",
+        "Horror",
+        "Historical Fiction",
+        "Alternate History",
+        "Mystery",
+        "Romance",
+        "Sport",
+        "Science-Fiction",
+        "Thriller"
+      ]
+    }
+  },
+  getters: {
+    getGenres(state){
+      return state.genreList
+    },
+    getStrictGenres(state){
+      return state.genreList.slice(1, state.genreList.length)
     }
   },
   mutations: {

@@ -106,24 +106,6 @@ export default {
       saving: false,
       pageLoaded: false,
       ratingsData: null,
-      genres: [
-        "Adventure",
-        "Action",
-        "Bedtime",
-        "Comedy/Humor",
-        "Children's",
-        "Drama",
-        "Fantasy",
-        "Gothic",
-        "Horror",
-        "Historical Fiction",
-        "Alternate History",
-        "Mystery",
-        "Romance",
-        "Sport",
-        "Science-Fiction",
-        "Thriller",
-      ],
     };
   },
   methods: {
@@ -177,6 +159,10 @@ export default {
         localStorage.getItem("authorName") == this.bookDetails.author &&
         localStorage.getItem("authorFlag") == "true"
       );
+    },
+    
+    genres(){
+      return this.$store.getters.getStrictGenres
     },
   },
 };
