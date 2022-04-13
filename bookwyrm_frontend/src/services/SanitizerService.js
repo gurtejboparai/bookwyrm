@@ -26,7 +26,7 @@ export default{
             sus = false;
 
             //Go throught the list of malicious tags and check for each one in the suspect string
-            while(idx < this.MAL_TAGS.length & !sus){
+            while(idx < MAL_TAGS.length & !sus){
                 began = suspect.indexOf(MAL_TAGS[idx]);
                 sus = began >= 0;
 
@@ -36,11 +36,17 @@ export default{
                     if(stops < 0){
                         //If the specific terminating tag couldn't be found than we assume the
                         //universal terminator was used
-                        stops = suspect.indexOf(TAG_ESC[TAG_ESC.length], began); 
+                        stops = suspect.indexOf(TAG_ESC[TAG_ESC.length-1], began); 
                         if(stops < 0){
                             //if it doesn't have a termination we'll just delete the tag
-                            stops = began + MAL_TAGS[idx].length
+                            stops = began + MAL_TAGS[idx].length;
                         }
+                        else{
+                            stops += TAG_ESC[TAG_ESC.length-1].length;
+                        }
+                    }
+                    else{
+                        stops += TAG_ESC[idx].length;
                     }
                 }
                 else{
@@ -74,7 +80,7 @@ export default{
     In other words its called "gut" because it takes out the middle part*/
     gut(thing, start, final){
         var husk = thing.substring(0, start);
-        hush = husk.concat(thing.substring(final, thing.length));
+        husk = husk.concat(thing.substring(final, thing.length));
         return husk;
     }
 
