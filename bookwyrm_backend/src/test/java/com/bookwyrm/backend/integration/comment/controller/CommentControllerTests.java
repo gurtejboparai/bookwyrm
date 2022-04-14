@@ -1,4 +1,4 @@
-package com.bookwyrm.backend.unit.comment.controller;
+package com.bookwyrm.backend.integration.comment.controller;
 
 import com.bookwyrm.backend.comment.controller.CommentController;
 import com.bookwyrm.backend.comment.dao.CommentService;
@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
-
 
 import java.util.HashMap;
 import java.util.List;
