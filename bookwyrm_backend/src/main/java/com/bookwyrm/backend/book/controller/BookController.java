@@ -160,7 +160,7 @@ public class BookController {
 
         return ResponseEntity.status(status).body(response);
     }
-    
+
     @GetMapping("/top")
     public ResponseEntity<BookDetailSearchPayload> getTopRatedInGenre(@PathParam("genre") String genre){
 

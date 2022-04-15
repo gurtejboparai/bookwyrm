@@ -1,4 +1,4 @@
-package com.bookwyrm.backend.unit.user.controller;
+package com.bookwyrm.backend.integration.user.controller;
 
 import com.bookwyrm.backend.user.controller.UserController;
 import com.bookwyrm.backend.user.dao.UserDao;
