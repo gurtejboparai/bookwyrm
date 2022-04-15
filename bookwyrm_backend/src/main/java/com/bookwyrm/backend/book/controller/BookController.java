@@ -12,12 +12,14 @@ import com.bookwyrm.backend.comment.dao.CommentService;
 import com.bookwyrm.backend.review.dao.ReviewDao;
 import com.bookwyrm.backend.review.dao.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.websocket.server.PathParam;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,7 +49,7 @@ public class BookController {
 
         if (errorList.isEmpty()) {
             //Create Book
-            BookDao newBook = new BookDao(bookUploadInput.getTitle(), bookUploadInput.getAuthor(), bookUploadInput.getDesc(), bookUploadInput.getIsbn());
+            BookDao newBook = new BookDao(bookUploadInput.getTitle(), bookUploadInput.getAuthor(), bookUploadInput.getDesc(), bookUploadInput.getIsbn(), bookUploadInput.getGenre());
             
             //Save book
             bookService.save(newBook);
@@ -136,6 +138,43 @@ public class BookController {
             //Inform user of error
             response.setMessages(errorList);
             status = HttpStatus.BAD_REQUEST;
+        }
+
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @CrossOrigin
+    @GetMapping("/newest")
+    public ResponseEntity<BookDetailSearchPayload> getNewestBookByGenre(@PathParam("genre") String genre) {
+
+        BookDetailSearchPayload response = new BookDetailSearchPayload();
+        HttpStatus status = HttpStatus.OK;
+
+        List<BookDao> bookDaoList = bookService.findByGenre(genre);
+        if(bookDaoList!=null && !bookDaoList.isEmpty()){
+            response.setBookDao(bookDaoList.get(0));
+        }else{
+            response.setMessages(Arrays.asList("No books found."));
+            status=HttpStatus.NOT_FOUND;
+        }
+
+        return ResponseEntity.status(status).body(response);
+    }
+
+    @GetMapping("/top")
+    public ResponseEntity<BookDetailSearchPayload> getTopRatedInGenre(@PathParam("genre") String genre){
+
+        //Prepare payload
+        BookDetailSearchPayload response = new BookDetailSearchPayload();
+        HttpStatus status = HttpStatus.OK;
+
+        List<BookDao> byGenreSortedList = bookService.findAll(Sort.by(Sort.Direction.DESC,"avgRate."+genre));
+        if(byGenreSortedList!=null && !byGenreSortedList.isEmpty()) {
+            //Search for top
+            response.setBookDao(byGenreSortedList.get(0));
+        }else{
+            response.setMessages(Arrays.asList("No books found."));
+            status= HttpStatus.NOT_FOUND;
         }
 
         return ResponseEntity.status(status).body(response);

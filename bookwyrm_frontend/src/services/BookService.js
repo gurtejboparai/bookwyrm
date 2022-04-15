@@ -1,8 +1,8 @@
 import { bookwyrmClient } from '@/client/AxiosClient';
 
 export default {
-  uploadBook(title, author, desc, isbn){
-    return bookwyrmClient.post('/api/book/',{title:title, author:author, desc:desc, isbn:isbn});
+  uploadBook(title, author, desc, isbn, genre){
+    return bookwyrmClient.post('/api/book/',{title:title, author:author, desc:desc, isbn:isbn, genre:genre});
   },
   searchBookDetail(id){
     return bookwyrmClient.get('/api/book/details/'+id);

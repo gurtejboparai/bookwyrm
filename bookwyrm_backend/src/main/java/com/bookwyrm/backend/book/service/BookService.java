@@ -8,10 +8,12 @@ import java.util.List;
 
 public interface BookService extends MongoRepository<BookDao,String> {
 
-    @Query("{title:'?0'}")
+    @Query("{title:{$regex:'(?i)?0'}}")
     List<BookDao> findAllBooksWithTitle(String title);
 
     @Query("{id:'?0'}")
     BookDao findByBookId(String id);
 
+    @Query(value = "{genre:'?0'}", sort = "{creationDate:-1}")
+    List<BookDao> findByGenre(String genre);
 }

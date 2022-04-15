@@ -1,4 +1,4 @@
-package com.bookwyrm.backend.unit.review.controller;
+package com.bookwyrm.backend.integration.review.controller;
 
 import com.bookwyrm.backend.book.dao.BookDao;
 import com.bookwyrm.backend.book.service.BookService;
@@ -38,7 +38,7 @@ public class ReviewControllerTests {
 
         MockitoAnnotations.openMocks(this);
 
-        Mockito.when(bookService.findById(any(String.class))).then((x)-> new BookDao("testTitle","testAuthor","testDesc",""));
+        Mockito.when(bookService.findById(any(String.class))).then((x)-> new BookDao("testTitle","testAuthor","testDesc","", ""));
         //Setup
         ReviewUploadInput input = new ReviewUploadInput();
         input.setAuthor("testAuthor");

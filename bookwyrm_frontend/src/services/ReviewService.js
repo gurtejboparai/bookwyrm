@@ -8,7 +8,7 @@ export default {
             author:author, 
             content:content, 
             anonymousFlag:anonymousFlag, 
-            ratingsList, 
+            ratings:ratingsList, 
             journalistFlag:journalistFlag,
             journalistName:journalistName
         });

@@ -1,4 +1,4 @@
-package com.bookwyrm.backend.unit.book.controller;
+package com.bookwyrm.backend.integration.book.controller;
 
 import com.bookwyrm.backend.book.controller.BookController;
 import com.bookwyrm.backend.book.dao.BookDao;
@@ -13,14 +13,17 @@ import com.bookwyrm.backend.review.dao.ReviewService;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -78,7 +81,7 @@ public class BookControllerTests {
     @Test
     public void testGoodSearch() {
         MockitoAnnotations.openMocks(this);
-        Mockito.when(bookService.findAllBooksWithTitle(any(String.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor", "testDesc","")));
+        Mockito.when(bookService.findAllBooksWithTitle(any(String.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor", "testDesc","", "")));
 
         //Run
         ResponseEntity response =  controller.searchBookByTitle("the test book");
@@ -117,7 +120,7 @@ public class BookControllerTests {
     @Test
     public void testGoodSearchById() {
         MockitoAnnotations.openMocks(this);
-        Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor","testDesc",""));
+        Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor","testDesc","", ""));
 
         //Run
         ResponseEntity response = controller.searchBookById("the test book");
@@ -130,7 +133,7 @@ public class BookControllerTests {
     @Test
     public void testGoodUpdate() {
         MockitoAnnotations.openMocks(this);
-        Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor","testDesc",""));
+        Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor","testDesc","", ""));
         BookUpdateInput bookUpdateInput = new BookUpdateInput();
         bookUpdateInput.setId("testId");
         bookUpdateInput.setGenre("testGenre");
@@ -149,7 +152,7 @@ public class BookControllerTests {
     @Test
     public void testBadUpdate() {
         MockitoAnnotations.openMocks(this);
-        Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor","testDesc",""));
+        Mockito.when(bookService.findByBookId(any(String.class))).thenReturn(new BookDao("testTitle", "testAuthor","testDesc","", ""));
         BookUpdateInput bookUpdateInput = new BookUpdateInput();
         bookUpdateInput.setDesc("testDescUpdate");
         Map<String, Float> map = new HashMap<>();
@@ -163,7 +166,55 @@ public class BookControllerTests {
         Assert.isTrue(response.getStatusCode() == HttpStatus.BAD_REQUEST, "Expected failed endpoint call with 400 status");
         Assert.notNull(((BookDetailSearchPayload)response.getBody()).getMessages() , "Expected failed endpoint call with error messages");
     }
+    @Test
+    public void testGoodNewestSearch() {
+        MockitoAnnotations.openMocks(this);
+        Mockito.when(bookService.findByGenre(any(String.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor","testDesc","", "")));
 
+        //Run
+        ResponseEntity response = controller.getNewestBookByGenre("Adventure");
+
+        //Check results
+        Assert.isTrue(response.getStatusCode() == HttpStatus.OK, "Expected successful endpoint call with 200 status");
+        Assert.isNull(((BookDetailSearchPayload)response.getBody()).getMessages() , "Expected successful endpoint call with no error messages");
+    }
+
+    @Test
+    public void testBadNewestSearch() {
+        MockitoAnnotations.openMocks(this);
+        Mockito.when(bookService.findByGenre(any(String.class))).thenReturn(Arrays.asList());
+
+        //Run
+        ResponseEntity response = controller.getNewestBookByGenre("Adventure");
+
+        //Check results
+        Assert.isTrue(response.getStatusCode() == HttpStatus.NOT_FOUND, "Expected failed endpoint call with 404 status");
+        Assert.notNull(((BookDetailSearchPayload) response.getBody()).getMessages(), "Expected failed endpoint call with error messages");
+    }
+    public void testGoodTopGenreSearch() {
+        MockitoAnnotations.openMocks(this);
+        Mockito.when(bookService.findAll(any(Sort.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor","testDesc","", "")));
+
+        //Run
+        ResponseEntity response = controller.getTopRatedInGenre("Adventure");
+
+        //Check results
+        Assert.isTrue(response.getStatusCode() == HttpStatus.OK, "Expected successful endpoint call with 200 status");
+        Assert.isNull(((BookDetailSearchPayload)response.getBody()).getMessages() , "Expected successful endpoint call with no error messages");
+    }
+
+    @Test
+    public void testBadTopGenreSearch() {
+            MockitoAnnotations.openMocks(this);
+            Mockito.when(bookService.findAll(any(Sort.class))).thenReturn(Arrays.asList());
+
+            //Run
+            ResponseEntity response = controller.getTopRatedInGenre("Adventure");
+
+            //Check results
+            Assert.isTrue(response.getStatusCode() == HttpStatus.NOT_FOUND, "Expected failed endpoint call with 404 status");
+            Assert.notNull(((BookDetailSearchPayload) response.getBody()).getMessages(), "Expected failed endpoint call with error messages");
+        }
     @Test
     public void testGoogleSearch() {
         MockitoAnnotations.openMocks(this);

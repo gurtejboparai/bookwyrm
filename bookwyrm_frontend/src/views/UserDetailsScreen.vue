@@ -13,6 +13,10 @@
       <div class="input-group">
         <input type="text" class="form-control m-2" v-model="profJournalistName" placeholder="Name / Nickname" v-if="profJournalistFlag">
       </div>
+      <div class="input-group" v-if="profJournalistFlag">
+        <span class="pt-2"> Photo Id:</span>
+        <input type="file" class="form-control m-2">
+      </div>
     </div>
   </div>
   <div class="row justify-content-center">
@@ -22,6 +26,10 @@
       </div>
       <div class="input-group">
         <input type="text" class="form-control m-2" v-model="authorName" placeholder="Name / Pen Name" v-if="authorFlag">
+      </div>
+      <div class="input-group" v-if="authorFlag">
+        <span class="pt-2"> Photo Id:</span>
+        <input type="file" class="form-control m-2" >
       </div>
     </div>
   </div>
@@ -68,8 +76,8 @@ export default {
   },
   mounted(){
     if(localStorage.getItem("username") != undefined){
-      this.profJournalistName=localStorage.getItem("journalistName");
-      this.authorName=localStorage.getItem("authorName");
+      this.profJournalistName=localStorage.getItem("journalistName")??"";
+      this.authorName=localStorage.getItem("authorName")??"";
       this.profJournalistFlag=localStorage.getItem("journalistFlag") == 'true';
       this.authorFlag=localStorage.getItem("authorFlag") == 'true';
     }

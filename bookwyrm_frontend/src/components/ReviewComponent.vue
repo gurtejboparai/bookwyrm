@@ -20,15 +20,15 @@
           <div>
             <RatingComponent
               v-bind:displayOnly="true"
-              v-bind:initialRatings="topic.ratingsList"
+              v-bind:ratings="topic.ratings"
             />
           </div>
           <div class="row">
             <div class="col-1 m-2 btn-lg">
               <VotingComponent
                 :reviewId="topic.id"
-                :downVoteUserList="review.downVoteIdsList"
-                :upVoteUserList="review.upVoteIdsList"
+                :downVoteUserList="topic.downVoteIdsList"
+                :upVoteUserList="topic.upVoteIdsList"
               />
             </div>
             <div class="col-10">
@@ -143,7 +143,7 @@ export default {
       newCommentText: "",
       newCommentAnonymousFlag: false,
       newReviewText: "",
-      newReviewRatingsList: [],
+      newReviewRatingsList: {},
       newReviewAnonymousFlag: false,
       newReviewJournalistFlag: false,
     };
@@ -189,6 +189,16 @@ export default {
     isJournalist() {
       return localStorage.getItem("journalistFlag") == "true";
     },
+    genres(){
+      return this.$store.getters.getGenres
+    },
+  },
+  created(){
+    
+    this.newReviewRatingsList = {}
+      this.genres.forEach(category=> {
+        this.newReviewRatingsList[category]=0
+      })
   },
 };
 </script>
