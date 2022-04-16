@@ -5,7 +5,7 @@
         <div class="text-center">
           <h2>Top Rated Books</h2>
         </div>
-        <CarouselComponent :booksByGenre="topBooksByGenre" :id="topRated" />
+        <CarouselComponent :booksByGenre="topBooksByGenre" carouselId="topRated" />
       </div>
 
       <div class="col-5 foreground rounded p-5 m-5">
@@ -14,7 +14,7 @@
         </div>
         <CarouselComponent
           :booksByGenre="recentBooksByGenre"
-          :id="recentBooks"
+          carouselId="recentBooks"
         />
       </div>
     </div>
@@ -42,7 +42,7 @@ export default {
 
       BookService.getRecentlyAddedBookByGenre(genre).then((response) => {
         this.recentBooksByGenre[genre] = response.data.bookDao;
-      });
+      }).catch(()=>{});
     });
     this.finishedLoading = true;
   },

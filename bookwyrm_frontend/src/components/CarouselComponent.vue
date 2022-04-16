@@ -1,10 +1,10 @@
 <template>
   <div class="carouselContainer">
     <div
-      id="carouselContent"
+      :id="carouselId"
       class="carousel slide"
       data-bs-ride="carousel"
-      ref="bookCarousel"
+      :ref="carouselId"
     >
       <div class="carousel-inner">
         <div
@@ -20,7 +20,7 @@
         </div>
       </div>
       <button
-        data-bs-target="#carouselContent"
+        :data-bs-target="'#'+ carouselId"
         class="carousel-control-prev"
         data-bs-slide="prev"
         type="button"
@@ -30,7 +30,7 @@
       </button>
       <button
         class="carousel-control-next"
-        data-bs-target="#carouselContent"
+        :data-bs-target="'#'+ carouselId"
         data-bs-slide="next"
         type="button"
       >
@@ -47,10 +47,10 @@ export default {
   name: "CarouselComponent",
   props: {
     booksByGenre: Object,
-    id: String,
+    carouselId: String,
   },
   mounted() {
-    this.carousel = new Carousel(this.$refs.bookCarousel);
+    this.carousel = new Carousel(this.$refs[this.carouselId]);
   },
   data() {
     return {
