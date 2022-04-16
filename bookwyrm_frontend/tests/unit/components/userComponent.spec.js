@@ -1,5 +1,5 @@
 import {shallowMount, createLocalVue} from '@vue/test-utils'
-import userComponent from '@/components/userComponent.vue'
+import UserComponent from '@/components/UserComponent.vue'
 import {createStore} from 'vuex'
 import {createApp} from 'vue'
 
@@ -11,23 +11,23 @@ const store = createStore({
     }
 }
 })
-const app = createApp(userComponent)
+const app = createApp(UserComponent)
 app.use(store)
 
-describe('userComponent.vue Test', ()=> {
+describe('UserComponent.vue Test', ()=> {
 
 
     it('renders the component', ()=> {
-        const wrapper = shallowMount(userComponent, {
+        const wrapper = shallowMount(UserComponent, {
             global: {
                 plugins: [store]
             }
         })
-        expect(wrapper.vm.$options.name).toMatch('userComponent')
+        expect(wrapper.vm.$options.name).toMatch('UserComponent')
     })
 
     it('processes valid prop data', ()=> {
-        const wrapper = shallowMount(userComponent, {
+        const wrapper = shallowMount(UserComponent, {
             global: {
                 plugins: [store]
             }

@@ -1,19 +1,19 @@
 import {shallowMount} from '@vue/test-utils'
-import BookBriefView from '@/components/BookBriefView.vue'
+import BookBriefComponent from '@/components/BookBriefComponent.vue'
 
-describe('BookBriefView.vue Test', ()=> {
+describe('BookBriefComponent.vue Test', ()=> {
 
     it('renders the component', ()=> {
-        const wrapper = shallowMount(BookBriefView, {
+        const wrapper = shallowMount(BookBriefComponent, {
             propsData:{
                 'title': '',
                 'author': ''
             }
         })
-        expect(wrapper.vm.$options.name).toMatch('SearchBar')
+        expect(wrapper.vm.$options.name).toMatch('BookBriefComponent')
     })
     it('processes valid prop data', ()=> {
-        const wrapper = shallowMount(BookBriefView, {
+        const wrapper = shallowMount(BookBriefComponent, {
             propsData:{
                 'title': 'A Game of Thrones',
                 'author': 'George R. R. Martin'

@@ -1,20 +1,20 @@
 import {shallowMount} from '@vue/test-utils'
-import SearchBar from '@/components/SearchBar.vue'
+import SearchBarComponent from '@/components/SearchBarComponent.vue'
 
-describe('SearchBar.vue Test', ()=> {
+describe('SearchBarComponent.vue Test', ()=> {
 
     it('renders the component', ()=> {
-        const wrapper = shallowMount(SearchBar, {
+        const wrapper = shallowMount(SearchBarComponent, {
             data() {
                 return {
                     searchString: ""
                 }
             }
         })
-        expect(wrapper.vm.$options.name).toMatch('SearchBar')
+        expect(wrapper.vm.$options.name).toMatch('SearchBarComponent')
     })
     it('processes valid prop data', ()=> {
-        const wrapper = shallowMount(SearchBar, {
+        const wrapper = shallowMount(SearchBarComponent, {
             data() {
                 return {
                     searchString: ""
