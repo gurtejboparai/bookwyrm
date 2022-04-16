@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="span">
-      <SearchBar/>
+      <SearchBarComponent/>
     </div>
 
     <router-view/>
@@ -10,13 +10,13 @@
 
 
 <script>
-import SearchBar from '@/components/SearchBar.vue'
+import SearchBarComponent from '@/components/SearchBarComponent.vue'
 
 
 export default {
   name: 'Home',
   components: {
-      SearchBar
+      SearchBarComponent
   },
   created(){
     if(localStorage.getItem("username"))
