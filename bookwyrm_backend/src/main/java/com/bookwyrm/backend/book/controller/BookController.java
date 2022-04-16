@@ -27,7 +27,9 @@ import java.util.*;
 public class BookController {
 
     //These words are common in book titles, and are likely to cause false positives
-    private static String[] ARTICLES = {"the", "of", "and", "&", "or"};
+    private static final String[] ARTICLES = {"the", "of", "and", "&", "or"};
+    //The number of results to return
+    private static final int NUMRESULTS = 10;
 
     @Autowired
     BookService bookService;
@@ -75,13 +77,66 @@ public class BookController {
         BookSearchPayload response = new BookSearchPayload();
         HttpStatus status = HttpStatus.OK;
 
-        HashSet<String> tokens = {null};
-        tokens.addAll(title.split(" "));
-        tokens.removeAll(this.ARTICLES);
-        response.setBookDaoList(bookService.findAllBooksWithTitle(title));
-
-
-
+        HashSet<String> uTokens = new HashSet<String>();
+        uTokens.addAll(Arrays.asList(title.split(" ")));
+        uTokens.removeAll(Arrays.asList(this.ARTICLES));
+        //get Some information on the number of words
+        ArrayList<String> tokens = new ArrayList<String>(Arrays.asList(title.split(" ")));
+        int numAllWords = tokens.size();
+        tokens.removeAll(Arrays.asList(this.ARTICLES));
+        int numWords = tokens.size();
+        //response.setBookDaoList(bookService.findAllBooksWithTitle(title));
+        ArrayList<BookDao> suspects = new ArrayList<BookDao>();
+        HashMap<String, Integer> scores = new HashMap<String, Integer>();
+        //Put a copy of every book that has the word in the title in one big list
+        Iterator<String> searchFor = uTokens.iterator();
+        while(searchFor.hasNext()){
+            //See the Stick? Go get it boy!
+            String stick = searchFor.next();
+            suspects.addAll(bookService.findAllBooksWithTitle(stick));
+        }
+        //The number of times that book is in the list is how many tokens match
+        //So now we need to count them
+        //We will also build a map of unique bookdao while we're at it
+        HashMap<String, BookDao> uSuspects = new HashMap<String, BookDao>();
+        Iterator<BookDao> counter = suspects.iterator();
+        while(counter.hasNext()){
+            BookDao book = counter.next();
+            if(scores.containsKey(book.getTitle())){
+                scores.put(book.getTitle(), scores.get(book.getTitle()) + 1);
+            }
+            else{
+                int bonuses = 0;
+                //Check if the book's title has the same number of tokens as the search term
+                ArrayList<String> broken = new ArrayList<String>(Arrays.asList(book.getTitle().split(" ")));
+                if(broken.size() == numAllWords){
+                    bonuses++;
+                }
+                broken.removeAll(Arrays.asList(this.ARTICLES));
+                if(broken.size() == numWords){
+                    bonuses++;
+                }
+                scores.put(book.getTitle(), 1 + bonuses);
+                uSuspects.put(book.getTitle(), book);
+            }
+        }
+        //Finally we need to put the dao into a sorted list using the scores
+        BookDao[] shelf = new BookDao[this.NUMRESULTS];
+        for(int i = 0; i < this.NUMRESULTS; i++){
+            String bestTitle = "";
+            int bestScore = 0;
+            Iterator<String> iter = scores.keySet().iterator();
+            while (iter.hasNext()){
+                String key = iter.next();
+                int score = scores.get(key);
+                if (score > bestScore){
+                    bestScore = score;
+                    bestTitle = key;
+                }
+            }
+            shelf[i] = uSuspects.get(bestTitle);
+        }
+        response.setBookDaoList(Arrays.asList(shelf));
         if (response.getBookDaoList().isEmpty()) {
             status = HttpStatus.NOT_FOUND;
             response.setMessages(Arrays.asList("Book does not exist in the database. Please try adding the book first."));
