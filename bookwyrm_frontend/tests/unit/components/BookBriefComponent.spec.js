@@ -10,7 +10,7 @@ describe('BookBriefComponent.vue Test', ()=> {
                 'author': ''
             }
         })
-        expect(wrapper.vm.$options.name).toMatch('SearchBar')
+        expect(wrapper.vm.$options.name).toMatch('BookBriefComponent')
     })
     it('processes valid prop data', ()=> {
         const wrapper = shallowMount(BookBriefComponent, {

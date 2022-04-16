@@ -20,7 +20,7 @@
 <script>
 import UserComponent from '@/components/UserComponent.vue'
 export default {
-    name: "SearchBar",
+    name: "SearchBarComponent",
     data() {
         return {
             searchString: null
