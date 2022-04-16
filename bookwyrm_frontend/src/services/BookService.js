@@ -19,5 +19,11 @@ export default {
       id:id,
       genre:newGenre
     });
+  },
+  getTopRatedBookbyGenre(genre){
+    return bookwyrmClient.get('/api/book/top',{params:{genre:genre}});
+  },
+  getRecentlyAddedBookByGenre(genre){
+    return bookwyrmClient.get('/api/book/newest',{params:{genre:genre}});
   }
 }
