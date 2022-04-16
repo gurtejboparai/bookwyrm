@@ -32,8 +32,18 @@ export default {
       bookList : []
     }
   },
+  watch:{
+    '$route.params.searchTerm' (){
+      this.searchForBooks(this.$route.params.searchTerm);
+    }
+  },
   created(){
-    BookService.searchBook(this.$route.params.searchTerm).then(response => this.bookList = response.data.bookDaoList);
+    this.searchForBooks(this.$route.params.searchTerm);
+  },
+  methods:{
+    searchForBooks(searchTerm){
+      BookService.searchBook(searchTerm).then(response => this.bookList = response.data.bookDaoList).catch(() => this.bookList = []);
+    }
   },
   components: {BookBriefView}
 }

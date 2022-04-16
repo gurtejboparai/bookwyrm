@@ -1,4 +1,4 @@
-package com.bookwyrm.backend.unit.book.controller;
+package com.bookwyrm.backend.integration.book.controller;
 
 import com.bookwyrm.backend.book.controller.BookController;
 import com.bookwyrm.backend.book.dao.BookDao;
@@ -20,8 +20,10 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
 
