@@ -20,12 +20,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.websocket.server.PathParam;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/book")
 public class BookController {
+
+    //These words are common in book titles, and are likely to cause false positives
+    private static String[] ARTICLES = {"the", "of", "and", "&", "or"};
 
     @Autowired
     BookService bookService;
@@ -72,7 +74,14 @@ public class BookController {
 
         BookSearchPayload response = new BookSearchPayload();
         HttpStatus status = HttpStatus.OK;
+
+        HashSet<String> tokens = {null};
+        tokens.addAll(title.split(" "));
+        tokens.removeAll(this.ARTICLES);
         response.setBookDaoList(bookService.findAllBooksWithTitle(title));
+
+
+
         if (response.getBookDaoList().isEmpty()) {
             status = HttpStatus.NOT_FOUND;
             response.setMessages(Arrays.asList("Book does not exist in the database. Please try adding the book first."));
