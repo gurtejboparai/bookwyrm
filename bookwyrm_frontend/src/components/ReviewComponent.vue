@@ -43,8 +43,6 @@
           </div>
           <div class="pt-3">
           <div class="foreground-light tail p-3  ">
-            <details>
-              <summary>Add a comment</summary>
               <form @submit="postComment">
                 <textarea
                   name="commentInput"
@@ -57,10 +55,8 @@
                   <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"  v-model="newCommentAnonymousFlag">
                   <label class="form-check-label" for="flexSwitchCheckChecked">Post Anonymously</label>
                 </div>
-                <br />
                 <input type="submit" class="btn btn-bw mt-2" />
               </form>
-            </details>
             <div
             v-for="comment in topic.commentList"
             :key="comment.commentId"
