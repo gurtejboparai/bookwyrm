@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: "SearchBar",
+    name: "BookBriefComponent",
     props:{
       title: String,
       author: String,

@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
       <div id="bookList" class="col-6 " v-if="this.bookList.length != 0">
         <div id="bookItem" v-for="book in bookList" :key="book.id">
-          <BookBriefView class="m-3 highlight" :title="book.title"  :author="book.author" :bookId="book.id"/>
+          <BookBriefComponent class="m-3 highlight" :title="book.title"  :author="book.author" :bookId="book.id"/>
         </div>
       </div>
       <div v-else class="card col-6 justify-content-center m-3 p-1">
@@ -24,7 +24,7 @@
 
 <script>
 import BookService from "@/services/BookService"
-import BookBriefView from "@/components/BookBriefView"
+import BookBriefComponent from "@/components/BookBriefComponent"
 export default {
   name: 'Book Search',
   data(){
@@ -45,6 +45,6 @@ export default {
       BookService.searchBook(searchTerm).then(response => this.bookList = response.data.bookDaoList).catch(() => this.bookList = []);
     }
   },
-  components: {BookBriefView}
+  components: {BookBriefComponent}
 }
 </script>

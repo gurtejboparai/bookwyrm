@@ -12,7 +12,7 @@
 
 <script>
 export default {
-    name:'userComponent',
+    name:'UserComponent',
     data() {
         return {
             accountName: ""
