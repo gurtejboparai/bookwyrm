@@ -70,6 +70,45 @@ public class BookController {
         return ResponseEntity.status(status).body(response);
     }
 
+    //This utility function removes all articles from a list of Strings, it is not case sensitive
+    private ArrayList<String> removeArticles(Collection<String> unfiltered){
+        ArrayList<String> filtered = new ArrayList<String>(unfiltered);
+        Iterator<String> iter = unfiltered.iterator();
+        while(iter.hasNext()){
+            boolean isArt = false;
+            String word = iter.next();
+            int idx = 0;
+            while(idx < this.ARTICLES.length & !isArt){
+                isArt = this.ARTICLES[idx].equals(word.toLowerCase());
+                idx++;
+            }
+            if(isArt){
+                filtered.remove(word);
+            }
+        }
+        return filtered;
+    }
+
+    //This utility function removes all articles from a Set of Strings, it is not case sensitive
+    //Unfortunately It was necessary to overload this function
+    private HashSet<String> removeArticles(HashSet<String> unfiltered){
+        HashSet<String> filtered = new HashSet<String>(unfiltered);
+        Iterator<String> iter = unfiltered.iterator();
+        while(iter.hasNext()){
+            boolean isArt = false;
+            String word = iter.next();
+            int idx = 0;
+            while(idx < this.ARTICLES.length & !isArt){
+                isArt = this.ARTICLES[idx].equals(word.toLowerCase());
+                idx++;
+            }
+            if(isArt){
+                filtered.remove(word);
+            }
+        }
+        return filtered;
+    }
+
     @CrossOrigin
     @GetMapping("/{title}")
     public ResponseEntity<BookSearchPayload> searchBookByTitle(@PathVariable("title") String title) {
@@ -79,11 +118,11 @@ public class BookController {
 
         HashSet<String> uTokens = new HashSet<String>();
         uTokens.addAll(Arrays.asList(title.split(" ")));
-        uTokens.removeAll(Arrays.asList(this.ARTICLES));
+        uTokens = this.removeArticles(uTokens);
         //get Some information on the number of words
         ArrayList<String> tokens = new ArrayList<String>(Arrays.asList(title.split(" ")));
         int numAllWords = tokens.size();
-        tokens.removeAll(Arrays.asList(this.ARTICLES));
+        tokens = this.removeArticles(tokens);
         int numWords = tokens.size();
         //response.setBookDaoList(bookService.findAllBooksWithTitle(title));
         ArrayList<BookDao> suspects = new ArrayList<BookDao>();
@@ -91,7 +130,7 @@ public class BookController {
         //Put a copy of every book that has the word in the title in one big list
         Iterator<String> searchFor = uTokens.iterator();
         while(searchFor.hasNext()){
-            //See the Stick? Go get it boy!
+            //See the Stick? Fetch!
             String stick = searchFor.next();
             suspects.addAll(bookService.findAllBooksWithTitle(stick));
         }
@@ -112,20 +151,21 @@ public class BookController {
                 if(broken.size() == numAllWords){
                     bonuses++;
                 }
-                broken.removeAll(Arrays.asList(this.ARTICLES));
+                broken = this.removeArticles(broken);
                 if(broken.size() == numWords){
-                    bonuses++;
+                    bonuses += 2;
                 }
                 scores.put(book.getTitle(), 1 + bonuses);
                 uSuspects.put(book.getTitle(), book);
             }
         }
         //Finally we need to put the dao into a sorted list using the scores
-        BookDao[] shelf = new BookDao[this.NUMRESULTS];
-        for(int i = 0; i < this.NUMRESULTS; i++){
+        int numBooks = Math.min(this.NUMRESULTS, uSuspects.size());
+        BookDao[] shelf = new BookDao[numBooks];
+        for(int i = 0; i < numBooks; i++){
             String bestTitle = "";
             int bestScore = 0;
-            Iterator<String> iter = scores.keySet().iterator();
+            Iterator<String> iter = uSuspects.keySet().iterator();
             while (iter.hasNext()){
                 String key = iter.next();
                 int score = scores.get(key);
@@ -135,6 +175,8 @@ public class BookController {
                 }
             }
             shelf[i] = uSuspects.get(bestTitle);
+            uSuspects.remove(bestTitle);
+            scores.remove(bestTitle);
         }
         response.setBookDaoList(Arrays.asList(shelf));
         if (response.getBookDaoList().isEmpty()) {
