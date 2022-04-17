@@ -169,7 +169,7 @@ body{
   outline: 0 none;
 }
 #logo {
-  height: 15vh;
+  height: 10vh;
   border-radius: 30%;
 }
 textarea:focus,
