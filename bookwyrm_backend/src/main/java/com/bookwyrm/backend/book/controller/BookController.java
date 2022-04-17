@@ -20,7 +20,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.websocket.server.PathParam;
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/book")
@@ -71,7 +76,7 @@ public class BookController {
     }
 
     //This utility function removes all articles from a list of Strings, it is not case sensitive
-    private ArrayList<String> removeArticles(Collection<String> unfiltered){
+    private ArrayList<String> removeArticles(List<String> unfiltered){
         ArrayList<String> filtered = new ArrayList<String>(unfiltered);
         Iterator<String> iter = unfiltered.iterator();
         while(iter.hasNext()){
