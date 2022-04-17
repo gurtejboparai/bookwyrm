@@ -6,7 +6,7 @@
             v-bind:increment="0.5"
             :show-rating="false"
             inactive-color="#0000"
-            active-color="#aba194"
+            active-color="#ffc284"
             :star-size="25"
             @update:rating="changeScore"
         />

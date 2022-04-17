@@ -37,23 +37,23 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #8c271e;
+  color: #c4e0e9;
   font-size: 1.5em;
-  background-color: #d9f7fa;
+  background-color: #2a2e2f;
 }
 
 html {
-  background-color: #d9f7fa;
+  background-color: #2a2e2f;
 }
 
 a {
   font-weight: bold;
-  color: #8c271e;
+  color: #c4e0e9;
   text-decoration: none;
 }
 
 a:hover {
-  color: rgb(192, 88, 78);
+  color: #c4e0e9;
 }
 .bubble {
   border-radius: 5%;
@@ -65,19 +65,19 @@ a:hover {
   text-align: center;
 }
 .foreground{
-  background-color: #d8ddde;
-  color: #8c271e;
+  background-color: #34383a;
+  color: #c4e0e9;
   border-width: 0px;
-  box-shadow: 1px 2px #bec1c1;
+  box-shadow: 1px 2px #36393a;
   border-radius: 3px;
 }
 .foreground-light{
-  background-color: #e5e9eb;  
-  box-shadow: 1px 5px #bec1c1;
+  background-color: #44484a;  
+  box-shadow: 1px 5px #36393a;
   border-radius: 3px;
 }
 .tail{
-  box-shadow: 1px 5px #bec1c1;  
+  box-shadow: 0px 1px #36393a;  
   border-radius: 3px;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
@@ -88,8 +88,7 @@ a:hover {
   border-bottom-right-radius: 0px;
 }
 .bookCarousel{
-background: rgb(140,39,30);
-background: linear-gradient(90deg, rgba(140,39,30,1) 12%, rgba(229,233,235,1) 12%, rgba(229,233,235,1) 88%, rgba(140,39,30,1) 88%);
+background: linear-gradient(90deg, rgba(140,39,30,1) 12%, #34383a 12%, #34383a 88%, rgba(140,39,30,1) 88%);
 }
 
 ::-webkit-scrollbar {
@@ -107,11 +106,11 @@ body{
     /* border-radius: 10px; */
     -webkit-box-shadow: inset 0 0 3px #8c271e2e;
     border-radius:2px; 
-    background-color: #bcb2a4e4;
+    background-color: #44484a;
 }
 .highlight:hover {
-  background-color: #aba194;
-  box-shadow: 1px 3px #91897f;
+  background-color: #44484a;
+  box-shadow: 3px 5px #393c3d;
   color: #eae0d9;
 }
 
@@ -126,8 +125,8 @@ body{
   font-weight: bold;
 }
 .btn-bw:focus {
-  border-color: #bcb2a4e4;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #bcb2a4e4;
+  border-color: #9d3127;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #9d312780;
   outline: 0 none;
 }
 
@@ -142,9 +141,19 @@ body{
   font-weight: bold;
 }
 .btn-bw-light:focus {
-  border-color: #bcb2a4e4;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #bcb2a4e4;
+  border-color: #cb843e;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #cb843e80;
   outline: 0 none;
+}
+.highlightedReview {
+  border-top-color: #ffc285;
+  border-top-style: groove;
+  border-top-width: 10px;
+}
+.professionalJournalistHeader {
+  border-color: #ffc284;
+  border-style: groove;
+  border-width: 10px;
 }
 textarea:focus,
 input[type="text"]:focus,

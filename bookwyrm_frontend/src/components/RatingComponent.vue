@@ -2,7 +2,7 @@
   <div v-if="!(displayOnly && localRatings.length==0)" style="overflow-x:scroll">
     <div v-if="!displayOnly">
       <button v-on:click.prevent="addRating" class="btn btn-bw mb-1">
-        Add a rating
+        Add a Rating
       </button>
     </div>
     <div></div>
@@ -24,7 +24,7 @@
             class="flex-shrink-1 "
         />
         <button v-if="!displayOnly" v-on:click.prevent="removeRating(index)"
-                class="btn btn-danger btn-sm align-self-center" id="delbtn">X</button>
+                class="btn btn-bw btn-sm align-self-center" id="delbtn">X</button>
       </span>
     </div>
   </div>

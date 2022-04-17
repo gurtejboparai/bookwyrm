@@ -5,7 +5,7 @@
         <div class="revDisplay card mt-4 foreground">
 
           <button @click="hideDetail()" class="btn btn-bw head">
-            show all reviews
+            Show All Reviews
           </button>
           
           <div class="p-5">
@@ -55,7 +55,7 @@
                   <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"  v-model="newCommentAnonymousFlag">
                   <label class="form-check-label" for="flexSwitchCheckChecked">Post Anonymously</label>
                 </div>
-                <input type="submit" class="btn btn-bw mt-2" />
+                <input type="submit" class="btn btn-bw-light mt-2" />
               </form>
             <div
             v-for="comment in topic.commentList"
@@ -138,7 +138,7 @@
           </div>
         </div>
         <div @click="showDetail(review)" class="btn btn-bw tail">
-          show comments
+          Show Comments
         </div>
       </div>
     </div>
@@ -228,14 +228,5 @@ export default {
   max-height: 20em;
   min-height: 2em;
 }
-.highlightedReview {
-  border-top-color: #c69c72;
-  border-top-style: groove;
-  border-top-width: 10px;
-}
-.professionalJournalistHeader {
-  border-color: #c69c72;
-  border-style: groove;
-  border-width: 10px;
-}
+
 </style>
