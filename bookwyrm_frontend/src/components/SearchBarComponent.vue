@@ -12,15 +12,15 @@
         </div>
       </div>
       <div class="col p-2">
-        <userComponent/>
+        <UserComponent/>
       </div>
   </div>
 </template>
 
 <script>
-import userComponent from '@/components/userComponent.vue'
+import UserComponent from '@/components/UserComponent.vue'
 export default {
-    name: "SearchBar",
+    name: "SearchBarComponent",
     data() {
         return {
             searchString: null
@@ -31,7 +31,7 @@ export default {
         return '/search/'+this.searchString;
       }
     },
-    components: { userComponent }
+    components: { UserComponent }
 }
 </script>
 <style scoped>
