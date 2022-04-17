@@ -55,7 +55,7 @@
                   <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"  v-model="newCommentAnonymousFlag">
                   <label class="form-check-label" for="flexSwitchCheckChecked">Post Anonymously</label>
                 </div>
-                <input type="submit" class="btn btn-bw mt-2" />
+                <input type="submit" class="btn btn-bw-light mt-2" />
               </form>
             <div
             v-for="comment in topic.commentList"
