@@ -24,12 +24,3 @@ export default {
     }
 }
 </script>
-<style>
-.h-100px{
-  height: 100px;
-}
-.card {
-  background-color: #343a3b;
-}
-
-</style>

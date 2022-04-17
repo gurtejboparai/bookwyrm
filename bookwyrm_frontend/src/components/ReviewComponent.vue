@@ -1,44 +1,48 @@
 <template>
   <div id="container">
     <div id="focusedView" v-if="focused">
-      <button @click="hideDetail()" class="btn btn-light">
-        show all reviews
-      </button>
       <div class="p-3">
-        <div class="revDisplay card mt-4 p-2 shadow-sm foreground">
-          <div
-            v-if="topic.journalistReview"
-            class="text-center professionalJournalistHeader m-0"
-          >
-            Professional Reviewer: {{ topic.journalistName }}
-          </div>
-          <h2 class="pt-2">
-            {{
-              topic.user == "" || topic.user == null ? "- Guest -" : topic.user
-            }}
-          </h2>
-          <div>
-            <RatingComponent
-              v-bind:displayOnly="true"
-              v-bind:ratings="topic.ratings"
-            />
-          </div>
-          <div class="row">
-            <div class="col-1 m-2 btn-lg">
-              <VotingComponent
-                :reviewId="topic.id"
-                :downVoteUserList="topic.downVoteIdsList"
-                :upVoteUserList="topic.upVoteIdsList"
+        <div class="revDisplay card mt-4 foreground">
+
+          <button @click="hideDetail()" class="btn btn-bw head">
+            show all reviews
+          </button>
+          
+          <div class="p-5">
+            <div
+              v-if="topic.journalistReview"
+              class="text-center professionalJournalistHeader m-0"
+            >
+              Professional Reviewer: {{ topic.journalistName }}
+            </div>
+            <h2 class="pt-2">
+              {{
+                topic.user == "" || topic.user == null ? "- Guest -" : topic.user
+              }}
+            </h2>
+            <div>
+              <RatingComponent
+                v-bind:displayOnly="true"
+                v-bind:ratings="topic.ratings"
               />
             </div>
-            <div class="col-10">
-              <p class="p-4">{{ topic.content }}</p>
+            <br>
+            <div class="row">
+              
+              <div class="col-1 m-2 btn-lg">
+                <VotingComponent
+                  :reviewId="topic.id"
+                  :downVoteUserList="topic.downVoteIdsList"
+                  :upVoteUserList="topic.upVoteIdsList"
+                />
+              </div>
+              <div class="col-10">
+                <p class="p-4">{{ topic.content }}</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="pt-3">
-          <h4 class="text-align-center">Comments</h4>
-          <div class="card foreground p-3 shadow-sm m-3">
+          <div class="pt-3">
+          <div class="foreground-light tail p-3  ">
             <details>
               <summary>Add a comment</summary>
               <form @submit="postComment">
@@ -49,14 +53,15 @@
                   placeholder="Write your comment here"
                   class="rounded w-100 mt-3"
                 ></textarea>
-                Post Anonymously
-                <input type="checkbox" v-model="newCommentAnonymousFlag" />
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"  v-model="newCommentAnonymousFlag">
+                  <label class="form-check-label" for="flexSwitchCheckChecked">Post Anonymously</label>
+                </div>
                 <br />
-                <input type="submit" class="btn btn-success mt-2" />
+                <input type="submit" class="btn btn-bw mt-2" />
               </form>
             </details>
-          </div>
-          <div
+            <div
             v-for="comment in topic.commentList"
             :key="comment.commentId"
             class="pt-3 p-2"
@@ -68,12 +73,16 @@
               :anonymousFlag="comment.anonymousFlag"
             />
           </div>
+          </div>
+          
         </div>
+        </div>
+        
       </div>
     </div>
 
     <div id="listView" v-else>
-      <div id="reviewCreator" class="card foreground p-3 shadow-sm">
+      <div id="" class="card p-3 foreground">
         <details>
           <summary>Add a review</summary>
           <form @submit="postReview">
@@ -89,17 +98,22 @@
               v-bind:displayOnly="false"
               v-model:ratings="newReviewRatingsList"
             />
-            <h2 v-else class="text-danger">
+            <span v-else class="text-danger">
               You must log in to add star ratings to your review
-            </h2>
-            Post Anonymously
-            <input type="checkbox" v-model="newReviewAnonymousFlag" />
+            </span>
+            <hr>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="newReviewAnonymousFlagChecked"  v-model="newReviewAnonymousFlag">
+              <label class="form-check-label" for="newReviewAnonymousFlagChecked">Post Anonymously</label>
+            </div>
             <div v-if="isJournalist">
-              Highlight review
-              <input type="checkbox" v-model="newReviewJournalistFlag" />
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="newReviewJournalistFlagChecked"  v-model="newReviewJournalistFlag">
+                <label class="form-check-label" for="newReviewJournalistFlagChecked">Highlight review</label>
+              </div>
             </div>
             <br />
-            <input type="submit" class="btn btn-success mt-2" />
+            <input type="submit" class="btn btn-bw-light mt-2" />
           </form>
         </details>
       </div>
@@ -108,20 +122,26 @@
         v-bind:key="review.reviewId"
         :class="this.isHighlightedReview(review.journalistReview)"
       >
-        <h2>{{ review.user == "" ? "- Guest -" : review.user }}</h2>
-        <div class="row">
-          <div class="col-1 m-2 btn-lg">
-            <VotingComponent
-              :reviewId="review.id"
-              :downVoteUserList="review.downVoteIdsList"
-              :upVoteUserList="review.upVoteIdsList"
-            />
-          </div>
-          <div class="col-10">
-            <p class="p-4">{{ review.content }}</p>
+      <h2 class="p-2">{{ review.user == "" ? "- Guest -" : review.user }}</h2>
+        <RatingComponent
+          v-bind:displayOnly="true"
+          v-bind:ratings="review.ratings"
+        />
+        <div class=" p-2">
+          <div class="row">
+            <div class="col-1 m-2 btn-lg">
+              <VotingComponent
+                :reviewId="review.id"
+                :downVoteUserList="review.downVoteIdsList"
+                :upVoteUserList="review.upVoteIdsList"
+              />
+            </div>
+            <div class="col-10">
+              <p class="p-4">{{ review.content }}</p>
+            </div>
           </div>
         </div>
-        <div @click="showDetail(review)" class="btn btn-light">
+        <div @click="showDetail(review)" class="btn btn-bw tail">
           show comments
         </div>
       </div>
@@ -176,7 +196,7 @@ export default {
       });
     },
     isHighlightedReview(journalistFlag) {
-      return "revDisplay card mt-4 p-2 shadow-sm foreground ".concat(
+      return "revDisplay card mt-5 shadow-sm foreground ".concat(
         journalistFlag ? "highlightedReview" : ""
       );
     },
@@ -204,9 +224,6 @@ export default {
 </script>
 
 <style scoped>
-.revDisplay {
-  background-color: #3a3e41;
-}
 #commentTextBox {
   max-height: 5em;
   min-height: 2em;
@@ -216,12 +233,12 @@ export default {
   min-height: 2em;
 }
 .highlightedReview {
-  border-top-color: #e1f878;
+  border-top-color: #c69c72;
   border-top-style: groove;
   border-top-width: 10px;
 }
 .professionalJournalistHeader {
-  border-color: #e1f878;
+  border-color: #c69c72;
   border-style: groove;
   border-width: 10px;
 }

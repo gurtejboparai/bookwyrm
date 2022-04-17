@@ -48,9 +48,3 @@ export default {
   components: {BookBriefView}
 }
 </script>
-
-<style>
-.card {
-  background-color: #343a3b;
-}
-</style>

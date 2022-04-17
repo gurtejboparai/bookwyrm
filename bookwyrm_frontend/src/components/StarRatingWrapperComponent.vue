@@ -1,14 +1,15 @@
 <template>
-    <div>
         <StarRating
             v-bind:rating="score"
             v-bind:read-only="displayOnly"
             v-bind:max-rating="5"
             v-bind:increment="0.5"
+            :show-rating="false"
+            inactive-color="#0000"
+            active-color="#aba194"
+            :star-size="25"
             @update:rating="changeScore"
         />
- 
-    </div>
 </template>
 
 
