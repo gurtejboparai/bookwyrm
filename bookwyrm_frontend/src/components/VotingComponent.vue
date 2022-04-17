@@ -79,10 +79,10 @@ export default {
       return this.localUpVote.length - this.localDownVote.length
     },
     upVoteColour() {
-      return (this.localUpVote.includes(localStorage.getItem("username")))?"#88c1d0":"#2f3b3e"
+      return (this.localUpVote.includes(localStorage.getItem("username")))?"#88b7f6":"#3a5f67"
     },
     downVoteColour() {
-      return (this.localDownVote.includes(localStorage.getItem("username")))?"#88c1d0":"#2f3b3e"
+      return (this.localDownVote.includes(localStorage.getItem("username")))?"#88b7f6":"#3a5f67"
     }
   }
 };
