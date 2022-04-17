@@ -37,23 +37,23 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #8c271e;
+  color: #ffb8ad;
   font-size: 1.5em;
-  background-color: #d9f7fa;
+  background-color: #140c0b;
 }
 
 html {
-  background-color: #d9f7fa;
+  background-color: #140c0b;
 }
 
 a {
   font-weight: bold;
-  color: #8c271e;
+  color: #ffb8ad;
   text-decoration: none;
 }
 
 a:hover {
-  color: rgb(192, 88, 78);
+  color: #fdaea1;
 }
 .bubble {
   border-radius: 5%;
@@ -61,23 +61,23 @@ a:hover {
   border-style: double;
   width: fit-content;
   margin:auto;
-  border-color:#d8ddde;
+  border-color:#fdaea1;
   text-align: center;
 }
 .foreground{
-  background-color: #d8ddde;
-  color: #8c271e;
+  background-color: #211c14;
+  color: #ffb8ad;
   border-width: 0px;
-  box-shadow: 1px 2px #bec1c1;
+  box-shadow: 1px 2px #211c1462;
   border-radius: 3px;
 }
 .foreground-light{
-  background-color: #e5e9eb;  
-  box-shadow: 1px 5px #bec1c1;
+  background-color: #2d261c;  
+  box-shadow: 1px 5px #211c1462;
   border-radius: 3px;
 }
 .tail{
-  box-shadow: 1px 5px #bec1c1;  
+  box-shadow: 1px 5px #211c1462;  
   border-radius: 3px;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
@@ -88,8 +88,8 @@ a:hover {
   border-bottom-right-radius: 0px;
 }
 .bookCarousel{
-background: rgb(140,39,30);
-background: linear-gradient(90deg, rgba(140,39,30,1) 12%, rgba(229,233,235,1) 12%, rgba(229,233,235,1) 88%, rgba(140,39,30,1) 88%);
+background: #f2b749;
+background: linear-gradient(90deg, #f2b749 12%, #1c140f 12%, #1c140f 88%, #f2b749 88%);
 }
 
 ::-webkit-scrollbar {
@@ -98,10 +98,9 @@ background: linear-gradient(90deg, rgba(140,39,30,1) 12%, rgba(229,233,235,1) 12
 body{
   overflow-x:hidden
 }
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.2); 
-    /* border-radius: 10px; */
-}
+} */
 
 ::-webkit-scrollbar-thumb {
     /* border-radius: 10px; */
@@ -110,35 +109,35 @@ body{
     background-color: #bcb2a4e4;
 }
 .highlight:hover {
-  background-color: #aba194;
-  box-shadow: 1px 3px #91897f;
+  background-color: #302a1f;
+  box-shadow: 1px 3px #302a1f;
   color: #eae0d9;
 }
 
 .btn-bw {
-  background-color: #8c271e;
-  color: #eae0d9;
+  background-color: #f2b749;
+  color: #211c14;
   font-weight: bold;
 }
 .btn-bw:hover {
-  background-color: #9d3127;
-  color: #d7c8bd;
+  background-color: #ffca69;
+  color: #0d0909;
   font-weight: bold;
 }
 .btn-bw:focus {
-  border-color: #bcb2a4e4;
+  border-color: #f2b749e4;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #bcb2a4e4;
   outline: 0 none;
 }
 
 .btn-bw-light {
-  background-color: #fe9e3f;
-  color: #ffffff;
+  background-color: #ffb8ad;
+  color: #211c14;
   font-weight: bold;
 }
 .btn-bw-light:hover {
-  background-color: #cb843e;
-  color: #ffffff;
+  background-color: #ffd4cd;
+  color: rgb(11, 8, 7);
   font-weight: bold;
 }
 .btn-bw-light:focus {
