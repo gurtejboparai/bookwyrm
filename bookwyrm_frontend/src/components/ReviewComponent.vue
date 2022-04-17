@@ -228,14 +228,5 @@ export default {
   max-height: 20em;
   min-height: 2em;
 }
-.highlightedReview {
-  border-top-color: #c69c72;
-  border-top-style: groove;
-  border-top-width: 10px;
-}
-.professionalJournalistHeader {
-  border-color: #c69c72;
-  border-style: groove;
-  border-width: 10px;
-}
+
 </style>

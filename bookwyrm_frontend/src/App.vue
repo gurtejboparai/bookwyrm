@@ -37,23 +37,23 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #8c271e;
+  color: rgb(203, 241, 250);
   font-size: 1.5em;
-  background-color: #d9f7fa;
+  background-color: #2f3b3e;
 }
 
 html {
-  background-color: #d9f7fa;
+  background-color: rgb(47,59,62);
 }
 
 a {
   font-weight: bold;
-  color: #8c271e;
+  color: rgb(136,193,208);
   text-decoration: none;
 }
 
 a:hover {
-  color: rgb(192, 88, 78);
+  color: rgb(170, 216, 229);
 }
 .bubble {
   border-radius: 5%;
@@ -65,19 +65,19 @@ a:hover {
   text-align: center;
 }
 .foreground{
-  background-color: #d8ddde;
-  color: #8c271e;
+  background-color: rgb(54,74,78);
+  color: rgb(203, 241, 250);
   border-width: 0px;
-  box-shadow: 1px 2px #bec1c1;
+  box-shadow: 1px 2px rgba(54, 74, 78, 0.535);
   border-radius: 3px;
 }
 .foreground-light{
-  background-color: #e5e9eb;  
-  box-shadow: 1px 5px #bec1c1;
+  background-color: rgb(50,78,86);  
+  box-shadow: 1px 5px rgba(50, 78, 86, 0.45);
   border-radius: 3px;
 }
 .tail{
-  box-shadow: 1px 5px #bec1c1;  
+  box-shadow: 1px 5px rgba(50, 78, 86, 0.45);  
   border-radius: 3px;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
@@ -88,8 +88,7 @@ a:hover {
   border-bottom-right-radius: 0px;
 }
 .bookCarousel{
-background: rgb(140,39,30);
-background: linear-gradient(90deg, rgba(140,39,30,1) 12%, rgba(229,233,235,1) 12%, rgba(229,233,235,1) 88%, rgba(140,39,30,1) 88%);
+background: linear-gradient(90deg, rgb(136,193,208) 12%, rgb(54,74,78) 12%, rgb(54,74,78) 88%, rgb(136,193,208) 88%);
 }
 
 ::-webkit-scrollbar {
@@ -99,30 +98,30 @@ body{
   overflow-x:hidden
 }
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.2); 
+    -webkit-box-shadow: inset 0 0 1px rgba(136,193,208, 0.2); 
     /* border-radius: 10px; */
 }
 
 ::-webkit-scrollbar-thumb {
     /* border-radius: 10px; */
-    -webkit-box-shadow: inset 0 0 3px #8c271e2e;
+    -webkit-box-shadow: inset 0 0 3px rgba(136,193,208, 0.2);
     border-radius:2px; 
-    background-color: #bcb2a4e4;
+    background-color: rgba(136,193,208, 0.2);
 }
 .highlight:hover {
-  background-color: #aba194;
-  box-shadow: 1px 3px #91897f;
-  color: #eae0d9;
+  background-color: rgb(50,78,86);
+  box-shadow: 1px 3px rgba(50, 78, 86, 0.45);
+  color:inherit
 }
 
 .btn-bw {
-  background-color: #8c271e;
-  color: #eae0d9;
+  background-color: rgb(136,193,208);
+  color: rgb(54,74,78);
   font-weight: bold;
 }
 .btn-bw:hover {
-  background-color: #9d3127;
-  color: #d7c8bd;
+  background-color: rgb(153, 211, 226);
+  color: rgb(255, 255, 255);
   font-weight: bold;
 }
 .btn-bw:focus {
@@ -130,21 +129,34 @@ body{
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #bcb2a4e4;
   outline: 0 none;
 }
-
+.highlightedReview {
+  border-top-color: rgb(153, 211, 226);
+  border-top-style: groove;
+  border-top-width: 10px;
+}
+.professionalJournalistHeader {
+  border-color: rgb(153, 211, 226);
+  border-style: groove;
+  border-width: 10px;
+}
 .btn-bw-light {
-  background-color: #fe9e3f;
-  color: #ffffff;
+  background-color: rgb(208, 116, 59);
+  color: rgb(54,74,78);
   font-weight: bold;
 }
 .btn-bw-light:hover {
-  background-color: #cb843e;
-  color: #ffffff;
+  background-color: rgb(208, 116, 59);
+  color: rgb(255, 255, 255);
   font-weight: bold;
 }
 .btn-bw-light:focus {
-  border-color: #bcb2a4e4;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #bcb2a4e4;
+  border-color: rgb(208, 116, 59);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(208, 116, 59);
   outline: 0 none;
+}
+#logo {
+  height: 15vh;
+  border-radius: 30%;
 }
 textarea:focus,
 input[type="text"]:focus,
@@ -162,8 +174,8 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {   
-  border-color: #bcb2a4e4;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #bcb2a4e4;
+  border-color: rgb(153, 211, 226);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(153, 211, 226);
   outline: 0 none;
 }
 </style>

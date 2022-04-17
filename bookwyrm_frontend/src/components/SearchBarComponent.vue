@@ -35,8 +35,5 @@ export default {
 }
 </script>
 <style scoped>
-#logo {
-  height: 10vh;
-  border-radius: 30%;
-}
+
 </style>

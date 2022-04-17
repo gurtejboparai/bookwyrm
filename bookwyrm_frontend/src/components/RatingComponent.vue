@@ -24,7 +24,7 @@
             class="flex-shrink-1 "
         />
         <button v-if="!displayOnly" v-on:click.prevent="removeRating(index)"
-                class="btn btn-danger btn-sm align-self-center" id="delbtn">X</button>
+                class="btn btn-bw btn-sm align-self-center" id="delbtn">X</button>
       </span>
     </div>
   </div>
