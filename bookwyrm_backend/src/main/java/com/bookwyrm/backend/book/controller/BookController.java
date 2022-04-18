@@ -7,6 +7,7 @@ import com.bookwyrm.backend.book.payload.BookDetailSearchPayload;
 import com.bookwyrm.backend.book.payload.BookSearchPayload;
 import com.bookwyrm.backend.book.payload.BookUploadPayload;
 import com.bookwyrm.backend.book.service.BookService;
+import com.bookwyrm.backend.book.service.SearchService;
 import com.bookwyrm.backend.book.validator.BookValidator;
 import com.bookwyrm.backend.comment.dao.CommentService;
 import com.bookwyrm.backend.review.dao.ReviewDao;
@@ -21,20 +22,13 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.websocket.server.PathParam;
 import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.HashSet;
-import java.util.HashMap;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/book")
 public class BookController {
 
-    //These words are common in book titles, and are likely to cause false positives
-    private static final String[] ARTICLES = {"the", "of", "and", "&", "or"};
-    //The number of results to return
-    private static final int NUMRESULTS = 10;
 
     @Autowired
     BookService bookService;
@@ -44,6 +38,8 @@ public class BookController {
     CommentService commentService;
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    SearchService searchService;
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,44 +71,7 @@ public class BookController {
         return ResponseEntity.status(status).body(response);
     }
 
-    //This utility function removes all articles from a list of Strings, it is not case sensitive
-    private ArrayList<String> removeArticles(List<String> unfiltered){
-        ArrayList<String> filtered = new ArrayList<String>(unfiltered);
-        Iterator<String> iter = unfiltered.iterator();
-        while(iter.hasNext()){
-            boolean isArt = false;
-            String word = iter.next();
-            int idx = 0;
-            while(idx < this.ARTICLES.length & !isArt){
-                isArt = this.ARTICLES[idx].equals(word.toLowerCase());
-                idx++;
-            }
-            if(isArt){
-                filtered.remove(word);
-            }
-        }
-        return filtered;
-    }
 
-    //This utility function removes all articles from a Set of Strings, it is not case sensitive
-    //Unfortunately It was necessary to overload this function
-    private HashSet<String> removeArticles(HashSet<String> unfiltered){
-        HashSet<String> filtered = new HashSet<String>(unfiltered);
-        Iterator<String> iter = unfiltered.iterator();
-        while(iter.hasNext()){
-            boolean isArt = false;
-            String word = iter.next();
-            int idx = 0;
-            while(idx < this.ARTICLES.length & !isArt){
-                isArt = this.ARTICLES[idx].equals(word.toLowerCase());
-                idx++;
-            }
-            if(isArt){
-                filtered.remove(word);
-            }
-        }
-        return filtered;
-    }
 
     @CrossOrigin
     @GetMapping("/{title}")
@@ -120,70 +79,9 @@ public class BookController {
 
         BookSearchPayload response = new BookSearchPayload();
         HttpStatus status = HttpStatus.OK;
+        List<BookDao> books = searchService.tokenSearch(title);
+        response.setBookDaoList(books);
 
-        HashSet<String> uTokens = new HashSet<String>();
-        uTokens.addAll(Arrays.asList(title.split(" ")));
-        uTokens = this.removeArticles(uTokens);
-        //get Some information on the number of words
-        ArrayList<String> tokens = new ArrayList<String>(Arrays.asList(title.split(" ")));
-        int numAllWords = tokens.size();
-        tokens = this.removeArticles(tokens);
-        int numWords = tokens.size();
-        //response.setBookDaoList(bookService.findAllBooksWithTitle(title));
-        ArrayList<BookDao> suspects = new ArrayList<BookDao>();
-        HashMap<String, Integer> scores = new HashMap<String, Integer>();
-        //Put a copy of every book that has the word in the title in one big list
-        Iterator<String> searchFor = uTokens.iterator();
-        while(searchFor.hasNext()){
-            //See the Stick? Fetch!
-            String stick = searchFor.next();
-            suspects.addAll(bookService.findAllBooksWithTitle(stick));
-        }
-        //The number of times that book is in the list is how many tokens match
-        //So now we need to count them
-        //We will also build a map of unique bookdao while we're at it
-        HashMap<String, BookDao> uSuspects = new HashMap<String, BookDao>();
-        Iterator<BookDao> counter = suspects.iterator();
-        while(counter.hasNext()){
-            BookDao book = counter.next();
-            if(scores.containsKey(book.getTitle())){
-                scores.put(book.getTitle(), scores.get(book.getTitle()) + 1);
-            }
-            else{
-                int bonuses = 0;
-                //Check if the book's title has the same number of tokens as the search term
-                ArrayList<String> broken = new ArrayList<String>(Arrays.asList(book.getTitle().split(" ")));
-                if(broken.size() == numAllWords){
-                    bonuses++;
-                }
-                broken = this.removeArticles(broken);
-                if(broken.size() == numWords){
-                    bonuses += 2;
-                }
-                scores.put(book.getTitle(), 1 + bonuses);
-                uSuspects.put(book.getTitle(), book);
-            }
-        }
-        //Finally we need to put the dao into a sorted list using the scores
-        int numBooks = Math.min(this.NUMRESULTS, uSuspects.size());
-        BookDao[] shelf = new BookDao[numBooks];
-        for(int i = 0; i < numBooks; i++){
-            String bestTitle = "";
-            int bestScore = 0;
-            Iterator<String> iter = uSuspects.keySet().iterator();
-            while (iter.hasNext()){
-                String key = iter.next();
-                int score = scores.get(key);
-                if (score > bestScore){
-                    bestScore = score;
-                    bestTitle = key;
-                }
-            }
-            shelf[i] = uSuspects.get(bestTitle);
-            uSuspects.remove(bestTitle);
-            scores.remove(bestTitle);
-        }
-        response.setBookDaoList(Arrays.asList(shelf));
         if (response.getBookDaoList().isEmpty()) {
             status = HttpStatus.NOT_FOUND;
             response.setMessages(Arrays.asList("Book does not exist in the database. Please try adding the book first."));
