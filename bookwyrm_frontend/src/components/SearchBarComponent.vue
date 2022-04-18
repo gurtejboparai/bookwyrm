@@ -8,7 +8,7 @@
       <div class="col">
         <div class=" p-4 text-center input-group">
           <input type="text" id="search_bar" class="form-control" v-model="searchString" placeholder="Search"/> 
-          <router-link :to="searchRoute" class="btn btn-primary ">Go!</router-link>
+          <router-link :to="searchRoute" class="btn btn-bw ">Go!</router-link>
         </div>
       </div>
       <div class="col p-2">
@@ -35,8 +35,5 @@ export default {
 }
 </script>
 <style scoped>
-#logo {
-  height: 10vh;
-  border-radius: 30%;
-}
+
 </style>

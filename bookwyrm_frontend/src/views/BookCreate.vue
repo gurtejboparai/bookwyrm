@@ -8,7 +8,7 @@
     <div class="row justify-content-center p-2 text-center">
       <div class="col-sm-12 col-md-4">
         <input type="text" id="isbn" class="form-control" v-model="isbn" placeholder="The Book's ISBN"/>
-        <button @click="searchAutofill" class="btn btn-light m-2">Autofill</button>
+        <button @click="searchAutofill" class="btn btn-bw m-2">Autofill</button>
       </div>
     </div>
 
@@ -63,7 +63,7 @@
     </div>
     <div class="row justify-content-center p-2 pt-4 text-center">
       <div class="col-sm-12 col-md-4">
-        <button @click="submitBook" class="btn btn-success m-2">
+        <button @click="submitBook" class="btn btn-bw-light m-2">
           Submit
         </button>
       </div>

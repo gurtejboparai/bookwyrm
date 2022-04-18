@@ -11,11 +11,11 @@
           <BookBriefComponent class="m-3 highlight" :title="book.title"  :author="book.author" :bookId="book.id"/>
         </div>
       </div>
-      <div v-else class="card col-6 justify-content-center m-3 p-1">
-        <h2 class="row text-center">Sorry, but we don't have a book with that title in our database</h2>
-        <p class="row text-center">
-          Check to ensure that your spelling is correct and try again.
-          Alternatively, you could add the book to our database using the link above
+      <div v-else class="card col-6 justify-content-center foreground m-3 p-1 text-center">
+        <h2>We couldn't find that book</h2>
+        <p>
+          Please ensure your spelling is correct and try again.
+          Alternatively, you could add the book using the link above.
         </p>
       </div>
     </div>
@@ -48,9 +48,3 @@ export default {
   components: {BookBriefComponent}
 }
 </script>
-
-<style>
-.card {
-  background-color: #343a3b;
-}
-</style>

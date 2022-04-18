@@ -7,8 +7,9 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-6 pt-4">
-      <div class="input-group">
-        Are you a Professional Journalist? <input type="checkbox" class="m-3" v-model=profJournalistFlag>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"  v-model="profJournalistFlag">
+        <label class="form-check-label" for="flexSwitchCheckChecked">Journalist</label>
       </div>
       <div class="input-group">
         <input type="text" class="form-control m-2" v-model="profJournalistName" placeholder="Name / Nickname" v-if="profJournalistFlag">
@@ -21,8 +22,9 @@
   </div>
   <div class="row justify-content-center">
     <div class="col-6 pt-4">
-      <div class="input-group">
-        Are you an Author? <input type="checkbox" class="m-3" v-model=authorFlag>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"  v-model="authorFlag">
+        <label class="form-check-label" for="flexSwitchCheckChecked">Author</label>
       </div>
       <div class="input-group">
         <input type="text" class="form-control m-2" v-model="authorName" placeholder="Name / Pen Name" v-if="authorFlag">
@@ -34,7 +36,7 @@
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-3 btn btn-primary m-3 text-nowrap" @click="updateUser">Update</div>
+    <div class="col-3 btn btn-bw-light m-3 text-nowrap" @click="updateUser">Update</div>
   </div>
 </div>
 </template>

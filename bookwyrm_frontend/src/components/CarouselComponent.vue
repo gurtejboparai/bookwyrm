@@ -1,5 +1,5 @@
 <template>
-  <div class="carouselContainer">
+  <div class="carouselContainer foreground">
     <div
       :id="carouselId"
       class="carousel slide"
@@ -14,8 +14,8 @@
           :class="{ active: index == 0 }"
         >
           <router-link :to="bookPagePath(book.id)" class="text-decoration-none">
-            <p>Title: {{ book.title }}</p>
-            <p>Genre: {{ key }}</p>
+            <p>{{ book.title }}</p>
+            <p>{{ key }}</p>
           </router-link>
         </div>
       </div>
