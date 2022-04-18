@@ -7,6 +7,7 @@ import com.bookwyrm.backend.book.payload.BookDetailSearchPayload;
 import com.bookwyrm.backend.book.payload.BookSearchPayload;
 import com.bookwyrm.backend.book.payload.BookUploadPayload;
 import com.bookwyrm.backend.book.service.BookService;
+import com.bookwyrm.backend.book.service.SearchService;
 import com.bookwyrm.backend.book.validator.BookValidator;
 import com.bookwyrm.backend.comment.dao.CommentService;
 import com.bookwyrm.backend.review.dao.ReviewDao;
@@ -23,9 +24,11 @@ import javax.websocket.server.PathParam;
 import java.util.Arrays;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/book")
 public class BookController {
+
 
     @Autowired
     BookService bookService;
@@ -35,6 +38,8 @@ public class BookController {
     CommentService commentService;
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    SearchService searchService;
 
     @CrossOrigin
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -66,13 +71,17 @@ public class BookController {
         return ResponseEntity.status(status).body(response);
     }
 
+
+
     @CrossOrigin
     @GetMapping("/{title}")
     public ResponseEntity<BookSearchPayload> searchBookByTitle(@PathVariable("title") String title) {
 
         BookSearchPayload response = new BookSearchPayload();
         HttpStatus status = HttpStatus.OK;
-        response.setBookDaoList(bookService.findAllBooksWithTitle(title));
+        List<BookDao> books = searchService.tokenSearch(title);
+        response.setBookDaoList(books);
+
         if (response.getBookDaoList().isEmpty()) {
             status = HttpStatus.NOT_FOUND;
             response.setMessages(Arrays.asList("Book does not exist in the database. Please try adding the book first."));

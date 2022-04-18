@@ -8,6 +8,8 @@ import com.bookwyrm.backend.book.payload.BookDetailSearchPayload;
 import com.bookwyrm.backend.book.payload.BookSearchPayload;
 import com.bookwyrm.backend.book.payload.BookUploadPayload;
 import com.bookwyrm.backend.book.service.BookService;
+import com.bookwyrm.backend.book.service.SearchImpl;
+import com.bookwyrm.backend.book.service.SearchService;
 import com.bookwyrm.backend.comment.dao.CommentService;
 import com.bookwyrm.backend.review.dao.ReviewService;
 import org.junit.jupiter.api.Test;
@@ -33,6 +35,8 @@ public class BookControllerTests {
 
     @Mock
     private BookService bookService;
+    @Mock
+    SearchService searchService;
     @Mock
     ReviewService reviewService;
     @Mock
@@ -81,6 +85,7 @@ public class BookControllerTests {
     @Test
     public void testGoodSearch() {
         MockitoAnnotations.openMocks(this);
+        Mockito.when(searchService.tokenSearch(any(String.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor", "testDesc","", "")));
         Mockito.when(bookService.findAllBooksWithTitle(any(String.class))).thenReturn(Arrays.asList(new BookDao("testTitle", "testAuthor", "testDesc","", "")));
 
         //Run
