@@ -14,8 +14,8 @@
           <input type="password" class="form-control m-2" v-model="password" placeholder="Password" required>
       </div>
       <div class="row justify-content-between">
-        <div class="col-4 btn btn-primary m-3 text-nowrap" @click="login" >Sign in</div>
-        <div class="col-4 text-align-right btn btn-success m-3 text-nowrap" @click="signup">Sign up</div>
+        <div class="col-4 btn btn-bw-light m-3 text-nowrap" @click="login" >Sign in</div>
+        <div class="col-4 text-align-right btn btn-bw m-3 text-nowrap" @click="signup">Sign up</div>
       </div>
     </div>
   </div>

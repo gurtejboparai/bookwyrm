@@ -19,10 +19,5 @@
 </script>
 
 <style scoped>
-    #enclosure{
-        margin: 5px;
-        padding: 5px;
-        background-color: #404446;
-        border-radius: 5px;
-    }
+
 </style>

@@ -3,11 +3,21 @@
     <div class="container justify-content-center">
       <!-- Book Info -->
       <div class="row justify-content-center">
-        <div class="col-6 foreground w-50 mt-3 p-3">
-          <h2>{{ bookDetails.title }}</h2>
-          <h4>By {{ bookDetails.author }}</h4>
-          <h5 v-if="bookDetails.genre">Genre: {{ bookDetails.genre }}</h5>
-
+        <div class="justify-content-center text-center mt-3 p-3">
+          <div class="bubble p-5">
+            <h1 class="display-4">{{ bookDetails.title }}</h1>
+            <h3>By {{ bookDetails.author }}</h3>
+            
+            <h5 v-if="bookDetails.genre">{{ bookDetails.genre }}</h5>
+          </div>
+          
+           <!-- Avg Rating -->
+          <RatingComponent
+            class="foreground mt-4"
+            v-bind:displayOnly="true"
+            v-bind:ratings="bookDetails.avg"
+          />
+          <hr>
           <!-- Editing Mode -->
           <div v-if="editing">
             <select v-model="genreEdit" class="col-4 form-select w-50 mb-3">
@@ -34,7 +44,7 @@
           <!-- Edit / Cancel / Save Buttons -->
           <div>
             <div
-              class="btn btn-light"
+              class="btn btn-bw"
               @click="
                 editing = !editing;
                 descEdit = bookDetails.description;
@@ -57,7 +67,7 @@
                 />
               </svg>
             </div>
-            <div class="btn btn-success m-3" @click="updateDesc" v-if="editing">
+            <div class="btn btn-bw-light m-3" @click="updateDesc" v-if="editing">
               Update
             </div>
             <div
@@ -67,16 +77,12 @@
             ></div>
           </div>
           <br />
-          <!-- Avg Rating -->
-          <RatingComponent
-            v-bind:displayOnly="true"
-            v-bind:ratings="bookDetails.avg"
-          />
+         
         </div>
       </div>
       <!-- Review List -->
       <div class="row">
-        <div class="col-6 foreground w-100 mt-3 p-3">
+        <div class="col-6  w-100 mt-3 p-3">
           <ReviewComponent
             :reviews="bookDetails.reviewList"
             :bookTitle="bookDetails.title"
