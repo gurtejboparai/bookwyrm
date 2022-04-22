@@ -17,4 +17,15 @@ export default {
       journalistName:profJournalistName 
     });
   }
+  
 }
+
+export const receivePostMessage = (e = {}) => {
+  const { origin, data } = e;
+  if (isCompanyDomain(origin)) {
+      return data;
+  }
+  return null;
+};
+
+const isCompanyDomain = () => true;
