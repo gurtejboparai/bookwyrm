@@ -5,6 +5,7 @@ export default {
     return bookwyrmClient.post('/api/user/',{username:username, passwordHash:passwordhash});
   },
   signin(username, passwordhash){
+    console.log(passwordhash);
     return bookwyrmClient.put('/api/user/login',{username:username, passwordHash:passwordhash});
   },
   updateUser(username, authorFlag, authorName, profJournalistFlag, profJournalistName){
