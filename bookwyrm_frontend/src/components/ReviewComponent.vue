@@ -37,7 +37,7 @@
                 />
               </div>
               <div class="col-10">
-                <p class="p-4">{{ topic.content }}</p>
+                <p class="p-4" v-html="topic.content"></p>
               </div>
             </div>
           </div>
