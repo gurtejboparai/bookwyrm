@@ -20,7 +20,7 @@ Book Wyrm will be a web app for reviewing books. A more in-depth description can
 * Front End: Vue.js
 * Back End: Java Spring
 * Database: MongoDB
-* API: TBD (Maybe Google book API)
+* API: Google book API
 
 ### Core Features
 * Write reviews and rate books
@@ -36,13 +36,10 @@ Book Wyrm will be a web app for reviewing books. A more in-depth description can
 
 * The architecture can be found [here](https://github.com/louismacvux/bookwyrm/wiki/Block-Diagram).
 
-### Test the site 
+### Testing plan
 * The testing plan can be found [here](https://docs.google.com/document/d/1T9_IE7gtJItWgB54j11sDGsG_CyFUuyQ/edit#)
 
-### Vue setup
-1. 
-
-### Front end Project setup
+### Frontend Project setup
 > Note: Node and npm will need to be installed to start the front end server
 
 ```
@@ -59,10 +56,7 @@ npm run serve
 npm run build
 ```
 
-#### Lints and fixes files
-```
-npm run lint
-```
+### Backend Project setup
 
 #### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
