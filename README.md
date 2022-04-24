@@ -57,6 +57,15 @@ npm run build
 ```
 
 ### Backend Project setup
-
+> Note: Make sure you use JDK version later than 13
+#### Running on command line using Gradle
+##### Build the program
+```
+./gradlew build 
+```
+##### Build and start up
+```
+./gradlew bootRun
+```
 #### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
